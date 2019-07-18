@@ -47,7 +47,7 @@ public class gelir extends AppCompatActivity {
                 datepicker = new DatePickerDialog(gelir.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        tarihtext.setText("Tarih: " + day + " / "  +month + " / " +  year);
+                        tarihtext.setText("Tarih: " + day + " / "  +(month+1) + " / " +  year);
                     }
                 },day,month,year);
                 datepicker.show();
