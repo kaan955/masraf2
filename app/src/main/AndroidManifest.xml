@@ -19,7 +19,7 @@
 
 
 
-        <activity android:name=".Gider">
+        <activity android:name=".gider">
             <intent-filter>
 
                 <category android:name="android.intent.category.LAUNCHER" />

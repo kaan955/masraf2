@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/imageView7"
-        android:layout_width="63dp"
+        android:layout_width="69dp"
         android:layout_height="39dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -124,7 +124,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="YENI KAYIT"
+        android:text="GELIR KAYIT"
         android:textStyle="bold|italic"
         app:layout_constraintStart_toEndOf="@+id/imageView7"
         app:layout_constraintTop_toTopOf="parent" />

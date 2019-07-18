@@ -9,12 +9,13 @@ import android.widget.TextView;
 
 public class masrafmain extends AppCompatActivity {
 
-private Button gelir;
+private Button gelir,gider;
 private TextView ser;
 
     public void init()
     {
         gelir = new Button(this);
+        gider = new Button(this);
         ser = new TextView(this);
 
     }
@@ -28,6 +29,7 @@ private TextView ser;
 
         final TextView ser = findViewById(R.id.editText2);
         Button gelir = findViewById(R.id.gelir);
+        gider = findViewById(R.id.gider);
 
 
 
@@ -40,6 +42,16 @@ private TextView ser;
                Intent intent = new Intent(masrafmain.this,gelir.class);
                 startActivity(intent);
 
+           }
+       });
+
+
+
+       gider.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent intent = new Intent(masrafmain.this,gider.class);
+               startActivity(intent);
            }
        });
 

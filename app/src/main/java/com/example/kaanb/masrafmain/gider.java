@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-public class Gider extends AppCompatActivity {
+public class gider extends AppCompatActivity {
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
