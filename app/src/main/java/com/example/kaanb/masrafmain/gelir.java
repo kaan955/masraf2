@@ -11,13 +11,14 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class gelir extends AppCompatActivity {
 
-
-    private TextView tarihtext;
-    private Button tarihpicker;
+    private Databasehelper db;
+    private TextView tarihtext,veriyaz;
+    private Button tarihpicker,kayıtgelirbtn;
      static int day,month,year;
 
 
@@ -26,9 +27,14 @@ public class gelir extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gelir);
 
+        veriyaz = new TextView(this);
+        veriyaz = findViewById(R.id.veriyaz);
+
         tarihtext = new TextView(this);
         tarihtext = findViewById(R.id.tarihpicker);
 
+        kayıtgelirbtn = new Button(this);
+        kayıtgelirbtn = findViewById(R.id.kayıtgelirbtn);
 
 
 
@@ -55,6 +61,25 @@ public class gelir extends AppCompatActivity {
             }
         });
 
+        db = new Databasehelper(this);
 
+        kayıtgelirbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                new Database_dao().adding(db,222);
+
+
+
+            ArrayList<Mydatabase>gelenler = new Database_dao().veriler(db);
+            for(Mydatabase k:gelenler)
+            {
+                int x = k.getProcessid();
+
+                veriyaz.setText(x);
+            }
+        }
+
+        });
     }
 }

@@ -17,8 +17,11 @@ public class Mydatabase {
     public Mydatabase() {
     }
 
-    public Mydatabase(int processid, String type, String info, int month, int day, int year, double price, String repeat, String label, String pricetype, int taksit) {
+    public Mydatabase(int processid) {
         this.processid = processid;
+        /*
+        , String type, String info, int month, int day, int year, double price, String repeat, String label, String pricetype, int taksit
+
         this.type = type;
         this.info = info;
         this.month = month;
@@ -29,13 +32,16 @@ public class Mydatabase {
         this.label = label;
         this.pricetype = pricetype;
         this.taksit = taksit;
+        */
     }
+
 
 
     public int getProcessid() {
         return processid;
     }
 
+    /*
     public void setProcessid(int processid) {
         this.processid = processid;
     }
@@ -118,5 +124,6 @@ public class Mydatabase {
 
     public void setTaksit(int taksit) {
         this.taksit = taksit;
-    }
+    }*/
+
 }
