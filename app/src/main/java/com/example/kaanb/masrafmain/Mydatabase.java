@@ -17,8 +17,8 @@ public class Mydatabase {
     public Mydatabase() {
     }
 
-    public Mydatabase(int processid) {
-        this.processid = processid;
+    public Mydatabase(int processidx) {
+        this.processid = processidx;
         /*
         , String type, String info, int month, int day, int year, double price, String repeat, String label, String pricetype, int taksit
 
@@ -40,12 +40,10 @@ public class Mydatabase {
     public int getProcessid() {
         return processid;
     }
-
-    /*
-    public void setProcessid(int processid) {
-        this.processid = processid;
+    public void setProcessid(int processidx) {
+        this.processid = processidx;
     }
-
+ /*
     public String getType() {
         return type;
     }

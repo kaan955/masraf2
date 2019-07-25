@@ -30,7 +30,7 @@ public class Database_dao extends AppCompatActivity {
     {
         ArrayList<Mydatabase>myveri = new ArrayList<>();
         SQLiteDatabase dbm = dh.getWritableDatabase();
-        Cursor c = dbm.rawQuery("SELECT * FROM  Mydatabase",null );
+        Cursor c = dbm.rawQuery("SELECT * FROM  holder",null );
 
         while(c.moveToNext())
         {

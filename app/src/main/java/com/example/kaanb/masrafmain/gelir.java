@@ -61,13 +61,19 @@ public class gelir extends AppCompatActivity {
             }
         });
 
+        veriyaz.setText("Kaangirmedi");
+
         db = new Databasehelper(this);
 
         kayıtgelirbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                new Database_dao().adding(db,222);
+               // new Database_dao().adding(db,222);
+               new Database_dao().adding(db,252);
+
+
+
 
 
 
@@ -75,8 +81,9 @@ public class gelir extends AppCompatActivity {
             for(Mydatabase k:gelenler)
             {
                 int x = k.getProcessid();
-
-                veriyaz.setText(x);
+                    int y = 5;
+                veriyaz.setText("" + x);
+                //veriyaz.setText(""+y + "\n");
             }
         }
 
