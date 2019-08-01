@@ -69,8 +69,7 @@ public class gelir extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-               // new Database_dao().adding(db,222);
-               new Database_dao().adding(db,252);
+               //new Database_dao().adding(db,222,"Type","Info",1,2,3,20.1,"deeneeme","budatamam","devam",4);
 
 
 
@@ -81,10 +80,14 @@ public class gelir extends AppCompatActivity {
             for(Mydatabase k:gelenler)
             {
                 int x = k.getProcessid();
-                    int y = 5;
-                veriyaz.setText("" + x);
-                //veriyaz.setText(""+y + "\n");
+                //String y=k.getType();
+
+                //veriyaz.setText("" + x + y + k.getPricetype() + k.getYear());
+
+                    veriyaz.setText(""+k.getProcessid()+" + " +k.getType()+" + " + k.getInfo() +k.getDay()+k.getMonth()+k.getYear()+"price:"+k.getPrice()+"+"+k.getRepeat()+k.getLabel()+k.getPricetype()+k.getTaksit());
+                   //veriyaz.setText("Buraya kadar soru yok");
             }
+
         }
 
         });

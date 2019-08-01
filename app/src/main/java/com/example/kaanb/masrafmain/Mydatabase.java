@@ -16,23 +16,23 @@ public class Mydatabase {
 
     public Mydatabase() {
     }
-
-    public Mydatabase(int processidx) {
+        public Mydatabase(int processidx,String typex,String infox, int month,int day,int year,double price,String repeat,String label,String pricetype,int taksit)
+        {
         this.processid = processidx;
-        /*
-        , String type, String info, int month, int day, int year, double price, String repeat, String label, String pricetype, int taksit
 
-        this.type = type;
-        this.info = info;
-        this.month = month;
+        this.type = typex;
+
+        this.info = infox;
+       this.month = month;
         this.day = day;
         this.year = year;
-        this.price = price;
+         this.price = price;
         this.repeat = repeat;
         this.label = label;
         this.pricetype = pricetype;
-        this.taksit = taksit;
-        */
+       this.taksit = taksit;
+
+
     }
 
 
@@ -43,21 +43,21 @@ public class Mydatabase {
     public void setProcessid(int processidx) {
         this.processid = processidx;
     }
- /*
+
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setType(String typex) {
+        this.type = typex;
     }
 
     public String getInfo() {
         return info;
     }
 
-    public void setInfo(String info) {
-        this.info = info;
+    public void setInfo(String infox) {
+        this.info = infox;
     }
 
     public int getMonth() {
@@ -115,13 +115,12 @@ public class Mydatabase {
     public void setPricetype(String pricetype) {
         this.pricetype = pricetype;
     }
-
     public int getTaksit() {
         return taksit;
     }
 
-    public void setTaksit(int taksit) {
-        this.taksit = taksit;
-    }*/
+    public void setTaksit(int taksitx) {
+        this.taksit = taksitx;
+    }
 
 }

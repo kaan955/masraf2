@@ -8,29 +8,15 @@ public class Databasehelper extends SQLiteOpenHelper {
 
 
     public Databasehelper(Context context) {
-        super(context, "veritutucu", null, 3);
+        super(context, "veritutar5", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE holder(processid INTEGER PRIMARY KEY AUTOINCREMENT );");
 
+            db.execSQL("CREATE TABLE holder(processid INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,info TEXT,day INTEGER,month INTEGER,year INTEGER,price DOUBLE,repeat TEXT,label TEXT,pricetype TEXT,taksit INTEGER);");
     }
-
-    /*
-    "\t\"Type\"\tTEXT,\n" +
-                "\t\"Info\"\tTEXT,\n" +
-                "\t\"Day\"\tINTEGER,\n" +
-                "\t\"Month\"\tINTEGER,\n" +
-                "\t\"Year\"\tINTEGER,\n" +
-                "\t\"Price\"\tINTEGER,\n" +
-                "\t\"Repeat\"\tTEXT,\n" +
-                "\t\"Label\"\tTEXT,\n" +
-                "\t\"Payingtype\"\tTEXT,\n" +
-                "\t\"Taksit\"\tINTEGER\n" +
-                ");"
-    */
 
 
     @Override
