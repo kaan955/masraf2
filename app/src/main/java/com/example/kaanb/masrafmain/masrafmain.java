@@ -7,17 +7,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class masrafmain extends AppCompatActivity {
 
 private Button gelir,gider;
-private TextView ser;
+private TextView ser,lastprocessshow,lasttenshow;
+    private Databasehelper db;
 
     public void init()
     {
         gelir = new Button(this);
         gider = new Button(this);
         ser = new TextView(this);
-
+        lastprocessshow = new TextView(this);
+        lasttenshow = new TextView(this);
     }
 
     @Override
@@ -30,7 +34,9 @@ private TextView ser;
         final TextView ser = findViewById(R.id.editText2);
         Button gelir = findViewById(R.id.gelir);
         gider = findViewById(R.id.gider);
-
+        lastprocessshow = findViewById(R.id.lastprocessshow);
+        lasttenshow = findViewById(R.id.lasttenshow);
+        db = new Databasehelper(this);
 
 
        gelir.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +47,18 @@ private TextView ser;
 
                Intent intent = new Intent(masrafmain.this,gelir.class);
                 startActivity(intent);
+
+               ArrayList<Mydatabase> gelenler = new Database_dao().veriler(db);
+               for(Mydatabase k:gelenler)
+               {
+                   int x = k.getProcessid();
+                   //String y=k.getType();
+
+                   //veriyaz.setText("" + x + y + k.getPricetype() + k.getYear());
+
+                   lastprocessshow.setText(""+k.getProcessid()+" + " +k.getType()+" + " + k.getInfo() +"Burası gün:" +k.getDay()+k.getMonth()+k.getYear()+"price:"+k.getPrice()+"+"+k.getRepeat()+k.getLabel()+k.getPricetype()+k.getTaksit());
+                   //veriyaz.setText("Buraya kadar soru yok");
+               }
 
            }
        });
