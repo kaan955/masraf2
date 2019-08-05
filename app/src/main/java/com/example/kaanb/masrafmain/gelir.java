@@ -18,7 +18,7 @@ import java.util.Calendar;
 public class gelir extends AppCompatActivity {
 
     private Databasehelper db;
-    private TextView tarihtext,veriyaz;
+    private TextView tarihtext,veriyaz,informationtext,pricetxt;
     private Button tarihpicker,kayıtgelirbtn;
      static int day,month,year;
      static int my_day,my_month,my_year;
@@ -38,6 +38,11 @@ public class gelir extends AppCompatActivity {
         kayıtgelirbtn = new Button(this);
         kayıtgelirbtn = findViewById(R.id.kayıtgelirbtn);
 
+        informationtext= new TextView(this);
+        informationtext = findViewById(R.id.informationtext);
+
+        pricetxt = new TextView(this);
+        pricetxt = findViewById(R.id.pricetxt);
 
 
         tarihtext.setOnClickListener(new View.OnClickListener() {
@@ -55,10 +60,11 @@ public class gelir extends AppCompatActivity {
                 datepicker = new DatePickerDialog(gelir.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        tarihtext.setText("Tarih: " + day + " / "  +(month+1) + " / " +  year);
-                        my_day = day;
+
+                        my_day = dayOfMonth;
                         my_month = month + 1;
                         my_year = year;
+                        tarihtext.setText("Tarih: " + my_day + " / "  +(month+1) + " / " +  year);
                     }
                 },day,month,year);
                 datepicker.show();
@@ -77,25 +83,18 @@ public class gelir extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-               //new Database_dao().adding(db,222,"Type","Info",1,2,3,20.1,"deeneeme","budatamam","devam",4);
-                 new Database_dao().adding(db,229,"Type","Info",my_day,my_month,my_year,20.1,"deeneeme","budatamam","devam",4);
+                String s;
+                double prices;
 
+                String pricesx=pricetxt.getText().toString();
+                prices = Double.parseDouble(pricesx);
+                s = informationtext.getText().toString();
+
+                 new Database_dao().adding(db,232,"Type",s,my_day,my_month,my_year,prices,"deeneeme","budatamam","devam",4);
 
 
                 Intent intent = new Intent(gelir.this,masrafmain.class);
                 startActivity(intent);
-
-           /* ArrayList<Mydatabase>gelenler = new Database_dao().veriler(db);
-            for(Mydatabase k:gelenler)
-            {
-                int x = k.getProcessid();
-                //String y=k.getType();
-
-                //veriyaz.setText("" + x + y + k.getPricetype() + k.getYear());
-
-                    veriyaz.setText(""+k.getProcessid()+" + " +k.getType()+" + " + k.getInfo() +"Burası gün:" +k.getDay()+k.getMonth()+k.getYear()+"price:"+k.getPrice()+"+"+k.getRepeat()+k.getLabel()+k.getPricetype()+k.getTaksit());
-                   //veriyaz.setText("Buraya kadar soru yok");
-            }*/
 
         }
 

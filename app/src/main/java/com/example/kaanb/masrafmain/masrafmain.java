@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class masrafmain extends AppCompatActivity {
 
 private Button gelir,gider;
-private TextView ser,lastprocessshow,lasttenshow;
+private TextView ser,lastprocessshow,lasttenshow,lastprocesswriter;
     private Databasehelper db;
 
     public void init()
@@ -22,6 +22,7 @@ private TextView ser,lastprocessshow,lasttenshow;
         ser = new TextView(this);
         lastprocessshow = new TextView(this);
         lasttenshow = new TextView(this);
+        lastprocesswriter =  new TextView(this);
     }
 
     @Override
@@ -36,6 +37,7 @@ private TextView ser,lastprocessshow,lasttenshow;
         gider = findViewById(R.id.gider);
         lastprocessshow = findViewById(R.id.lastprocessshow);
         lasttenshow = findViewById(R.id.lasttenshow);
+        lastprocesswriter = findViewById(R.id.lastprocesswriter);
         db = new Databasehelper(this);
 
 
@@ -56,7 +58,8 @@ private TextView ser,lastprocessshow,lasttenshow;
 
                    //veriyaz.setText("" + x + y + k.getPricetype() + k.getYear());
 
-                   lastprocessshow.setText(""+k.getProcessid()+" + " +k.getType()+" + " + k.getInfo() +"Burası gün:" +k.getDay()+k.getMonth()+k.getYear()+"price:"+k.getPrice()+"+"+k.getRepeat()+k.getLabel()+k.getPricetype()+k.getTaksit());
+                   //lastprocessshow.setText(""+k.getProcessid()+" + " +k.getType()+" + " + k.getInfo() +"Burası gün:" +k.getDay()+k.getMonth()+k.getYear()+"price:"+k.getPrice()+"+"+k.getRepeat()+k.getLabel()+k.getPricetype()+k.getTaksit());
+                   lastprocesswriter.setText("Tarih: " + k.getDay() + "." + k.getMonth() + "." + k.getYear() + "\n Açıklama: "+k.getInfo() +"\n Ücret: " + k.getPrice());
                    //veriyaz.setText("Buraya kadar soru yok");
                }
 
