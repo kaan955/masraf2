@@ -88,13 +88,15 @@ public class gelir extends AppCompatActivity {
 
                 String pricesx=pricetxt.getText().toString();
                 prices = Double.parseDouble(pricesx);
+
                 s = informationtext.getText().toString();
 
-                 new Database_dao().adding(db,232,"Type",s,my_day,my_month,my_year,prices,"deeneeme","budatamam","devam",4);
-
+                 new Database_dao().adding(db,234,"Type",s,my_day,my_month,my_year,prices,"deeneeme","budatamam","devam",4);
 
                 Intent intent = new Intent(gelir.this,masrafmain.class);
                 startActivity(intent);
+
+
 
         }
 
