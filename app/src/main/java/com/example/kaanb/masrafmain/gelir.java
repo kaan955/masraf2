@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -18,19 +21,22 @@ import java.util.Calendar;
 public class gelir extends AppCompatActivity {
 
     private Databasehelper db;
-    private TextView tarihtext,veriyaz,informationtext,pricetxt;
+    private TextView tarihtext,informationtext,pricetxt;
     private Button tarihpicker,kayıtgelirbtn;
+    private Spinner myspinner;
+    private RadioGroup deneme;
+    private ArrayList<String>etiketler = new ArrayList<>();
+    private ArrayAdapter<String> etiketadaptoru;
      static int day,month,year;
      static int my_day,my_month,my_year;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gelir);
 
-        veriyaz = new TextView(this);
-        veriyaz = findViewById(R.id.veriyaz);
+        myspinner = new Spinner(this);
+        myspinner = findViewById(R.id.spinnerlabel);
 
         tarihtext = new TextView(this);
         tarihtext = findViewById(R.id.tarihpicker);
@@ -41,8 +47,33 @@ public class gelir extends AppCompatActivity {
         informationtext= new TextView(this);
         informationtext = findViewById(R.id.informationtext);
 
+
         pricetxt = new TextView(this);
         pricetxt = findViewById(R.id.pricetxt);
+
+        etiketler.add("Diğer");
+        etiketler.add("Maaş");
+        etiketler.add("Yemek");
+        etiketler.add("Eğlence");
+        etiketler.add("Yol");
+        etiketler.add("Araba");
+        etiketler.add("Sağlık");
+        etiketler.add("Giyim");
+        etiketler.add("Eğitim");
+        etiketler.add("Sigara");
+        etiketler.add("Ev");
+        etiketler.add("Fatura");
+        etiketler.add("Market");
+        etiketler.add("Hobiler");
+        etiketler.add("Telefon");
+
+
+        etiketadaptoru = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,android.R.id.text1,etiketler);
+
+        myspinner.setAdapter(etiketadaptoru);
+
+
+
 
 
         tarihtext.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +106,6 @@ public class gelir extends AppCompatActivity {
             }
         });
 
-        veriyaz.setText("Kaangirmedi");
 
         db = new Databasehelper(this);
 
@@ -85,13 +115,14 @@ public class gelir extends AppCompatActivity {
 
                 String s;
                 double prices;
-
+                String spin;
                 String pricesx=pricetxt.getText().toString();
                 prices = Double.parseDouble(pricesx);
 
                 s = informationtext.getText().toString();
+                spin= myspinner.getSelectedItem().toString();
 
-                 new Database_dao().adding(db,234,"Type",s,my_day,my_month,my_year,prices,"deeneeme","budatamam","devam",4);
+                 new Database_dao().adding(db,500,"Type",s,my_day,my_month,my_year,prices,"deeneeme",spin,"devam",4);
 
                 Intent intent = new Intent(gelir.this,masrafmain.class);
                 startActivity(intent);

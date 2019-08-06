@@ -59,7 +59,8 @@ private TextView ser,lastprocessshow,lasttenshow,lastprocesswriter;
                    //veriyaz.setText("" + x + y + k.getPricetype() + k.getYear());
 
                    //lastprocessshow.setText(""+k.getProcessid()+" + " +k.getType()+" + " + k.getInfo() +"Burası gün:" +k.getDay()+k.getMonth()+k.getYear()+"price:"+k.getPrice()+"+"+k.getRepeat()+k.getLabel()+k.getPricetype()+k.getTaksit());
-                   lastprocesswriter.setText("Tarih: " + k.getDay() + "." + k.getMonth() + "." + k.getYear() + "\n Açıklama: "+k.getInfo() +"\n Ücret: " + k.getPrice());
+                   lastprocesswriter.setText("Tarih: " + k.getDay() + "." + k.getMonth() + "." + k.getYear() + "\n Açıklama: "+k.getInfo() +"\n Ücret: " + k.getPrice() +
+                           "\nEtiket: " + k.getLabel() );
                    //veriyaz.setText("Buraya kadar soru yok");
                }
 
