@@ -9,14 +9,14 @@ import java.util.ArrayList;
 
 public class Database_dao extends AppCompatActivity {
 
-    public void adding (Databasehelper dh,int process_id,String my_type,String my_info,int my_day,int my_month,int my_year,double my_price,String my_repeat,String my_label,String my_pricetype,int my_taksit ){
+    public void adding (Databasehelper dh,String my_type,String my_info,int my_day,int my_month,int my_year,double my_price,String my_repeat,String my_label,String my_pricetype,int my_taksit ){
 
 
         SQLiteDatabase dbm = dh.getWritableDatabase();
         ContentValues mycontent = new ContentValues();
 
-        mycontent.put("processid",process_id);
-         mycontent.put("type",my_type);
+        //mycontent.put("processid",process_id);
+         //mycontent.put("type",my_type);
 
          mycontent.put("info",my_info);
          mycontent.put("day",my_day);
@@ -44,7 +44,8 @@ public class Database_dao extends AppCompatActivity {
 
         while(c.moveToNext())
         {
-            Mydatabase verilerim = new Mydatabase(c.getInt(c.getColumnIndex("processid")),
+            Mydatabase verilerim = new Mydatabase(
+
                     c.getString(c.getColumnIndex("type")),
                     c.getString(c.getColumnIndex("info")),
                   c.getInt(c.getColumnIndex("month")),
@@ -60,5 +61,7 @@ public class Database_dao extends AppCompatActivity {
         }
         return myveri;
     }
+
+    //(c.getInt(c.getColumnIndex("processid"))
 
 }

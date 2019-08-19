@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatRadioButton;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -24,7 +25,8 @@ public class gelir extends AppCompatActivity {
     private TextView tarihtext,informationtext,pricetxt;
     private Button tarihpicker,kayıtgelirbtn;
     private Spinner myspinner;
-    private RadioGroup deneme;
+    private RadioGroup radio;
+    private AppCompatRadioButton radiobut;
     private ArrayList<String>etiketler = new ArrayList<>();
     private ArrayAdapter<String> etiketadaptoru;
      static int day,month,year;
@@ -37,6 +39,9 @@ public class gelir extends AppCompatActivity {
 
         myspinner = new Spinner(this);
         myspinner = findViewById(R.id.spinnerlabel);
+
+        radio = new RadioGroup(this);
+        radio = findViewById(R.id.radiogroup);
 
         tarihtext = new TextView(this);
         tarihtext = findViewById(R.id.tarihpicker);
@@ -118,11 +123,18 @@ public class gelir extends AppCompatActivity {
                 String spin;
                 String pricesx=pricetxt.getText().toString();
                 prices = Double.parseDouble(pricesx);
+                String radiostring;
+
+                int radiox = radio.getCheckedRadioButtonId();
+
+                radiobut = findViewById(radiox);
+
+                radiostring = radiobut.getText().toString();
 
                 s = informationtext.getText().toString();
                 spin= myspinner.getSelectedItem().toString();
 
-                 new Database_dao().adding(db,500,"Type",s,my_day,my_month,my_year,prices,"deeneeme",spin,"devam",4);
+                new Database_dao().adding(db,"Type",s,my_day,my_month,my_year,prices,radiostring,spin,"devam",4);
 
                 Intent intent = new Intent(gelir.this,masrafmain.class);
                 startActivity(intent);
