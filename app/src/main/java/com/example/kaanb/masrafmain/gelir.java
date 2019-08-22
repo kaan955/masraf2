@@ -22,7 +22,7 @@ import java.util.Calendar;
 public class gelir extends AppCompatActivity {
 
     private Databasehelper db;
-    private TextView tarihtext,informationtext,pricetxt;
+    private TextView tarihtext,informationtext,pricetxt,uyarı;
     private Button tarihpicker,kayıtgelirbtn;
     private Spinner myspinner;
     private RadioGroup radio;
@@ -30,7 +30,7 @@ public class gelir extends AppCompatActivity {
     private ArrayList<String>etiketler = new ArrayList<>();
     private ArrayAdapter<String> etiketadaptoru;
      static int day,month,year;
-     static int my_day,my_month,my_year;
+     static int my_day = 0,my_month = 0,my_year = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +45,9 @@ public class gelir extends AppCompatActivity {
 
         tarihtext = new TextView(this);
         tarihtext = findViewById(R.id.tarihpicker);
+
+        uyarı = new TextView(this);
+        uyarı = findViewById(R.id.uyarı);
 
         kayıtgelirbtn = new Button(this);
         kayıtgelirbtn = findViewById(R.id.kayıtgelirbtn);
@@ -121,23 +124,33 @@ public class gelir extends AppCompatActivity {
                 String s;
                 double prices;
                 String spin;
-                String pricesx=pricetxt.getText().toString();
-                prices = Double.parseDouble(pricesx);
+
                 String radiostring;
 
-                int radiox = radio.getCheckedRadioButtonId();
 
-                radiobut = findViewById(radiox);
 
-                radiostring = radiobut.getText().toString();
 
-                s = informationtext.getText().toString();
-                spin= myspinner.getSelectedItem().toString();
 
-                new Database_dao().adding(db,"Type",s,my_day,my_month,my_year,prices,radiostring,spin,"devam",4);
+               // new Database_dao().adding(db,"Type",s,my_day,my_month,my_year,prices,radiostring,spin,"devam",4);
 
-                Intent intent = new Intent(gelir.this,masrafmain.class);
-                startActivity(intent);
+
+                if(my_day > 0  && my_month >0 && my_year > 0) {
+                    int radiox = radio.getCheckedRadioButtonId();
+                    String pricesx=pricetxt.getText().toString();
+                    prices = Double.parseDouble(pricesx);
+                    radiobut = findViewById(radiox);
+                    radiostring = radiobut.getText().toString();
+                    s = informationtext.getText().toString();
+                    spin= myspinner.getSelectedItem().toString();
+                    new Database_dao().adding(db,"Type",s,my_day,my_month,my_year,prices,radiostring,spin,"devam",4);
+                    Intent intent = new Intent(gelir.this, masrafmain.class);
+                    startActivity(intent);
+                    uyarı.setVisibility(uyarı.GONE);
+                }
+                else
+                {
+                    uyarı.setVisibility(uyarı.VISIBLE);
+                }
 
 
 
