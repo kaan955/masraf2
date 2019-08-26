@@ -31,6 +31,7 @@ public class gelir extends AppCompatActivity {
     private ArrayAdapter<String> etiketadaptoru;
      static int day,month,year;
      static int my_day = 0,my_month = 0,my_year = 0;
+     static double prices = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,19 +123,21 @@ public class gelir extends AppCompatActivity {
             public void onClick(View v) {
 
                 String s;
-                double prices;
+                //double prices;
                 String spin;
-
+                String control;
+                Double controlprice;
                 String radiostring;
 
-
-
+                String pricescontrol=pricetxt.getText().toString();
+                controlprice = prices = Double.parseDouble(pricescontrol);
+                control = informationtext.getText().toString();
 
 
                // new Database_dao().adding(db,"Type",s,my_day,my_month,my_year,prices,radiostring,spin,"devam",4);
 
 
-                if(my_day > 0  && my_month >0 && my_year > 0) {
+                if(my_day > 0  && my_month >0 && my_year > 0 && controlprice>0.0 &&  (control != null)) {
                     int radiox = radio.getCheckedRadioButtonId();
                     String pricesx=pricetxt.getText().toString();
                     prices = Double.parseDouble(pricesx);
