@@ -145,7 +145,7 @@ public class gelir extends AppCompatActivity {
                     radiostring = radiobut.getText().toString();
                     s = informationtext.getText().toString();
                     spin= myspinner.getSelectedItem().toString();
-                    new Database_dao().adding(db,"Type",s,my_day,my_month,my_year,prices,radiostring,spin,"devam",4);
+                    new Database_dao().adding(db,"Type",s,my_day,my_month,my_year,prices,radiostring,spin,"devam",1);
                     Intent intent = new Intent(gelir.this, masrafmain.class);
                     startActivity(intent);
                     uyarı.setVisibility(uyarı.GONE);

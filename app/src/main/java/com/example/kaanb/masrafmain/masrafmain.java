@@ -14,14 +14,14 @@ import android.widget.TextView;
 
 public class masrafmain extends AppCompatActivity {
 
-private Button gelir,gider;
+private Button gelir,gider,bildirimbutton;
 private TextView ser,lastprocessshow,lastprocesswriter2,lasttenshow,lastprocesswriter,textdate,textinfo,textprice;
 private ScrollView myscroll;
 private ConstraintLayout constraint;
 private LinearLayout linear;
 private Databasehelper db;
 
-    String s = "Tarih\t\t\t\t\t\t\t |\t Açıklama\t\t\t\t\t\t\t |\t Ucret\n\n";
+    String s = "Tarih\t\t\t\t\t\t\t |\t Açıklama\t\t\t\t\t\t\t\t\t |\t Ucret\n\n";
     String datex = "";
     String infox = "";
     String pricex = "";
@@ -45,6 +45,8 @@ private Databasehelper db;
         textinfo = new TextView(this);
         textprice = new TextView(this);
 
+        bildirimbutton = new Button(this);
+
 
     }
 
@@ -67,6 +69,7 @@ private Databasehelper db;
        // linear = findViewById(R.id.linear);
         constraint = findViewById(R.id.constraint);
 
+        bildirimbutton = findViewById(R.id.bildirimbutton);
         textinfo = findViewById(R.id.textinfo);
         textprice = findViewById(R.id.textprice);
 
@@ -128,6 +131,14 @@ private Databasehelper db;
                startActivity(intent);
            }
        });
+
+        bildirimbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(masrafmain.this,bildirimler.class);
+                startActivity(intent);
+            }
+        });
 
 
     }

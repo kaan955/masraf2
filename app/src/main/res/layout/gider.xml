@@ -18,7 +18,7 @@
         android:id="@+id/kayıtgelirbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="75dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:text="KAYIT"
@@ -48,10 +48,11 @@
         android:layout_height="73dp"
         android:layout_marginStart="125dp"
         android:layout_marginLeft="125dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="62dp"
         android:background="@null"
         android:ems="10"
         android:inputType="textPersonName"
+        android:maxLength="22"
         android:paddingBottom="18dp"
         android:singleLine="true"
         android:textSize="18sp"
@@ -82,7 +83,8 @@
         android:layout_marginTop="8dp"
         android:background="@null"
         android:ems="10"
-        android:inputType="numberSigned"
+        android:inputType="numberSigned|number|numberDecimal"
+        android:maxLength="15"
         android:paddingBottom="20dp"
         android:selectAllOnFocus="false"
         android:singleLine="true"
@@ -111,7 +113,7 @@
         android:id="@+id/deletegelirbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="75dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:text="IPTAL"
@@ -130,14 +132,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
-        android:layout_width="300dp"
+        android:id="@+id/radiogroup"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginTop="8dp"
         android:checkedButton="@+id/radioButton"
         android:orientation="horizontal"
         android:scrollbarAlwaysDrawHorizontalTrack="false"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/spinnerlabel"
         app:layout_constraintTop_toBottomOf="@+id/textinfo">
 
         <RadioButton
@@ -146,15 +148,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Tekrarsız"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
         <RadioButton
             android:id="@+id/radioButton2"
-            android:layout_width="96dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Her Hafta"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
         <RadioButton
             android:id="@+id/radioButton4"
@@ -162,7 +164,41 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Her Ay"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
     </RadioGroup>
+    <Spinner
+        android:id="@+id/spinnerlabel"
+        android:layout_width="140dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="0dp"
+        android:scrollbarSize="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pricetxt" />
+
+    <TextView
+        android:id="@+id/Taksit"
+        android:layout_width="89dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="80dp"
+        android:text="Kaç Taksit?"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pricetxt" />
+
+    <EditText
+        android:id="@+id/taksittxt"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="75dp"
+        android:ems="10"
+        android:freezesText="false"
+        android:hint="1"
+        android:inputType="number"
+        android:maxLength="3"
+        app:layout_constraintStart_toEndOf="@+id/Taksit"
+        app:layout_constraintTop_toBottomOf="@+id/pricetxt" />
 
 </android.support.constraint.ConstraintLayout>
