@@ -42,6 +42,7 @@ public class Database_dao extends AppCompatActivity {
         SQLiteDatabase dbm = dh.getWritableDatabase();
         Cursor c = dbm.rawQuery("SELECT * FROM  holder",null );
 
+
         while(c.moveToNext())
         {
             Mydatabase verilerim = new Mydatabase(
@@ -62,6 +63,43 @@ public class Database_dao extends AppCompatActivity {
         return myveri;
     }
 
-    //(c.getInt(c.getColumnIndex("processid"))
+    public void addingalarm(Databasehelper dh,String my_alarminfo,int my_day,int my_month,int my_year)
+    {
+        SQLiteDatabase dbm = dh.getWritableDatabase();
+        ContentValues mycontent = new ContentValues();
+
+        mycontent.put("informationx",my_alarminfo);
+        mycontent.put("day",my_day);
+        mycontent.put("month",my_month);
+        mycontent.put("year",my_year);
+
+        dbm.insertOrThrow("bildirim",null,mycontent);
+        dbm.close();
+
+
+    }
+
+    public ArrayList<Mydatabase> verileralarm(Databasehelper dh)
+    {
+        ArrayList<Mydatabase>myveri2 = new ArrayList<>();
+        SQLiteDatabase dbm = dh.getWritableDatabase();
+        Cursor d = dbm.rawQuery("SELECT * FROM  bildirim",null );
+
+
+        while(d.moveToNext())
+        {
+            Mydatabase verilerimalarm = new Mydatabase(
+
+                    d.getString(d.getColumnIndex("informationx")),
+                    d.getInt(d.getColumnIndex("month")),
+                    d.getInt(d.getColumnIndex("day")),
+                    d.getInt(d.getColumnIndex("year")));
+
+            myveri2.add(verilerimalarm);
+        }
+        return myveri2;
+    }
+
+
 
 }

@@ -15,14 +15,15 @@ import android.widget.TextView;
 public class masrafmain extends AppCompatActivity {
 
 private Button gelir,gider,bildirimbutton;
-private TextView ser,lastprocessshow,lastprocesswriter2,lasttenshow,lastprocesswriter,textdate,textinfo,textprice;
+private TextView ser,lastprocessshow,lastprocesswriter2,lasttenshow,lastprocesswriter,textdate,textinfo,textprice,bildirimtxt;
 private ScrollView myscroll;
 private ConstraintLayout constraint;
 private LinearLayout linear;
-private Databasehelper db;
+private Databasehelper db,db2;
 
     String s = "Tarih\t\t\t\t\t\t\t |\t Açıklama\t\t\t\t\t\t\t\t\t |\t Ucret\n\n";
     String datex = "";
+    String datebildirim = "";
     String infox = "";
     String pricex = "";
     String pricex2 = "";
@@ -44,6 +45,8 @@ private Databasehelper db;
         linear = new LinearLayout(this);
         textinfo = new TextView(this);
         textprice = new TextView(this);
+
+        bildirimtxt = new TextView(this);
 
         bildirimbutton = new Button(this);
 
@@ -72,7 +75,7 @@ private Databasehelper db;
         bildirimbutton = findViewById(R.id.bildirimbutton);
         textinfo = findViewById(R.id.textinfo);
         textprice = findViewById(R.id.textprice);
-
+        bildirimtxt = findViewById(R.id.bildirimtxt);
         db = new Databasehelper(this);
 
         lastprocesswriter.setText(""+ s);
@@ -110,6 +113,41 @@ private Databasehelper db;
         textprice.setText("" + pricex);
 
 
+        ///////////////YAKLASAN BILDIRIMLER/////////////////////
+
+        db2 = new Databasehelper(this);
+
+
+        new Database_dao().veriler(db2);
+
+        SQLiteDatabase dbm2 = db2.getReadableDatabase();
+        Cursor d = dbm2.rawQuery("SELECT * FROM bildirim", null);
+        d.moveToLast();
+        do
+        {
+            if(counter <= 20) {
+                datebildirim = datebildirim + d.getInt(d.getColumnIndex("day")) + "." +
+                        d.getInt(d.getColumnIndex("month")) + "." +
+                        d.getInt(d.getColumnIndex("year")) + "\n";
+
+
+                counter++;
+
+            }
+            if(counter >= 20)
+            {
+                d.moveToFirst();
+                counter = 0;
+            }
+
+        }
+        while (d.moveToPrevious());
+        bildirimtxt.setText(""+ datebildirim);
+
+
+
+
+
        gelir.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -142,7 +180,6 @@ private Databasehelper db;
 
 
     }
-
 
 
 

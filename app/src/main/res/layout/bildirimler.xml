@@ -33,13 +33,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <TextView
+    <EditText
         android:id="@+id/alarminfotxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:background="@drawable/borderpic"
+        android:hint="Açıklama Giriniz !"
+        android:maxLength="22"
+        android:maxLines="1"
+        android:padding="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -49,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="Tarih"
         android:textColor="#3F51B5"
         android:textSize="16sp"
@@ -64,8 +68,62 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:background="@drawable/borderpic"
+        android:padding="30dp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/tarihset"
+        android:layout_width="323dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="306dp"
+        android:layout_height="123dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="8dp"
+        android:text="Bildirim Tarihinizden, 1 hafta önce, 3 gün önce ve son gün telefon ekranınıza açıklamanızla alakalı bildirim göndereceğiz. "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alarmdatetxt" />
+
+    <Button
+        android:id="@+id/kayıtbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="KAYIT"
+        app:layout_constraintEnd_toEndOf="@+id/tarihset"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <Button
+        android:id="@+id/iptalbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="IPTAL"
+        app:layout_constraintEnd_toStartOf="@+id/kayıtbutton"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/uyarı"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Alanları Doldurunuz !"
+        android:textColor="#B71C1C"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/iptalbutton"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 
 </android.support.constraint.ConstraintLayout>

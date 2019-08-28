@@ -14,6 +14,10 @@ public class Mydatabase {
     private String pricetype;
     private int taksit;
 
+    //
+    private int bmonth,bday,byear;
+    private String binformation;
+
     public Mydatabase() {
     }
         public Mydatabase(String typex,String infox, int month,int day,int year,double price,String repeat,String label,String pricetype,int taksit)
@@ -35,6 +39,45 @@ public class Mydatabase {
 
     }
 
+    public int getBmonth() {
+        return bmonth;
+    }
+
+    public void setBmonth(int bmonth) {
+        this.bmonth = bmonth;
+    }
+
+    public int getBday() {
+        return bday;
+    }
+
+    public void setBday(int bday) {
+        this.bday = bday;
+    }
+
+    public int getByear() {
+        return byear;
+    }
+
+    public void setByear(int byear) {
+        this.byear = byear;
+    }
+
+    public String getBinformation() {
+        return binformation;
+    }
+
+    public void setBinformation(String binformation) {
+        this.binformation = binformation;
+    }
+
+    public  Mydatabase(String informationx, int month, int day, int year)
+    {
+        this.binformation = informationx;
+        this.bday = day;
+        this.bmonth = month;
+        this.byear = year;
+    }
 
 
     public int getProcessid() {
