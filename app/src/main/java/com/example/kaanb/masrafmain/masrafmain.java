@@ -12,10 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 public class masrafmain extends AppCompatActivity {
 
 private Button gelir,gider,bildirimbutton;
-private TextView ser,lastprocessshow,lastprocesswriter2,lasttenshow,lastprocesswriter,textdate,textinfo,textprice,bildirimtxt;
+private TextView ser,lastprocessshow,lastprocesswriter2,lasttenshow,lastprocesswriter,textdate,textinfo,textprice,bildirimtxt,kalanguntxt;
 private ScrollView myscroll;
 private ConstraintLayout constraint;
 private LinearLayout linear;
@@ -45,6 +47,7 @@ private Databasehelper db,db2;
         linear = new LinearLayout(this);
         textinfo = new TextView(this);
         textprice = new TextView(this);
+        kalanguntxt = new TextView(this);
 
         bildirimtxt = new TextView(this);
 
@@ -76,6 +79,7 @@ private Databasehelper db,db2;
         textinfo = findViewById(R.id.textinfo);
         textprice = findViewById(R.id.textprice);
         bildirimtxt = findViewById(R.id.bildirimtxt);
+        kalanguntxt = findViewById(R.id.kalanguntxt);
         db = new Databasehelper(this);
 
         lastprocesswriter.setText(""+ s);
@@ -148,7 +152,20 @@ private Databasehelper db,db2;
 
 
 
-       gelir.setOnClickListener(new View.OnClickListener() {
+        final Calendar e = Calendar.getInstance();
+        int mYear = e.get(Calendar.YEAR);
+        int mMonth = e.get(Calendar.MONTH);
+        int mDay = e.get(Calendar.DAY_OF_MONTH);
+
+        kalanguntxt.setText(""+mDay+"-"+mMonth+"-"+mYear);
+
+
+
+
+
+
+
+        gelir.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
 
