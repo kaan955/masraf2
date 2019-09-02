@@ -25,7 +25,7 @@ public class bildirimler extends AppCompatActivity {
     String datex = "";
     String infox = "";
     int counter = 0;
-
+    String infocontrol = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,12 +86,12 @@ public class bildirimler extends AppCompatActivity {
         kayıtbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String infocontrol = "";
+
                 infocontrol=alarminfotxt.getText().toString();
 
 
                 if(my_day > 0  && my_month >0 && my_year > 0 && !infocontrol.equals("")) {
-                    new Database_dao().addingalarm(db2, "Alarmdeneme", my_day, my_month, my_year);
+                    new Database_dao().addingalarm(db2, infocontrol, my_day, my_month, my_year);
                     Intent intent = new Intent(bildirimler.this, masrafmain.class);
                     startActivity(intent);
                     uyarı.setVisibility(uyarı.GONE);

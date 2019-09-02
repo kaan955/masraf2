@@ -23,9 +23,10 @@ private ConstraintLayout constraint;
 private LinearLayout linear;
 private Databasehelper db,db2;
 
-    String s = "Tarih\t\t\t\t\t\t\t |\t Açıklama\t\t\t\t\t\t\t\t\t |\t Ucret\n\n";
+
     String datex = "";
     String datebildirim = "";
+    String infobildirim = "";
     String infox = "";
     String pricex = "";
     String pricex2 = "";
@@ -82,8 +83,6 @@ private Databasehelper db,db2;
         kalanguntxt = findViewById(R.id.kalanguntxt);
         db = new Databasehelper(this);
 
-        lastprocesswriter.setText(""+ s);
-        lastprocesswriter.setTextSize(14);
 
 
 
@@ -121,6 +120,13 @@ private Databasehelper db,db2;
 
         db2 = new Databasehelper(this);
 
+        final Calendar e = Calendar.getInstance();
+        int mYear = e.get(Calendar.YEAR);
+        int mMonth = e.get(Calendar.MONTH);
+        int mDay = e.get(Calendar.DAY_OF_MONTH);
+
+
+
 
         new Database_dao().veriler(db2);
 
@@ -129,16 +135,27 @@ private Databasehelper db,db2;
         d.moveToLast();
         do
         {
-            if(counter <= 20) {
-                datebildirim = datebildirim + d.getInt(d.getColumnIndex("day")) + "." +
-                        d.getInt(d.getColumnIndex("month")) + "." +
-                        d.getInt(d.getColumnIndex("year")) + "\n";
+            if(counter < 30) {
+                int counteryear = d.getInt(d.getColumnIndex("year"));
+                int countermonth = d.getInt(d.getColumnIndex("month"));
+                int counterday = d.getInt(d.getColumnIndex("day"));
+                if((mYear == d.getInt(d.getColumnIndex("year"))) && ((mMonth+1) ==  d.getInt(d.getColumnIndex("month"))) && (mDay <=  d.getInt(d.getColumnIndex("day")) ))
+                {
+
+
+                    int day_counter = (d.getInt(d.getColumnIndex("day"))) - mDay;
+                    datebildirim = datebildirim +  day_counter +"\n";
+                    infobildirim =  infobildirim + d.getString(d.getColumnIndex("informationx"))+ "\n";
+
+                }
+
+
 
 
                 counter++;
 
             }
-            if(counter >= 20)
+            if(counter >= 30)
             {
                 d.moveToFirst();
                 counter = 0;
@@ -146,18 +163,11 @@ private Databasehelper db,db2;
 
         }
         while (d.moveToPrevious());
-        bildirimtxt.setText(""+ datebildirim);
+
+        bildirimtxt.setText(""+ infobildirim);
+        kalanguntxt.setText("" + datebildirim);
 
 
-
-
-
-        final Calendar e = Calendar.getInstance();
-        int mYear = e.get(Calendar.YEAR);
-        int mMonth = e.get(Calendar.MONTH);
-        int mDay = e.get(Calendar.DAY_OF_MONTH);
-
-        kalanguntxt.setText(""+mDay+"-"+mMonth+"-"+mYear);
 
 
 
