@@ -17,21 +17,25 @@ import java.util.Calendar;
 public class masrafmain extends AppCompatActivity {
 
 private Button gelir,gider,bildirimbutton;
-private TextView ser,lastprocessshow,lastprocesswriter2,lasttenshow,lastprocesswriter,textdate,textinfo,textprice,bildirimtxt,kalanguntxt;
+private TextView ser,lastprocessshow,lastprocesswriter2,lasttenshow,lastprocesswriter,textdate,textinfo,textprice,bildirimtxt,kalanguntxt,gunkaldıtxt,textView7;
 private ScrollView myscroll;
 private ConstraintLayout constraint;
 private LinearLayout linear;
 private Databasehelper db,db2;
 
-
     String datex = "";
     String datebildirim = "";
     String infobildirim = "";
+    String datebildirim2 = "";
+    String infobildirim2 = "";
+    String gunkaldi = "";
     String infox = "";
     String pricex = "";
     String pricex2 = "";
     int counter = 0;
-
+    int []array;
+    String []arrays;
+    int arraycounter = 0;
 
 
     public void init()
@@ -49,11 +53,10 @@ private Databasehelper db,db2;
         textinfo = new TextView(this);
         textprice = new TextView(this);
         kalanguntxt = new TextView(this);
-
         bildirimtxt = new TextView(this);
-
         bildirimbutton = new Button(this);
-
+        gunkaldıtxt = new TextView(this);
+        textView7 = new TextView(this);
 
     }
 
@@ -70,21 +73,22 @@ private Databasehelper db,db2;
         lastprocessshow = findViewById(R.id.lastprocessshow);
         lasttenshow = findViewById(R.id.lasttenshow);
         lastprocesswriter = findViewById(R.id.lastprocesswriter);
-        //lastprocesswriter2 = findViewById(R.id.lastprocesswriter2);
         textdate = findViewById(R.id.textdate);
         myscroll = findViewById(R.id.scroll);
-       // linear = findViewById(R.id.linear);
         constraint = findViewById(R.id.constraint);
-
         bildirimbutton = findViewById(R.id.bildirimbutton);
         textinfo = findViewById(R.id.textinfo);
         textprice = findViewById(R.id.textprice);
         bildirimtxt = findViewById(R.id.bildirimtxt);
         kalanguntxt = findViewById(R.id.kalanguntxt);
+        gunkaldıtxt = findViewById(R.id.textView6);
+        textView7 = findViewById(R.id.textView7);
+
+        array = new int[500];
+        arrays = new String[500];
+
+
         db = new Databasehelper(this);
-
-
-
 
         new Database_dao().veriler(db);
 
@@ -126,20 +130,17 @@ private Databasehelper db,db2;
         int mDay = e.get(Calendar.DAY_OF_MONTH);
 
 
-
-
         new Database_dao().veriler(db2);
 
         SQLiteDatabase dbm2 = db2.getReadableDatabase();
         Cursor d = dbm2.rawQuery("SELECT * FROM bildirim", null);
+        /*
         d.moveToLast();
         do
         {
-            if(counter < 30) {
-                int counteryear = d.getInt(d.getColumnIndex("year"));
-                int countermonth = d.getInt(d.getColumnIndex("month"));
-                int counterday = d.getInt(d.getColumnIndex("day"));
-                if((mYear == d.getInt(d.getColumnIndex("year"))) && ((mMonth+1) ==  d.getInt(d.getColumnIndex("month"))) && (mDay <=  d.getInt(d.getColumnIndex("day")) ))
+            if(counter < 100) {
+
+                if((mYear == d.getInt(d.getColumnIndex("year"))) && (((mMonth+1) ==  d.getInt(d.getColumnIndex("month"))) || ((mMonth) ==  d.getInt(d.getColumnIndex("month")))) && (mDay <=  d.getInt(d.getColumnIndex("day")) ))
                 {
 
 
@@ -155,7 +156,7 @@ private Databasehelper db,db2;
                 counter++;
 
             }
-            if(counter >= 30)
+            if(counter >= 100)
             {
                 d.moveToFirst();
                 counter = 0;
@@ -164,10 +165,104 @@ private Databasehelper db,db2;
         }
         while (d.moveToPrevious());
 
+
         bildirimtxt.setText(""+ infobildirim);
         kalanguntxt.setText("" + datebildirim);
 
+        */
 
+        d.moveToLast();
+
+        do {
+            int monthstopper = d.getInt(d.getColumnIndex("month"));
+            int daystopper = d.getInt(d.getColumnIndex("day"));
+
+
+
+         //   if((mYear == d.getInt(d.getColumnIndex("year"))) && (((mMonth+1) ==  d.getInt(d.getColumnIndex("month"))) || ((mMonth+2) ==  d.getInt(d.getColumnIndex("month")))) && (mDay <=  d.getInt(d.getColumnIndex("day")) ))
+            if((mYear == d.getInt(d.getColumnIndex("year"))) && (((mMonth+1) ==  d.getInt(d.getColumnIndex("month"))) || ((mMonth+2) ==  d.getInt(d.getColumnIndex("month")))))
+            {
+
+
+                if(((mMonth+1) ==  d.getInt(d.getColumnIndex("month"))) && (mDay <=  d.getInt(d.getColumnIndex("day")) ) ) {
+
+
+                    int day_counter = (d.getInt(d.getColumnIndex("day"))) - mDay;
+                    datebildirim = datebildirim + day_counter + "\n";
+                    infobildirim = infobildirim + d.getString(d.getColumnIndex("informationx")) + "\n";
+                    array[arraycounter] = day_counter;
+                    arrays[arraycounter] = d.getString(d.getColumnIndex("informationx"));
+                    arraycounter++;
+                }
+                else if(((mMonth+2) ==  d.getInt(d.getColumnIndex("month"))))
+                {
+                    int res = e.getActualMaximum(Calendar.DATE);
+                    int day_counter = (d.getInt(d.getColumnIndex("day"))) + (res - mDay);
+
+                    if(day_counter <=30) {
+                        datebildirim = datebildirim + day_counter + "\n";
+                        infobildirim = infobildirim + d.getString(d.getColumnIndex("informationx")) + "\n";
+                        array[arraycounter] = day_counter;
+                        arrays[arraycounter] = d.getString(d.getColumnIndex("informationx"));
+                        arraycounter++;
+                    }
+
+
+
+                }
+
+            }
+
+
+
+        }while(d.moveToPrevious());
+
+
+        ///////Array Sort //////////
+        for (int i = 0; i < arraycounter-1; i++) {
+
+            int sayi = array[i];
+            int temp = i;
+            String r = arrays[i];
+
+            for (int j = i+1; j < arraycounter ; j++) {
+                if(array[j]<sayi){
+                    sayi = array[j];
+                    r = arrays[j];
+                    temp = j;
+                }
+            }
+
+            if(temp != i){
+                array[temp] = array[i];
+                arrays[temp] = arrays[i];
+                arrays[i] = r;
+                array[i] = sayi;
+            }
+
+        }
+
+
+
+
+        for (int sayi:array) {
+            datebildirim2 = datebildirim2 + sayi + "\n";
+
+        }
+
+        for (String s:arrays)
+        {
+            infobildirim2 = infobildirim2 + s + "\n";
+        }
+
+
+
+        //textView6.setText("" + datebildirim);
+        //textView7.setText("" + infobildirim);
+
+        gunkaldıtxt.setText("" + "deneme");
+        bildirimtxt.setText(""+ infobildirim2);
+        kalanguntxt.setText("" + datebildirim2);
 
 
 
