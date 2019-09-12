@@ -158,7 +158,7 @@
 
         <RadioButton
             android:id="@+id/radioButton4"
-            android:layout_width="82dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Her Ay"
@@ -170,7 +170,7 @@
         android:layout_width="140dp"
         android:layout_height="34dp"
         android:layout_marginStart="10dp"
-        android:layout_marginLeft="0dp"
+        android:fadeScrollbars="false"
         android:scrollbarSize="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pricetxt" />

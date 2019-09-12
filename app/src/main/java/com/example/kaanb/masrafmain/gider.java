@@ -127,32 +127,28 @@ public class gider extends AppCompatActivity {
             public void onClick(View v) {
 
                 String s;
-                //double prices;
+
                 String spin;
                 String control;
                 Double controlprice;
-                String radiostring;
+
 
                 String pricescontrol=pricetxt.getText().toString();
-                controlprice = prices = Double.parseDouble(pricescontrol);
                 control = informationtext.getText().toString();
 
 
                 // new Database_dao().adding(db,"Type",s,my_day,my_month,my_year,prices,radiostring,spin,"devam",4);
 
 
-                if(my_day > 0  && my_month >0 && my_year > 0 && controlprice>0.0 &&  (control != null)) {
-                    int radiox = radio.getCheckedRadioButtonId();
+                if(my_year > 0 && !pricescontrol.equals("") &&  !control.equals("")) {
+
                     String pricesx=pricetxt.getText().toString();
                     String taksitx = taksittxt.getText().toString();
-
                     taksit = Integer.parseInt(taksitx);
                     prices = Double.parseDouble(pricesx);
-                    radiobut = findViewById(radiox);
-                    radiostring = radiobut.getText().toString();
                     s = informationtext.getText().toString();
                     spin= myspinner.getSelectedItem().toString();
-                    new Database_dao().adding(db,"Type",s,my_day,my_month,my_year,prices,radiostring,spin,"devam",taksit);
+                    new Database_dao().adding(db,"Type",s,my_day,my_month,my_year,prices,"radiostring",spin,"devam",taksit);
                     Intent intent = new Intent(gider.this, masrafmain.class);
                     startActivity(intent);
                     uyarı.setVisibility(uyarı.GONE);
