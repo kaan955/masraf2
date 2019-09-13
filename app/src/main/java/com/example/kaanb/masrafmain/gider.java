@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -23,10 +24,9 @@ public class gider extends AppCompatActivity {
 
     private Databasehelper db;
     private TextView tarihtext,informationtext,pricetxt,uyarı,taksittxt;
-    private Button tarihpicker,kayıtgelirbtn;
+    private Button tarihpicker,kayıtgelirbtn,deletegiderbutton;
+    private ImageView infoerror,tariherror,tutarerror;
     private Spinner myspinner;
-    private RadioGroup radio;
-    private AppCompatRadioButton radiobut;
     private ArrayList<String>etiketler = new ArrayList<>();
     private ArrayAdapter<String> etiketadaptoru;
     static int day,month,year,taksit=1;
@@ -34,35 +34,45 @@ public class gider extends AppCompatActivity {
     static double prices = 0.0;
 
 
+
+ void init()
+ {
+     myspinner = new Spinner(this);
+     tarihtext = new TextView(this);
+     uyarı = new TextView(this);
+     kayıtgelirbtn = new Button(this);
+     informationtext= new TextView(this);
+     pricetxt = new TextView(this);
+     taksittxt = new TextView(this);
+     db = new Databasehelper(this);
+     deletegiderbutton = new Button(this);
+     infoerror = new ImageView(this);
+     tariherror = new ImageView(this);
+     tutarerror = new ImageView(this);
+
+
+
+ }
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gider);
 
-        myspinner = new Spinner(this);
+        init();
         myspinner = findViewById(R.id.spinnerlabel);
-
-        radio = new RadioGroup(this);
-        radio = findViewById(R.id.radiogroup);
-
-        tarihtext = new TextView(this);
         tarihtext = findViewById(R.id.tarihpicker);
-
-        uyarı = new TextView(this);
         uyarı = findViewById(R.id.uyarı);
-
-        kayıtgelirbtn = new Button(this);
         kayıtgelirbtn = findViewById(R.id.kayıtgelirbtn);
-
-        informationtext= new TextView(this);
         informationtext = findViewById(R.id.informationtext);
-
-
-        pricetxt = new TextView(this);
         pricetxt = findViewById(R.id.pricetxt);
-
-        taksittxt = new TextView(this);
         taksittxt = findViewById(R.id.taksittxt);
+        deletegiderbutton = findViewById(R.id.deletegelirbtn);
+        infoerror = findViewById(R.id.infoerror);
+        tariherror = findViewById(R.id.tariherror);
+        tutarerror = findViewById(R.id.tutarerror);
 
         etiketler.add("Diğer");
         etiketler.add("Maaş");
@@ -79,13 +89,8 @@ public class gider extends AppCompatActivity {
         etiketler.add("Market");
         etiketler.add("Hobiler");
         etiketler.add("Telefon");
-
-
         etiketadaptoru = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,android.R.id.text1,etiketler);
-
         myspinner.setAdapter(etiketadaptoru);
-
-
 
 
 
@@ -98,9 +103,7 @@ public class gider extends AppCompatActivity {
                 month = c.get(Calendar.MONTH);
                 year = c.get(Calendar.YEAR);
 
-
                 DatePickerDialog datepicker;
-
                 datepicker = new DatePickerDialog(gider.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -112,56 +115,110 @@ public class gider extends AppCompatActivity {
                     }
                 },day,month,year);
                 datepicker.show();
-
-
-
-
             }
         });
 
 
-        db = new Databasehelper(this);
+
 
         kayıtgelirbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String s;
-
-                String spin;
-                String control;
-                Double controlprice;
-
+                String s,spin,control;
 
                 String pricescontrol=pricetxt.getText().toString();
                 control = informationtext.getText().toString();
-
-
-                // new Database_dao().adding(db,"Type",s,my_day,my_month,my_year,prices,radiostring,spin,"devam",4);
+                String taksitx = taksittxt.getText().toString();
+                if(taksitx.equals(""))
+                {
+                    taksitx = "1";
+                }
 
 
                 if(my_year > 0 && !pricescontrol.equals("") &&  !control.equals("")) {
 
                     String pricesx=pricetxt.getText().toString();
-                    String taksitx = taksittxt.getText().toString();
                     taksit = Integer.parseInt(taksitx);
                     prices = Double.parseDouble(pricesx);
+
+
+
                     s = informationtext.getText().toString();
                     spin= myspinner.getSelectedItem().toString();
                     new Database_dao().adding(db,"Type",s,my_day,my_month,my_year,prices,"radiostring",spin,"devam",taksit);
                     Intent intent = new Intent(gider.this, masrafmain.class);
                     startActivity(intent);
-                    uyarı.setVisibility(uyarı.GONE);
+                    infoerror.setVisibility(View.GONE);
+                    tariherror.setVisibility(View.GONE);
+                    tutarerror.setVisibility(View.GONE);
+                }
+                else if(my_year == 0 && pricescontrol.equals("") && control.equals(""))
+                {
+                    infoerror.setVisibility(View.VISIBLE);
+                    tariherror.setVisibility(View.VISIBLE);
+                    tutarerror.setVisibility(View.VISIBLE);
+                }
+                else if (my_year > 0 && pricescontrol.equals("") && !control.equals(""))
+                {
+                    infoerror.setVisibility(View.GONE);
+                    tariherror.setVisibility(View.GONE);
+                    tutarerror.setVisibility(View.VISIBLE);
+                }
+                else if (my_year == 0 && !control.equals("") && !pricescontrol.equals(""))
+                {
+                    infoerror.setVisibility(View.GONE);
+                    tariherror.setVisibility(View.VISIBLE);
+                    tutarerror.setVisibility(View.GONE);
+
+                }
+                else if(!pricescontrol.equals("") && control.equals("") && my_year>0)
+                {
+                    infoerror.setVisibility(View.VISIBLE);
+                    tariherror.setVisibility(View.GONE);
+                    tutarerror.setVisibility(View.GONE);
+                }
+                else if(!control.equals("") && pricescontrol.equals("") && my_year == 0)
+                {
+                    infoerror.setVisibility(View.GONE);
+                    tariherror.setVisibility(View.VISIBLE);
+                    tutarerror.setVisibility(View.VISIBLE);
+                }
+                else if(control.equals("") &&pricescontrol.equals("") && my_year > 0 )
+                {
+                    infoerror.setVisibility(View.VISIBLE);
+                    tariherror.setVisibility(View.GONE);
+                    tutarerror.setVisibility(View.VISIBLE);
+
+                }
+                else if(control.equals("") && !pricescontrol.equals("") && my_year ==0)
+                {
+                    infoerror.setVisibility(View.VISIBLE);
+                    tariherror.setVisibility(View.VISIBLE);
+                    tutarerror.setVisibility(View.GONE);
                 }
                 else
                 {
-                    uyarı.setVisibility(uyarı.VISIBLE);
+                    infoerror.setVisibility(View.VISIBLE);
+                    tariherror.setVisibility(View.VISIBLE);
+                    tutarerror.setVisibility(View.VISIBLE);
                 }
+
 
 
 
             }
 
         });
+
+
+        deletegiderbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(gider.this, masrafmain.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 }

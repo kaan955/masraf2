@@ -19,11 +19,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:text="KAYIT"
 
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="KAYIT"
+        app:layout_constraintEnd_toEndOf="@+id/textinfo"
         app:layout_constraintTop_toBottomOf="@+id/pricetxt" />
 
     <TextView
@@ -52,6 +50,7 @@
         android:background="@null"
         android:ems="10"
         android:inputType="textPersonName"
+        android:maxLength="17"
         android:paddingBottom="18dp"
         android:singleLine="true"
         android:textSize="18sp"
@@ -111,13 +110,13 @@
         android:id="@+id/deletegelirbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:text="IPTAL"
         android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/kayıtgelirbtn"
         app:layout_constraintEnd_toStartOf="@+id/kayıtgelirbtn"
-        app:layout_constraintTop_toBottomOf="@+id/pricetxt" />
+        app:layout_constraintTop_toTopOf="@+id/kayıtgelirbtn" />
 
     <TextView
         android:id="@+id/textView4"
@@ -129,64 +128,57 @@
         app:layout_constraintStart_toEndOf="@+id/imageView7"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RadioGroup
-        android:id="@+id/radiogroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:checkedButton="@+id/radioButton"
-        android:orientation="horizontal"
-        android:scrollbarAlwaysDrawHorizontalTrack="false"
-        app:layout_constraintStart_toEndOf="@+id/spinnerlabel"
-        app:layout_constraintTop_toBottomOf="@+id/textinfo">
-
-        <RadioButton
-            android:id="@+id/radioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Tekrarsız"
-            android:textSize="14sp" />
-
-        <RadioButton
-            android:id="@+id/radioButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Her Hafta"
-            android:textSize="14sp" />
-
-        <RadioButton
-            android:id="@+id/radioButton4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Her Ay"
-            android:textSize="14sp" />
-    </RadioGroup>
-
     <Spinner
         android:id="@+id/spinnerlabel"
         android:layout_width="140dp"
         android:layout_height="34dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
         android:fadeScrollbars="false"
         android:scrollbarSize="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pricetxt" />
 
-    <TextView
-        android:id="@+id/uyarı"
+    <ImageView
+        android:id="@+id/infoerror"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Tüm alanları doldurunuz !"
-        android:textColor="#F44336"
-        android:textSize="14sp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toStartOf="@+id/deletegelirbtn"
-        app:layout_constraintTop_toBottomOf="@+id/pricetxt" />
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/tarihpicker"
+        app:layout_constraintStart_toEndOf="@+id/masrafkonu"
+        app:layout_constraintTop_toTopOf="@+id/masrafkonu"
+        app:srcCompat="@android:drawable/presence_busy" />
+
+    <ImageView
+        android:id="@+id/tariherror"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/tarihpicker"
+        app:layout_constraintStart_toEndOf="@+id/tarihpicker"
+        app:layout_constraintTop_toTopOf="@+id/tarihpicker"
+        app:srcCompat="@android:drawable/presence_busy" />
+
+    <ImageView
+        android:id="@+id/tutarerror"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/textinfo"
+        app:layout_constraintStart_toEndOf="@+id/textinfo"
+        app:layout_constraintTop_toTopOf="@+id/textinfo"
+        app:srcCompat="@android:drawable/presence_busy" />
 
 </android.support.constraint.ConstraintLayout>

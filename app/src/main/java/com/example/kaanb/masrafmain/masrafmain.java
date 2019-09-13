@@ -73,7 +73,7 @@ private Databasehelper db,db2;
         setContentView(R.layout.activity_masrafmain);
         init();
 
-        Button gelir = findViewById(R.id.gelir);
+        gelir = findViewById(R.id.gelir);
         gider = findViewById(R.id.gider);
         lastprocessshow = findViewById(R.id.lastprocessshow);
         lasttenshow = findViewById(R.id.lasttenshow);

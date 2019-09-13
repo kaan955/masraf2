@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -22,43 +23,49 @@ import java.util.Calendar;
 public class gelir extends AppCompatActivity {
 
     private Databasehelper db;
-    private TextView tarihtext,informationtext,pricetxt,uyarı;
-    private Button tarihpicker,kayıtgelirbtn;
+    private TextView tarihtext,informationtext,pricetxt;
+    private Button tarihpicker,kayıtgelirbtn,deletegelirbtn;
+    private ImageView infoerror,tariherror,tutarerror;
     private Spinner myspinner;
-    private RadioGroup radio;
-    private AppCompatRadioButton radiobut;
     private ArrayList<String>etiketler = new ArrayList<>();
     private ArrayAdapter<String> etiketadaptoru;
-     static int day,month,year;
-     static int my_day = 0,my_month = 0,my_year = 0;
+     static int day,month,year,my_day = 0,my_month = 0,my_year = 0;
      static double prices = 0.0;
+
+
+     void init()
+    {
+        myspinner = new Spinner(this);
+        tarihtext = new TextView(this);
+        kayıtgelirbtn = new Button(this);
+        pricetxt = new TextView(this);
+        informationtext= new TextView(this);
+        db = new Databasehelper(this);
+        deletegelirbtn = new Button(this);
+        infoerror = new ImageView(this);
+        tariherror = new ImageView(this);
+        tutarerror = new ImageView(this);
+
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gelir);
 
-        myspinner = new Spinner(this);
+        init();
         myspinner = findViewById(R.id.spinnerlabel);
-
-        radio = new RadioGroup(this);
-        radio = findViewById(R.id.radiogroup);
-
-        tarihtext = new TextView(this);
         tarihtext = findViewById(R.id.tarihpicker);
-
-        uyarı = new TextView(this);
-        uyarı = findViewById(R.id.uyarı);
-
-        kayıtgelirbtn = new Button(this);
         kayıtgelirbtn = findViewById(R.id.kayıtgelirbtn);
-
-        informationtext= new TextView(this);
         informationtext = findViewById(R.id.informationtext);
-
-
-        pricetxt = new TextView(this);
         pricetxt = findViewById(R.id.pricetxt);
+        deletegelirbtn = findViewById(R.id.deletegelirbtn);
+        infoerror = findViewById(R.id.infoerror);
+        tariherror = findViewById(R.id.tariherror);
+        tutarerror = findViewById(R.id.tutarerror);
+
 
         etiketler.add("Diğer");
         etiketler.add("Maaş");
@@ -75,15 +82,8 @@ public class gelir extends AppCompatActivity {
         etiketler.add("Market");
         etiketler.add("Hobiler");
         etiketler.add("Telefon");
-
-
         etiketadaptoru = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,android.R.id.text1,etiketler);
-
         myspinner.setAdapter(etiketadaptoru);
-
-
-
-
 
         tarihtext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,50 +109,76 @@ public class gelir extends AppCompatActivity {
                 },day,month,year);
                 datepicker.show();
 
-
-
-
             }
         });
-
-
-        db = new Databasehelper(this);
 
         kayıtgelirbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String s;
-                //double prices;
-                String spin;
-                String control;
-                Double controlprice;
-                String radiostring;
-
-                String pricescontrol=pricetxt.getText().toString();
-                controlprice = prices = Double.parseDouble(pricescontrol);
+                String s,spin,control,pricescontrol=pricetxt.getText().toString();
                 control = informationtext.getText().toString();
 
-
-               // new Database_dao().adding(db,"Type",s,my_day,my_month,my_year,prices,radiostring,spin,"devam",4);
-
-
-                if(my_day > 0  && my_month >0 && my_year > 0 && controlprice>0.0 &&  (control != null)) {
-                    int radiox = radio.getCheckedRadioButtonId();
-                    String pricesx=pricetxt.getText().toString();
+                if(my_year > 0 && !pricescontrol.equals("") &&  !control.equals("")) {
+                    String pricesx = pricetxt.getText().toString();
                     prices = Double.parseDouble(pricesx);
-                    radiobut = findViewById(radiox);
-                    radiostring = radiobut.getText().toString();
                     s = informationtext.getText().toString();
-                    spin= myspinner.getSelectedItem().toString();
-                    new Database_dao().adding(db,"Type",s,my_day,my_month,my_year,prices,radiostring,spin,"devam",1);
+                    spin = myspinner.getSelectedItem().toString();
+                    new Database_dao().adding(db,"Type",s,my_day,my_month,my_year,prices,"radiostring",spin,"devam",1);
                     Intent intent = new Intent(gelir.this, masrafmain.class);
                     startActivity(intent);
-                    uyarı.setVisibility(uyarı.GONE);
+                    infoerror.setVisibility(View.GONE);
+                    tariherror.setVisibility(View.GONE);
+                    tutarerror.setVisibility(View.GONE);
+                }
+                else if(my_year == 0 && pricescontrol.equals("") && control.equals(""))
+                {
+                    infoerror.setVisibility(View.VISIBLE);
+                    tariherror.setVisibility(View.VISIBLE);
+                    tutarerror.setVisibility(View.VISIBLE);
+                }
+                else if (my_year > 0 && pricescontrol.equals("") && !control.equals(""))
+                {
+                    infoerror.setVisibility(View.GONE);
+                    tariherror.setVisibility(View.GONE);
+                    tutarerror.setVisibility(View.VISIBLE);
+                }
+                else if (my_year == 0 && !control.equals("") && !pricescontrol.equals(""))
+                {
+                    infoerror.setVisibility(View.GONE);
+                    tariherror.setVisibility(View.VISIBLE);
+                    tutarerror.setVisibility(View.GONE);
+
+                }
+                else if(!pricescontrol.equals("") && control.equals("") && my_year>0)
+                {
+                    infoerror.setVisibility(View.VISIBLE);
+                    tariherror.setVisibility(View.GONE);
+                    tutarerror.setVisibility(View.GONE);
+                }
+                else if(!control.equals("") && pricescontrol.equals("") && my_year == 0)
+                {
+                    infoerror.setVisibility(View.GONE);
+                    tariherror.setVisibility(View.VISIBLE);
+                    tutarerror.setVisibility(View.VISIBLE);
+                }
+                else if(control.equals("") &&pricescontrol.equals("") && my_year > 0 )
+                {
+                    infoerror.setVisibility(View.VISIBLE);
+                    tariherror.setVisibility(View.GONE);
+                    tutarerror.setVisibility(View.VISIBLE);
+
+                }
+                else if(control.equals("") && !pricescontrol.equals("") && my_year ==0)
+                {
+                    infoerror.setVisibility(View.VISIBLE);
+                    tariherror.setVisibility(View.VISIBLE);
+                    tutarerror.setVisibility(View.GONE);
                 }
                 else
                 {
-                    uyarı.setVisibility(uyarı.VISIBLE);
+                    infoerror.setVisibility(View.VISIBLE);
+                    tariherror.setVisibility(View.VISIBLE);
+                    tutarerror.setVisibility(View.VISIBLE);
                 }
 
 
@@ -160,5 +186,14 @@ public class gelir extends AppCompatActivity {
         }
 
         });
+
+        deletegelirbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(gelir.this, masrafmain.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }

@@ -26,17 +26,14 @@ public class bildirimler extends AppCompatActivity {
     String infox = "";
     int counter = 0;
     String infocontrol = "";
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.bildirimler);
 
+
+    public void init()
+    {
         db2 = new Databasehelper(this);
 
         uyarı = new TextView(this);
         uyarı = findViewById(R.id.uyarı);
-
-
 
         alarminfotxt = new EditText(this);
         alarminfotxt = findViewById(R.id.alarminfotxt);
@@ -53,6 +50,16 @@ public class bildirimler extends AppCompatActivity {
         iptalbtn = new Button(this);
         iptalbtn= findViewById(R.id.iptalbutton);
 
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.bildirimler);
+
+        init();
+
 
         tarihtxt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +69,6 @@ public class bildirimler extends AppCompatActivity {
                 day = c.get(Calendar.DAY_OF_MONTH);
                 month = c.get(Calendar.MONTH);
                 year = c.get(Calendar.YEAR);
-
 
                 DatePickerDialog datepicker;
 
@@ -80,16 +86,11 @@ public class bildirimler extends AppCompatActivity {
             }
         });
 
-
-
-
         kayıtbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 infocontrol=alarminfotxt.getText().toString();
-
-
                 if(my_day > 0  && my_month >0 && my_year > 0 && !infocontrol.equals("")) {
                     new Database_dao().addingalarm(db2, infocontrol, my_day, my_month, my_year);
                     Intent intent = new Intent(bildirimler.this, masrafmain.class);
