@@ -29,31 +29,9 @@ public class gider extends AppCompatActivity {
     private Spinner myspinner;
     private ArrayList<String>etiketler = new ArrayList<>();
     private ArrayAdapter<String> etiketadaptoru;
-    static int day,month,year,taksit=1;
+    static int currentday,currentmonth,currentyear,taksit=1;
     static int my_day = 0,my_month = 0,my_year = 0;
     static double prices = 0.0;
-
-
-
- void init()
- {
-     myspinner = new Spinner(this);
-     tarihtext = new TextView(this);
-     uyarı = new TextView(this);
-     kayıtgelirbtn = new Button(this);
-     informationtext= new TextView(this);
-     pricetxt = new TextView(this);
-     taksittxt = new TextView(this);
-     db = new Databasehelper(this);
-     deletegiderbutton = new Button(this);
-     infoerror = new ImageView(this);
-     tariherror = new ImageView(this);
-     tutarerror = new ImageView(this);
-
-
-
- }
-
 
 
     @Override
@@ -62,17 +40,7 @@ public class gider extends AppCompatActivity {
         setContentView(R.layout.gider);
 
         init();
-        myspinner = findViewById(R.id.spinnerlabel);
-        tarihtext = findViewById(R.id.tarihpicker);
-        uyarı = findViewById(R.id.uyarı);
-        kayıtgelirbtn = findViewById(R.id.kayıtgelirbtn);
-        informationtext = findViewById(R.id.informationtext);
-        pricetxt = findViewById(R.id.pricetxt);
-        taksittxt = findViewById(R.id.taksittxt);
-        deletegiderbutton = findViewById(R.id.deletegelirbtn);
-        infoerror = findViewById(R.id.infoerror);
-        tariherror = findViewById(R.id.tariherror);
-        tutarerror = findViewById(R.id.tutarerror);
+        addID();
 
         etiketler.add("Diğer");
         etiketler.add("Maaş");
@@ -99,37 +67,34 @@ public class gider extends AppCompatActivity {
             public void onClick(View v) {
 
                 Calendar c = Calendar.getInstance();
-                day = c.get(Calendar.DAY_OF_MONTH);
-                month = c.get(Calendar.MONTH);
-                year = c.get(Calendar.YEAR);
+                currentday = c.get(Calendar.DAY_OF_MONTH);
+                currentmonth = c.get(Calendar.MONTH);
+                currentyear = c.get(Calendar.YEAR);
 
                 DatePickerDialog datepicker;
                 datepicker = new DatePickerDialog(gider.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
 
-                        my_day = dayOfMonth;
+                        my_day = day;
                         my_month = month + 1;
                         my_year = year;
-                        tarihtext.setText("Tarih: " + my_day + " / "  +(month+1) + " / " +  year);
+                        tarihtext.setText("Tarih: " + my_day + " / "  +(my_month) + " / " +  my_year);
                     }
-                },day,month,year);
+                },currentyear,currentmonth,currentday);
                 datepicker.show();
             }
         });
-
-
-
 
         kayıtgelirbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String s,spin,control;
 
-                String pricescontrol=pricetxt.getText().toString();
+                String pricescontrol = pricetxt.getText().toString();
                 control = informationtext.getText().toString();
                 String taksitx = taksittxt.getText().toString();
-                if(taksitx.equals(""))
+                if(taksitx.equals("") || taksitx.equals("0"))
                 {
                     taksitx = "1";
                 }
@@ -221,4 +186,41 @@ public class gider extends AppCompatActivity {
 
 
     }
+
+
+    void init()
+    {
+        myspinner = new Spinner(this);
+        tarihtext = new TextView(this);
+        uyarı = new TextView(this);
+        kayıtgelirbtn = new Button(this);
+        informationtext= new TextView(this);
+        pricetxt = new TextView(this);
+        taksittxt = new TextView(this);
+        db = new Databasehelper(this);
+        deletegiderbutton = new Button(this);
+        infoerror = new ImageView(this);
+        tariherror = new ImageView(this);
+        tutarerror = new ImageView(this);
+
+
+
+    }
+
+    void addID()
+    {
+        myspinner = findViewById(R.id.spinnerlabel);
+        tarihtext = findViewById(R.id.tarihpicker);
+        uyarı = findViewById(R.id.uyarı);
+        kayıtgelirbtn = findViewById(R.id.kayıtgelirbtn);
+        informationtext = findViewById(R.id.informationtext);
+        pricetxt = findViewById(R.id.pricetxt);
+        taksittxt = findViewById(R.id.taksittxt);
+        deletegiderbutton = findViewById(R.id.deletegelirbtn);
+        infoerror = findViewById(R.id.infoerror);
+        tariherror = findViewById(R.id.tariherror);
+        tutarerror = findViewById(R.id.tutarerror);
+    }
+
+
 }

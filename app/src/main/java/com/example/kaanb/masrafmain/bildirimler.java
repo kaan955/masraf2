@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -18,6 +19,7 @@ public class bildirimler extends AppCompatActivity {
 
 
     private TextView tarihtxt,tarihset,alarminfotxt,uyarı;
+    private ImageView tariherror,infoerror;
     private Button kayıtbtn,iptalbtn;
     static int day, month, year;
     static int my_day = 0, my_month = 0, my_year = 0;
@@ -50,6 +52,14 @@ public class bildirimler extends AppCompatActivity {
         iptalbtn = new Button(this);
         iptalbtn= findViewById(R.id.iptalbutton);
 
+
+        tariherror = new ImageView(this);
+        tariherror = findViewById(R.id.tariherror);
+
+        infoerror = new ImageView(this);
+        infoerror = findViewById(R.id.infoerror);
+
+
     }
 
 
@@ -60,28 +70,28 @@ public class bildirimler extends AppCompatActivity {
 
         init();
 
-
+        Calendar c = Calendar.getInstance();
+        final int currentday = c.get(Calendar.DAY_OF_MONTH);
+        final int currentmonth = c.get(Calendar.MONTH);
+        final int currentyear = c.get(Calendar.YEAR);
         tarihtxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Calendar c = Calendar.getInstance();
-                day = c.get(Calendar.DAY_OF_MONTH);
-                month = c.get(Calendar.MONTH);
-                year = c.get(Calendar.YEAR);
+
 
                 DatePickerDialog datepicker;
 
                 datepicker = new DatePickerDialog(bildirimler.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
 
-                        my_day = dayOfMonth;
+                        my_day = day;
                         my_month = month + 1;
-                        my_year = year;
-                        tarihtxt.setText("" + my_day + " / "  +(month+1) + " / " +  year);
+                         my_year = year;
+                        tarihtxt.setText("" + my_day + " / "  +(my_month) + " / " +  my_year);
                     }
-                },day,month,year);
+                },currentyear,currentmonth,currentday);
                 datepicker.show();
             }
         });
@@ -91,15 +101,28 @@ public class bildirimler extends AppCompatActivity {
             public void onClick(View v) {
 
                 infocontrol=alarminfotxt.getText().toString();
-                if(my_day > 0  && my_month >0 && my_year > 0 && !infocontrol.equals("")) {
+                if(my_year > 0 && !infocontrol.equals("")) {
                     new Database_dao().addingalarm(db2, infocontrol, my_day, my_month, my_year);
                     Intent intent = new Intent(bildirimler.this, masrafmain.class);
                     startActivity(intent);
-                    uyarı.setVisibility(uyarı.GONE);
+                    infoerror.setVisibility(View.GONE);
+                    tariherror.setVisibility(View.GONE);
                 }
-                     else
+                     else if(infocontrol.equals("") && my_year > 0)
                 {
-                    uyarı.setVisibility(uyarı.VISIBLE);
+                    infoerror.setVisibility(View.VISIBLE);
+                    tariherror.setVisibility(View.GONE);
+
+                }
+                     else if(!infocontrol.equals("") && my_year == 0)
+                {
+                    infoerror.setVisibility(View.GONE);
+                    tariherror.setVisibility(View.VISIBLE);
+                }
+                   else
+                {
+                    infoerror.setVisibility(View.VISIBLE);
+                    tariherror.setVisibility(View.VISIBLE);
                 }
 
 

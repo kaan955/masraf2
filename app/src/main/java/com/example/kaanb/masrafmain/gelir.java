@@ -29,25 +29,11 @@ public class gelir extends AppCompatActivity {
     private Spinner myspinner;
     private ArrayList<String>etiketler = new ArrayList<>();
     private ArrayAdapter<String> etiketadaptoru;
-     static int day,month,year,my_day = 0,my_month = 0,my_year = 0;
+     static int currentday,currentmonth,currentyear,my_day = 0,my_month = 0,my_year = 0;
      static double prices = 0.0;
 
 
-     void init()
-    {
-        myspinner = new Spinner(this);
-        tarihtext = new TextView(this);
-        kayıtgelirbtn = new Button(this);
-        pricetxt = new TextView(this);
-        informationtext= new TextView(this);
-        db = new Databasehelper(this);
-        deletegelirbtn = new Button(this);
-        infoerror = new ImageView(this);
-        tariherror = new ImageView(this);
-        tutarerror = new ImageView(this);
 
-
-    }
 
 
     @Override
@@ -56,16 +42,7 @@ public class gelir extends AppCompatActivity {
         setContentView(R.layout.gelir);
 
         init();
-        myspinner = findViewById(R.id.spinnerlabel);
-        tarihtext = findViewById(R.id.tarihpicker);
-        kayıtgelirbtn = findViewById(R.id.kayıtgelirbtn);
-        informationtext = findViewById(R.id.informationtext);
-        pricetxt = findViewById(R.id.pricetxt);
-        deletegelirbtn = findViewById(R.id.deletegelirbtn);
-        infoerror = findViewById(R.id.infoerror);
-        tariherror = findViewById(R.id.tariherror);
-        tutarerror = findViewById(R.id.tutarerror);
-
+       addID();
 
         etiketler.add("Diğer");
         etiketler.add("Maaş");
@@ -90,9 +67,9 @@ public class gelir extends AppCompatActivity {
             public void onClick(View v) {
 
                 Calendar c = Calendar.getInstance();
-                 day = c.get(Calendar.DAY_OF_MONTH);
-                 month = c.get(Calendar.MONTH);
-                 year = c.get(Calendar.YEAR);
+                currentday = c.get(Calendar.DAY_OF_MONTH);
+                currentmonth = c.get(Calendar.MONTH);
+                currentyear = c.get(Calendar.YEAR);
 
 
                 DatePickerDialog datepicker;
@@ -104,9 +81,9 @@ public class gelir extends AppCompatActivity {
                         my_day = dayOfMonth;
                         my_month = month + 1;
                         my_year = year;
-                        tarihtext.setText("Tarih: " + my_day + " / "  +(month+1) + " / " +  year);
+                        tarihtext.setText("Tarih: " + my_day + " / "  +my_month + " / " +  my_year);
                     }
-                },day,month,year);
+                },currentyear,currentmonth,currentday);
                 datepicker.show();
 
             }
@@ -194,6 +171,41 @@ public class gelir extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+    }
+
+
+
+
+    void init()
+    {
+        myspinner = new Spinner(this);
+        tarihtext = new TextView(this);
+        kayıtgelirbtn = new Button(this);
+        pricetxt = new TextView(this);
+        informationtext= new TextView(this);
+        db = new Databasehelper(this);
+        deletegelirbtn = new Button(this);
+        infoerror = new ImageView(this);
+        tariherror = new ImageView(this);
+        tutarerror = new ImageView(this);
+
+
+    }
+    void addID()
+    {
+
+        myspinner = findViewById(R.id.spinnerlabel);
+        tarihtext = findViewById(R.id.tarihpicker);
+        kayıtgelirbtn = findViewById(R.id.kayıtgelirbtn);
+        informationtext = findViewById(R.id.informationtext);
+        pricetxt = findViewById(R.id.pricetxt);
+        deletegelirbtn = findViewById(R.id.deletegelirbtn);
+        infoerror = findViewById(R.id.infoerror);
+        tariherror = findViewById(R.id.tariherror);
+        tutarerror = findViewById(R.id.tutarerror);
+
+
 
     }
 }

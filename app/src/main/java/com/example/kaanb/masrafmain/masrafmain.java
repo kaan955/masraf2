@@ -23,97 +23,30 @@ private ConstraintLayout constraint,constraintbildirim,constaintmain;
 private LinearLayout linear;
 private Databasehelper db,db2;
 
-    String datex = "";
-    String datebildirim = "";
-    String infobildirim = "";
-    String datebildirim2 = "";
-    String infobildirim2 = "";
-    String gunkaldi = "";
-    String infox = "";
-    String pricex = "";
-    String pricex2 = "";
-    int counter = 0;
-    int []array;
+    String datex = "",datebildirim = "",infobildirim = "",datebildirim2 = "",infobildirim2 = "",gunkaldi = "",infox = "",pricex = "",pricex2 = "";
     String []arrays;
-    int arraycounter = 0;
+    int[] array;
+    int counter = 0,arraycounter = 0;
 
-
-    public void init()
-    {
-        gelir = new Button(this);
-        gider = new Button(this);
-        ser = new TextView(this);
-        lastprocessshow = new TextView(this);
-        lasttenshow = new TextView(this);
-        lastprocesswriter =  new TextView(this);
-        textdate = new TextView(this);
-        lastprocesswriter2 =  new TextView(this);
-        myscroll = new ScrollView(this);
-        linear = new LinearLayout(this);
-        constraintbildirim = new ConstraintLayout(this);
-        constaintmain = new ConstraintLayout(this);
-        textinfo = new TextView(this);
-        textprice = new TextView(this);
-        kalanguntxt = new TextView(this);
-        bildirimtxt = new TextView(this);
-        bildirimbutton = new Button(this);
-        gunkaldıtxt = new TextView(this);
-        bildirimnotxt = new TextView(this);
-        islemlernotxt = new TextView(this);
-        gelirtxt = new TextView(this);
-        gidertxt = new TextView(this);
-        totaltxt = new TextView(this);
-
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_masrafmain);
         init();
-
-        gelir = findViewById(R.id.gelir);
-        gider = findViewById(R.id.gider);
-        lastprocessshow = findViewById(R.id.lastprocessshow);
-        lasttenshow = findViewById(R.id.lasttenshow);
-        lastprocesswriter = findViewById(R.id.lastprocesswriter);
-        textdate = findViewById(R.id.textdate);
-        myscroll = findViewById(R.id.scroll);
-        constraint = findViewById(R.id.constraint);
-        bildirimbutton = findViewById(R.id.bildirimbutton);
-        textinfo = findViewById(R.id.textinfo);
-        textprice = findViewById(R.id.textprice);
-        bildirimtxt = findViewById(R.id.bildirimtxt);
-        kalanguntxt = findViewById(R.id.kalanguntxt);
-        gunkaldıtxt = findViewById(R.id.gunkaldıtxt);
-        bildirimnotxt = findViewById(R.id.bildirimnotxt);
-        islemlernotxt = findViewById(R.id.islemlernotxt);
-        constraintbildirim = findViewById(R.id.constraintbildirim);
-        constaintmain = findViewById(R.id.constaintmain);
-        gelirtxt = findViewById(R.id.gelirtxt);
-        gidertxt = findViewById(R.id.gidertxt);
-        totaltxt = findViewById(R.id.totaltxt);
-
-
+        addID();
 
         array = new int[500];
         arrays = new String[500];
-
-
-        db = new Databasehelper(this);
 
         new Database_dao().veriler(db);
         SQLiteDatabase dbm = db.getReadableDatabase();
 
 
         Cursor c = dbm.rawQuery("SELECT * FROM holder", null);
-
         c.moveToFirst();
 
-
-        if(c != null && c.getCount()<=0){
-          // String num = c.getString(c.getColumnIndex("day"));
+        if(c.getCount()<=0){
             c.close();
             islemlernotxt.setText("Gelir & gider giriniz.." );
         }
@@ -126,7 +59,7 @@ private Databasehelper db,db2;
                             c.getInt(c.getColumnIndex("year")) + "\n";
                     infox = infox + c.getString(c.getColumnIndex("info"))+"\n";
                     pricex2 = Double.toString(c.getDouble(c.getColumnIndex("price")));
-                    pricex = pricex + pricex2 +"₺" + "\n";
+                    pricex = pricex + "₺" + pricex2  + "\n";
                     counter++;
 
                 }
@@ -143,8 +76,6 @@ private Databasehelper db,db2;
             textprice.setText("" + pricex);
 
         }
-
-
 
         ///////////////YAKLASAN BILDIRIMLER/////////////////////
 
@@ -296,6 +227,63 @@ private Databasehelper db,db2;
 
 
 
+    public void init()
+    {
+        gelir = new Button(this);
+        gider = new Button(this);
+        ser = new TextView(this);
+        lastprocessshow = new TextView(this);
+        lasttenshow = new TextView(this);
+        lastprocesswriter =  new TextView(this);
+        textdate = new TextView(this);
+        lastprocesswriter2 =  new TextView(this);
+        myscroll = new ScrollView(this);
+        linear = new LinearLayout(this);
+        constraintbildirim = new ConstraintLayout(this);
+        constaintmain = new ConstraintLayout(this);
+        textinfo = new TextView(this);
+        textprice = new TextView(this);
+        kalanguntxt = new TextView(this);
+        bildirimtxt = new TextView(this);
+        bildirimbutton = new Button(this);
+        gunkaldıtxt = new TextView(this);
+        bildirimnotxt = new TextView(this);
+        islemlernotxt = new TextView(this);
+        gelirtxt = new TextView(this);
+        gidertxt = new TextView(this);
+        totaltxt = new TextView(this);
+        db = new Databasehelper(this);
+
+
+    }
+
+    public void addID()
+    {
+
+        gelir = findViewById(R.id.gelir);
+        gider = findViewById(R.id.gider);
+        lastprocessshow = findViewById(R.id.lastprocessshow);
+        lasttenshow = findViewById(R.id.lasttenshow);
+        lastprocesswriter = findViewById(R.id.lastprocesswriter);
+        textdate = findViewById(R.id.textdate);
+        myscroll = findViewById(R.id.scroll);
+        constraint = findViewById(R.id.constraint);
+        bildirimbutton = findViewById(R.id.bildirimbutton);
+        textinfo = findViewById(R.id.textinfo);
+        textprice = findViewById(R.id.textprice);
+        bildirimtxt = findViewById(R.id.bildirimtxt);
+        kalanguntxt = findViewById(R.id.kalanguntxt);
+        gunkaldıtxt = findViewById(R.id.gunkaldıtxt);
+        bildirimnotxt = findViewById(R.id.bildirimnotxt);
+        islemlernotxt = findViewById(R.id.islemlernotxt);
+        constraintbildirim = findViewById(R.id.constraintbildirim);
+        constaintmain = findViewById(R.id.constaintmain);
+        gelirtxt = findViewById(R.id.gelirtxt);
+        gidertxt = findViewById(R.id.gidertxt);
+        totaltxt = findViewById(R.id.totaltxt);
+
+
+    }
 
 
 
