@@ -60,6 +60,8 @@ public class bildirimler extends AppCompatActivity {
         infoerror = findViewById(R.id.infoerror);
 
 
+
+
     }
 
 
@@ -126,6 +128,14 @@ public class bildirimler extends AppCompatActivity {
                 }
 
 
+            }
+        });
+
+        iptalbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(bildirimler.this, masrafmain.class);
+                startActivity(intent);
             }
         });
 

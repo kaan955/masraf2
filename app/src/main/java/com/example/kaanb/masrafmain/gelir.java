@@ -10,6 +10,7 @@ import android.support.v7.widget.AppCompatRadioButton;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,12 +30,10 @@ public class gelir extends AppCompatActivity {
     private Spinner myspinner;
     private ArrayList<String>etiketler = new ArrayList<>();
     private ArrayAdapter<String> etiketadaptoru;
-     static int currentday,currentmonth,currentyear,my_day = 0,my_month = 0,my_year = 0;
-     static double prices = 0.0;
-
-
-
-
+    private CheckBox monthrepeat;
+    static int currentday,currentmonth,currentyear,my_day = 0,my_month = 0,my_year = 0;
+    static double prices = 0.0;
+    static String myrepeat ="NO";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,12 +94,26 @@ public class gelir extends AppCompatActivity {
                 String s,spin,control,pricescontrol=pricetxt.getText().toString();
                 control = informationtext.getText().toString();
 
+                monthrepeat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if ( monthrepeat.isChecked() )
+                        {
+                            myrepeat ="YES";
+                        }
+                        else {
+                            myrepeat = "NO";
+                        }
+                    }
+                });
+
+
                 if(my_year > 0 && !pricescontrol.equals("") &&  !control.equals("")) {
                     String pricesx = pricetxt.getText().toString();
                     prices = Double.parseDouble(pricesx);
                     s = informationtext.getText().toString();
                     spin = myspinner.getSelectedItem().toString();
-                    new Database_dao().adding(db,"Type",s,my_day,my_month,my_year,prices,"radiostring",spin,"devam",1);
+                    new Database_dao().adding(db,"gelir",s,my_day,my_month,my_year,prices,myrepeat,spin,"devam",1);
                     Intent intent = new Intent(gelir.this, masrafmain.class);
                     startActivity(intent);
                     infoerror.setVisibility(View.GONE);
@@ -189,12 +202,11 @@ public class gelir extends AppCompatActivity {
         infoerror = new ImageView(this);
         tariherror = new ImageView(this);
         tutarerror = new ImageView(this);
-
+        monthrepeat = new CheckBox(this);
 
     }
     void addID()
     {
-
         myspinner = findViewById(R.id.spinnerlabel);
         tarihtext = findViewById(R.id.tarihpicker);
         kayıtgelirbtn = findViewById(R.id.kayıtgelirbtn);
@@ -204,8 +216,6 @@ public class gelir extends AppCompatActivity {
         infoerror = findViewById(R.id.infoerror);
         tariherror = findViewById(R.id.tariherror);
         tutarerror = findViewById(R.id.tutarerror);
-
-
-
+        monthrepeat = findViewById(R.id.monthrepeat);
     }
 }

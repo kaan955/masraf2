@@ -80,8 +80,8 @@
         android:layout_marginLeft="88dp"
         android:layout_marginTop="8dp"
         android:background="@null"
-        android:ems="10"
-        android:inputType="numberSigned"
+        android:inputType="numberDecimal"
+        android:maxLength="20"
         android:paddingBottom="20dp"
         android:selectAllOnFocus="false"
         android:singleLine="true"
@@ -183,5 +183,17 @@
         app:layout_constraintTop_toTopOf="@+id/textinfo"
         app:layout_constraintVertical_bias="0.512"
         app:srcCompat="@android:drawable/presence_busy" />
+
+    <CheckBox
+        android:id="@+id/monthrepeat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="Her Ay İşlemi Tekrarla"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerlabel"
+        app:layout_constraintStart_toEndOf="@+id/spinnerlabel"
+        app:layout_constraintTop_toTopOf="@+id/spinnerlabel" />
 
 </android.support.constraint.ConstraintLayout>

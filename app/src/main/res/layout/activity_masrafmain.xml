@@ -95,7 +95,6 @@
             android:id="@+id/constraint"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/greybac"
             android:fillViewport="true"
             android:isScrollContainer="false"
             android:scrollbarAlwaysDrawHorizontalTrack="false">
@@ -151,13 +150,15 @@
     <TextView
         android:id="@+id/tarihtext"
         android:layout_width="100dp"
-        android:layout_height="15dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
+        android:layout_marginTop="5dp"
         android:text="Tarih"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/scroll"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lastprocessshow" />
 
     <TextView
         android:id="@+id/aciklamatxt"
@@ -165,10 +166,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="5dp"
         android:text="Açıklama"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/scroll"
-        app:layout_constraintStart_toEndOf="@+id/tarihtext" />
+        app:layout_constraintStart_toEndOf="@+id/tarihtext"
+        app:layout_constraintTop_toBottomOf="@+id/lastprocessshow" />
 
     <TextView
         android:id="@+id/tutartxt"
@@ -176,10 +179,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="5dp"
         android:text="Tutar"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/aciklamatxt"
-        app:layout_constraintStart_toEndOf="@+id/aciklamatxt" />
+        app:layout_constraintStart_toEndOf="@+id/aciklamatxt"
+        app:layout_constraintTop_toBottomOf="@+id/lastprocessshow" />
 
     <ScrollView
         android:id="@+id/scrollbildirim"
@@ -196,7 +200,6 @@
             android:id="@+id/constraintbildirim"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="@drawable/greybac"
             android:fillViewport="true"
             android:isScrollContainer="false"
             android:scrollbarAlwaysDrawHorizontalTrack="false"
@@ -228,7 +231,8 @@
                 android:id="@+id/gunkaldıtxt"
                 android:layout_width="95dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@+id/kalanguntxt" />
+                app:layout_constraintStart_toEndOf="@+id/kalanguntxt"
+                app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 
@@ -238,7 +242,7 @@
         android:layout_height="234dp"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:background="@drawable/greybac"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -246,16 +250,21 @@
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginLeft="100dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
             android:foregroundGravity="center"
             android:text="GELIR"
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/textView6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/gelirtxt"
+            android:id="@+id/topofgelir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@+id/textView7"
@@ -269,9 +278,12 @@
             android:layout_marginStart="40dp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="27dp"
+            android:layout_marginRight="27dp"
             android:text="GIDER"
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/textView8"
             app:layout_constraintStart_toEndOf="@+id/textView7"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -290,9 +302,13 @@
             android:layout_marginStart="40dp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="100dp"
+            android:layout_marginRight="100dp"
             android:text="TOTAL"
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.84"
             app:layout_constraintStart_toEndOf="@+id/textView6"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -322,6 +338,49 @@
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bu ay"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="89dp"
+            android:layout_height="54dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            app:layout_constraintEnd_toStartOf="@+id/textView12"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginLeft="100dp"
+            android:text="Geçen ay"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/textView9"
+            app:layout_constraintStart_toEndOf="@+id/textView9"
+            app:layout_constraintTop_toTopOf="@+id/textView9"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="103dp"
+            android:layout_height="51dp"
+            app:layout_constraintStart_toStartOf="@+id/textView12"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
 
     </android.support.constraint.ConstraintLayout>
 

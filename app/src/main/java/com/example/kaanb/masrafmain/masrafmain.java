@@ -3,6 +3,7 @@ package com.example.kaanb.masrafmain;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,12 +22,13 @@ private TextView ser,lastprocessshow,lastprocesswriter2,lasttenshow,lastprocessw
 private ScrollView myscroll;
 private ConstraintLayout constraint,constraintbildirim,constaintmain;
 private LinearLayout linear;
-private Databasehelper db,db2;
+private Databasehelper db,db2,db3;
 
     String datex = "",datebildirim = "",infobildirim = "",datebildirim2 = "",infobildirim2 = "",gunkaldi = "",infox = "",pricex = "",pricex2 = "";
     String []arrays;
     int[] array;
     int counter = 0,arraycounter = 0;
+    double totalgelir = 0.0;
 
 
     @Override
@@ -38,6 +40,10 @@ private Databasehelper db,db2;
 
         array = new int[500];
         arrays = new String[500];
+        constraint.setBackgroundColor(Color.parseColor("#96B478"));
+        constaintmain.setBackgroundColor(Color.parseColor("#96B478"));
+        constraintbildirim.setBackgroundColor(Color.parseColor("#96B478"));
+
 
         new Database_dao().veriler(db);
         SQLiteDatabase dbm = db.getReadableDatabase();
@@ -46,20 +52,19 @@ private Databasehelper db,db2;
         Cursor c = dbm.rawQuery("SELECT * FROM holder", null);
         c.moveToFirst();
 
-        if(c.getCount()<=0){
+        if (c.getCount() <= 0) {
             c.close();
-            islemlernotxt.setText("Gelir & gider giriniz.." );
-        }
-        else{
+            islemlernotxt.setText("Gelir & gider giriniz..");
+        } else {
             c.moveToLast();
             do {
                 if (counter <= 15) {
                     datex = datex + c.getInt(c.getColumnIndex("day")) + "." +
                             c.getInt(c.getColumnIndex("month")) + "." +
                             c.getInt(c.getColumnIndex("year")) + "\n";
-                    infox = infox + c.getString(c.getColumnIndex("info"))+"\n";
+                    infox = infox + c.getString(c.getColumnIndex("info")) + "\n";
                     pricex2 = Double.toString(c.getDouble(c.getColumnIndex("price")));
-                    pricex = pricex + "₺" + pricex2  + "\n";
+                    pricex = pricex + "₺" + pricex2 + "\n";
                     counter++;
 
                 }
@@ -76,6 +81,7 @@ private Databasehelper db,db2;
             textprice.setText("" + pricex);
 
         }
+
 
         ///////////////YAKLASAN BILDIRIMLER/////////////////////
 
@@ -94,135 +100,151 @@ private Databasehelper db,db2;
 
         d.moveToLast();
 
-         if(d != null && d.getCount()<=0) {
+        if (d.getCount() <= 0) {
 
-             d.close();
-             bildirimnotxt.setText("Bildirim giriniz..");
+            d.close();
+            bildirimnotxt.setText("Bildirim giriniz..");
 
-         }
-         else {
-             do {
+        } else {
+            do {
 
-                 if ((mYear == d.getInt(d.getColumnIndex("year"))) && (((mMonth + 1) == d.getInt(d.getColumnIndex("month"))) || ((mMonth + 2) == d.getInt(d.getColumnIndex("month"))))) {
+                if ((mYear == d.getInt(d.getColumnIndex("year"))) && (((mMonth + 1) == d.getInt(d.getColumnIndex("month"))) || ((mMonth + 2) == d.getInt(d.getColumnIndex("month"))))) {
 
-                     if (((mMonth + 1) == d.getInt(d.getColumnIndex("month"))) && (mDay <= d.getInt(d.getColumnIndex("day")))) {
-
-
-                         int day_counter = (d.getInt(d.getColumnIndex("day"))) - mDay;
-                         datebildirim = datebildirim + day_counter + "\n";
-                         infobildirim = infobildirim + d.getString(d.getColumnIndex("informationx")) + "\n";
-                         array[arraycounter] = day_counter;
-                         arrays[arraycounter] = d.getString(d.getColumnIndex("informationx"));
-                         arraycounter++;
-                         gunkaldi = gunkaldi+ " gün kaldı." + "\n";
-                     } else if (((mMonth + 2) == d.getInt(d.getColumnIndex("month")))) {
-                         int res = e.getActualMaximum(Calendar.DATE);
-                         int day_counter = (d.getInt(d.getColumnIndex("day"))) + (res - mDay);
-
-                         if (day_counter <= 30) {
-                             datebildirim = datebildirim + day_counter + "\n";
-                             infobildirim = infobildirim + d.getString(d.getColumnIndex("informationx")) + "\n";
-                             array[arraycounter] = day_counter;
-                             arrays[arraycounter] = d.getString(d.getColumnIndex("informationx"));
-                             arraycounter++;
-                             gunkaldi = gunkaldi+ " gün kaldı." + "\n";
-                         }
+                    if (((mMonth + 1) == d.getInt(d.getColumnIndex("month"))) && (mDay <= d.getInt(d.getColumnIndex("day")))) {
 
 
-                     }
+                        int day_counter = (d.getInt(d.getColumnIndex("day"))) - mDay;
+                        datebildirim = datebildirim + day_counter + "\n";
+                        infobildirim = infobildirim + d.getString(d.getColumnIndex("informationx")) + "\n";
+                        array[arraycounter] = day_counter;
+                        arrays[arraycounter] = d.getString(d.getColumnIndex("informationx"));
+                        arraycounter++;
+                        gunkaldi = gunkaldi + " gün kaldı." + "\n";
+                    } else if (((mMonth + 2) == d.getInt(d.getColumnIndex("month")))) {
+                        int res = e.getActualMaximum(Calendar.DATE);
+                        int day_counter = (d.getInt(d.getColumnIndex("day"))) + (res - mDay);
 
-                 }
+                        if (day_counter <= 30) {
+                            datebildirim = datebildirim + day_counter + "\n";
+                            infobildirim = infobildirim + d.getString(d.getColumnIndex("informationx")) + "\n";
+                            array[arraycounter] = day_counter;
+                            arrays[arraycounter] = d.getString(d.getColumnIndex("informationx"));
+                            arraycounter++;
+                            gunkaldi = gunkaldi + " gün kaldı." + "\n";
+                        }
 
 
-             } while (d.moveToPrevious());
+                    }
 
-
-
-
-        ///////Array Sort //////////
-        for (int i = 0; i < arraycounter-1; i++) {
-
-            int sayi = array[i];
-            int temp = i;
-            String r = arrays[i];
-
-            for (int j = i+1; j < arraycounter ; j++) {
-                if(array[j]<sayi){
-                    sayi = array[j];
-                    r = arrays[j];
-                    temp = j;
                 }
-            }
 
-            if(temp != i){
-                array[temp] = array[i];
-                arrays[temp] = arrays[i];
-                arrays[i] = r;
-                array[i] = sayi;
+
+            } while (d.moveToPrevious());
+
+
+            ///////Array Sort //////////
+            for (int i = 0; i < arraycounter - 1; i++) {
+
+                int sayi = array[i];
+                int temp = i;
+                String r = arrays[i];
+
+                for (int j = i + 1; j < arraycounter; j++) {
+                    if (array[j] < sayi) {
+                        sayi = array[j];
+                        r = arrays[j];
+                        temp = j;
+                    }
+                }
+
+                if (temp != i) {
+                    array[temp] = array[i];
+                    arrays[temp] = arrays[i];
+                    arrays[i] = r;
+                    array[i] = sayi;
+                }
+
+            }
+            if (arraycounter == 0) {
+                bildirimnotxt.setText("30 gün içerisinde yaklaşan bildiriminiz yok.");
+            } else {
+
+                for (int u = 0; u <= arraycounter - 1; u++) {
+                    datebildirim2 = datebildirim2 + array[u] + "\n";
+                }
+
+                for (int p = 0; p <= arraycounter - 1; p++) {
+                    infobildirim2 = infobildirim2 + arrays[p] + "\n";
+                }
+
+                islemlernotxt.setText("");
+                gunkaldıtxt.setText("" + gunkaldi);
+                bildirimtxt.setText("" + infobildirim2);
+                kalanguntxt.setText("" + datebildirim2);
             }
 
         }
-        if(arraycounter == 0)
-        {
-            bildirimnotxt.setText("30 gün içerisinde yaklaşan bildiriminiz yok.");
-        }
-        else {
-
-            for (int u = 0; u <= arraycounter - 1; u++) {
-                datebildirim2 = datebildirim2 + array[u] + "\n";
-            }
-
-            for (int p = 0; p <= arraycounter - 1; p++) {
-                infobildirim2 = infobildirim2 + arrays[p] + "\n";
-            }
-
-            islemlernotxt.setText("");
-            gunkaldıtxt.setText("" + gunkaldi);
-            bildirimtxt.setText("" + infobildirim2);
-            kalanguntxt.setText("" + datebildirim2);
-        }
-
-     }
-
-
-
-        gelirtxt.setText("123213" + "₺");
-         gidertxt.setText("-" + "1232131" +"₺");
-         totaltxt.setText("" +"23123" + "₺");
-
 
 
         gelir.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-               ser.setText("Kaan");
+                ser.setText("Kaan");
 
-               Intent intent = new Intent(masrafmain.this,gelir.class);
+                Intent intent = new Intent(masrafmain.this, gelir.class);
                 startActivity(intent);
 
-           }
+            }
 
-       });
+        });
 
 
-       gider.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent intent = new Intent(masrafmain.this,gider.class);
-               startActivity(intent);
-           }
-       });
+        gider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(masrafmain.this, gider.class);
+                startActivity(intent);
+            }
+        });
 
         bildirimbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(masrafmain.this,bildirimler.class);
+                Intent intent = new Intent(masrafmain.this, bildirimler.class);
                 startActivity(intent);
             }
         });
 
 
+        /////////Gelir Gider Total hesaplama ////////////
+
+
+        db3 = new Databasehelper(this);
+        new Database_dao().veriler(db3);
+        SQLiteDatabase dbm3 = db3.getReadableDatabase();
+
+
+        Cursor g = dbm.rawQuery("SELECT price FROM holder", null);
+        g.moveToFirst();
+
+        if (g.getCount() <= 0) {
+
+            g.close();
+            gelirtxt.setText("₺" + "0");
+            gidertxt.setText("₺" + "0");
+            totaltxt.setText("₺" + "0");
+
+        } else {
+            do {
+                totalgelir = totalgelir + g.getDouble(g.getColumnIndex("price"));
+
+
+            } while (g.moveToNext());
+
+            totaltxt.setText("" + totalgelir);
+
+        }
     }
 
 
@@ -253,13 +275,13 @@ private Databasehelper db,db2;
         gidertxt = new TextView(this);
         totaltxt = new TextView(this);
         db = new Databasehelper(this);
-
-
+        constraint = new ConstraintLayout(this);
+        constraintbildirim = new ConstraintLayout(this);
+        constaintmain = new ConstraintLayout(this);
     }
 
     public void addID()
     {
-
         gelir = findViewById(R.id.gelir);
         gider = findViewById(R.id.gider);
         lastprocessshow = findViewById(R.id.lastprocessshow);
@@ -267,7 +289,6 @@ private Databasehelper db,db2;
         lastprocesswriter = findViewById(R.id.lastprocesswriter);
         textdate = findViewById(R.id.textdate);
         myscroll = findViewById(R.id.scroll);
-        constraint = findViewById(R.id.constraint);
         bildirimbutton = findViewById(R.id.bildirimbutton);
         textinfo = findViewById(R.id.textinfo);
         textprice = findViewById(R.id.textprice);
@@ -278,11 +299,12 @@ private Databasehelper db,db2;
         islemlernotxt = findViewById(R.id.islemlernotxt);
         constraintbildirim = findViewById(R.id.constraintbildirim);
         constaintmain = findViewById(R.id.constaintmain);
-        gelirtxt = findViewById(R.id.gelirtxt);
+        gelirtxt = findViewById(R.id.topofgelir);
         gidertxt = findViewById(R.id.gidertxt);
         totaltxt = findViewById(R.id.totaltxt);
-
-
+        constraint = findViewById(R.id.constraint);
+        constraintbildirim = findViewById(R.id.constraintbildirim);
+        constaintmain = findViewById(R.id.constaintmain);
     }
 
 

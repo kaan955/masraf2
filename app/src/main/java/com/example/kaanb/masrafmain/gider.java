@@ -39,7 +39,7 @@ public class gider extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gider);
 
-        init();
+         init();
         addID();
 
         etiketler.add("Diğer");
