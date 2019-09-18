@@ -13,6 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Calendar;
 
 public class masrafmain extends AppCompatActivity {
@@ -47,7 +50,8 @@ private Databasehelper db,db2,db3;
 
         new Database_dao().veriler(db);
         SQLiteDatabase dbm = db.getReadableDatabase();
-
+        DecimalFormat df = new DecimalFormat("0");
+        df.setMaximumFractionDigits(340);
 
         Cursor c = dbm.rawQuery("SELECT * FROM holder", null);
         c.moveToFirst();
@@ -63,8 +67,8 @@ private Databasehelper db,db2,db3;
                             c.getInt(c.getColumnIndex("month")) + "." +
                             c.getInt(c.getColumnIndex("year")) + "\n";
                     infox = infox + c.getString(c.getColumnIndex("info")) + "\n";
-                    pricex2 = Double.toString(c.getDouble(c.getColumnIndex("price")));
-                    pricex = pricex + "₺" + pricex2 + "\n";
+                    String firstNumberAsString = String.format ("%.10f", c.getDouble(c.getColumnIndex("price")));
+                    pricex +="₺" + firstNumberAsString + "\n";
                     counter++;
 
                 }
@@ -240,9 +244,11 @@ private Databasehelper db,db2,db3;
                 totalgelir = totalgelir + g.getDouble(g.getColumnIndex("price"));
 
 
-            } while (g.moveToNext());
 
-            totaltxt.setText("" + totalgelir);
+            } while (g.moveToNext());
+            String firstNumberAsString = String.format ("%.10f", totalgelir);
+
+            totaltxt.setText("" + firstNumberAsString);
 
         }
     }
