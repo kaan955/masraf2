@@ -31,7 +31,7 @@ private Databasehelper db,db2,db3;
     String []arrays;
     int[] array;
     int counter = 0,arraycounter = 0;
-    double totalgelir = 0.0;
+    double totalgelir = 0.0,totalgider=0.0,totaltotal=0.0;
 
 
     @Override
@@ -67,7 +67,7 @@ private Databasehelper db,db2,db3;
                             c.getInt(c.getColumnIndex("month")) + "." +
                             c.getInt(c.getColumnIndex("year")) + "\n";
                     infox = infox + c.getString(c.getColumnIndex("info")) + "\n";
-                    String firstNumberAsString = String.format ("%.10f", c.getDouble(c.getColumnIndex("price")));
+                    String firstNumberAsString = String.format ("%.2f", c.getDouble(c.getColumnIndex("price")));
                     pricex +="₺" + firstNumberAsString + "\n";
                     counter++;
 
@@ -104,12 +104,13 @@ private Databasehelper db,db2,db3;
 
         d.moveToLast();
 
-        if (d.getCount() <= 0) {
+        if ( d.getCount() <= 0 ) {
 
             d.close();
             bildirimnotxt.setText("Bildirim giriniz..");
 
         } else {
+
             do {
 
                 if ((mYear == d.getInt(d.getColumnIndex("year"))) && (((mMonth + 1) == d.getInt(d.getColumnIndex("month"))) || ((mMonth + 2) == d.getInt(d.getColumnIndex("month"))))) {
@@ -229,7 +230,7 @@ private Databasehelper db,db2,db3;
         SQLiteDatabase dbm3 = db3.getReadableDatabase();
 
 
-        Cursor g = dbm.rawQuery("SELECT price FROM holder", null);
+        Cursor g = dbm3.rawQuery("SELECT type,price FROM holder", null);
         g.moveToFirst();
 
         if (g.getCount() <= 0) {
@@ -241,14 +242,37 @@ private Databasehelper db,db2,db3;
 
         } else {
             do {
-                totalgelir = totalgelir + g.getDouble(g.getColumnIndex("price"));
+                String typer = g.getString(g.getColumnIndex("type"));
+                Double pricer = g.getDouble(g.getColumnIndex("price"));
+
+                if(typer.equals("gelir"))
+                {
+                    totalgelir += pricer;
+                }
+                else if(typer.equals("gider"))
+                {
+                    totalgider += pricer;
+                }
+                else
+                {
+                    totalgelir += 0;
+                }
+
+                totaltotal = totalgelir - totalgider;
 
 
 
             } while (g.moveToNext());
-            String firstNumberAsString = String.format ("%.10f", totalgelir);
 
-            totaltxt.setText("" + firstNumberAsString);
+
+            String firstNumberAsString = String.format ("%.2f", totalgelir);
+            String firstNumberAsString2 = String.format ("%.2f", totalgider);
+            String firstNumberAsString3 = String.format ("%.2f", totaltotal);
+
+            totaltxt.setText("" + "₺" + firstNumberAsString);
+            gelirtxt.setText("" +"₺" + firstNumberAsString2 );
+            gidertxt.setText("" +"₺"+ firstNumberAsString3);
+
 
         }
     }

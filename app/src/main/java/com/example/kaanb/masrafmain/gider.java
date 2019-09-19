@@ -110,7 +110,7 @@ public class gider extends AppCompatActivity {
 
                     s = informationtext.getText().toString();
                     spin= myspinner.getSelectedItem().toString();
-                    new Database_dao().adding(db,"Type",s,my_day,my_month,my_year,prices,"radiostring",spin,"devam",taksit);
+                    new Database_dao().adding(db,"gider",s,my_day,my_month,my_year,prices,"radiostring",spin,"devam",taksit);
                     Intent intent = new Intent(gider.this, masrafmain.class);
                     startActivity(intent);
                     infoerror.setVisibility(View.GONE);

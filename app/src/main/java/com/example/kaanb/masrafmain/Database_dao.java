@@ -16,8 +16,8 @@ public class Database_dao extends AppCompatActivity {
         ContentValues mycontent = new ContentValues();
 
         //mycontent.put("processid",process_id);
-         //mycontent.put("type",my_type);
 
+         mycontent.put("type",my_type);
          mycontent.put("info",my_info);
          mycontent.put("day",my_day);
         mycontent.put("month",my_month);

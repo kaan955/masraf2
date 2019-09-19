@@ -8,7 +8,7 @@ public class Databasehelper extends SQLiteOpenHelper {
 
 
     public Databasehelper(Context context) {
-        super(context, "veritutar5", null, 5);
+        super(context, "veritutar5", null, 10);
     }
 
     @Override
