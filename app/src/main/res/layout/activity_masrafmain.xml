@@ -384,4 +384,15 @@
 
     </android.support.constraint.ConstraintLayout>
 
+    <ImageView
+        android:id="@+id/imageislemedit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/lasttenshow"
+        app:layout_constraintStart_toEndOf="@+id/lasttenshow"
+        app:layout_constraintTop_toTopOf="@+id/lasttenshow"
+        app:srcCompat="@mipmap/editlast" />
+
 </android.support.constraint.ConstraintLayout>

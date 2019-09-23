@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -26,6 +27,8 @@ private ScrollView myscroll;
 private ConstraintLayout constraint,constraintbildirim,constaintmain;
 private LinearLayout linear;
 private Databasehelper db,db2,db3;
+private ImageView imageislemedit;
+
 
     String datex = "",datebildirim = "",infobildirim = "",datebildirim2 = "",infobildirim2 = "",gunkaldi = "",infox = "",pricex = "",pricex2 = "";
     String []arrays;
@@ -43,9 +46,9 @@ private Databasehelper db,db2,db3;
 
         array = new int[500];
         arrays = new String[500];
-        constraint.setBackgroundColor(Color.parseColor("#96B478"));
-        constaintmain.setBackgroundColor(Color.parseColor("#96B478"));
-        constraintbildirim.setBackgroundColor(Color.parseColor("#96B478"));
+        constraint.setBackgroundColor(Color.parseColor("#C5E1A5")); //C5E1A5 B1C282 96B478
+        constaintmain.setBackgroundColor(Color.parseColor("#C5E1A5"));
+        constraintbildirim.setBackgroundColor(Color.parseColor("#C5E1A5"));
 
 
         new Database_dao().veriler(db);
@@ -275,6 +278,18 @@ private Databasehelper db,db2,db3;
 
 
         }
+
+        imageislemedit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(masrafmain.this, editislemler.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+
     }
 
 
@@ -308,6 +323,7 @@ private Databasehelper db,db2,db3;
         constraint = new ConstraintLayout(this);
         constraintbildirim = new ConstraintLayout(this);
         constaintmain = new ConstraintLayout(this);
+        imageislemedit = new ImageView(this);
     }
 
     public void addID()
@@ -335,6 +351,7 @@ private Databasehelper db,db2,db3;
         constraint = findViewById(R.id.constraint);
         constraintbildirim = findViewById(R.id.constraintbildirim);
         constaintmain = findViewById(R.id.constaintmain);
+        imageislemedit = findViewById(R.id.imageislemedit);
     }
 
 

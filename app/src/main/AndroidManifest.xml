@@ -33,20 +33,34 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
-            
         </activity>
 
-        <activity android:name=".bildirimler">
+        <activity android:name=".editislemler">
             <intent-filter>
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
-
         </activity>
+
+
+
+
+    <activity android:name=".bildirimler">
+        <intent-filter>
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+
+
+
+
+
+
+    </activity>
+
+
+
+
 
     </application>
 
