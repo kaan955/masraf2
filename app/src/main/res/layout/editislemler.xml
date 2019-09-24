@@ -1,6 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="100dp"
+        android:layout_height="256dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="48dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linear2"
+        android:layout_width="100dp"
+        android:layout_height="256dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/linear"
+        app:layout_constraintStart_toEndOf="@+id/linear"
+        app:layout_constraintTop_toTopOf="@+id/linear"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear3"
+        android:layout_width="100dp"
+        android:layout_height="256dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/linear2"
+        app:layout_constraintStart_toEndOf="@+id/linear2"
+        app:layout_constraintTop_toTopOf="@+id/linear2"></LinearLayout>
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tarih"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/linear"
+        app:layout_constraintStart_toStartOf="@+id/linear" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Açıklama"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/linear2"
+        app:layout_constraintStart_toStartOf="@+id/linear2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ücret"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/linear3"
+        app:layout_constraintStart_toStartOf="@+id/linear3" />
+
+    <TextView
+        android:id="@+id/Islemselect"
+        android:layout_width="197dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linear" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/editbox_dropdown_dark_frame"
+        tools:layout_editor_absoluteX="324dp"
+        tools:layout_editor_absoluteY="48dp" />
 </android.support.constraint.ConstraintLayout>

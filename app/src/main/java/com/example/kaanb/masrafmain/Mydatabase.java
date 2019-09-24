@@ -20,9 +20,9 @@ public class Mydatabase {
 
     public Mydatabase() {
     }
-        public Mydatabase(String typex,String infox, int month,int day,int year,double price,String repeat,String label,String pricetype,int taksit)
+        public Mydatabase(int processidx,String typex,String infox, int month,int day,int year,double price,String repeat,String label,String pricetype,int taksit)
         {
-       // this.processid = processidx;
+        this.processid = processidx;
 
         this.type = typex;
 

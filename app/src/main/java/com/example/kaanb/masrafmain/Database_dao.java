@@ -46,7 +46,7 @@ public class Database_dao extends AppCompatActivity {
         while(c.moveToNext())
         {
             Mydatabase verilerim = new Mydatabase(
-
+                    c.getInt(c.getColumnIndex("processid")),
                     c.getString(c.getColumnIndex("type")),
                     c.getString(c.getColumnIndex("info")),
                   c.getInt(c.getColumnIndex("month")),
