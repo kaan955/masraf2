@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="69dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintStart_toStartOf="@+id/masrafkonu"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/grennadd" />
+
+    <Button
+        android:id="@+id/kayıtgelirbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="8dp"
+        android:text="KAYIT"
+        app:layout_constraintEnd_toEndOf="@+id/textinfo"
+        app:layout_constraintTop_toBottomOf="@+id/monthrepeat" />
+
+    <TextView
+        android:id="@+id/masrafkonu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="57dp"
+        android:background="@drawable/borderpic"
+        android:freezesText="true"
+        android:padding="20dp"
+        android:text="Açıklama:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/informationtext"
+        android:layout_width="227dp"
+        android:layout_height="73dp"
+        android:layout_marginStart="125dp"
+        android:layout_marginLeft="125dp"
+        android:layout_marginTop="60dp"
+        android:background="@null"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:maxLength="17"
+        android:paddingBottom="18dp"
+        android:singleLine="true"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/borderpic"
+        android:padding="18dp"
+        android:text="Tutar:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tarihpicker" />
+
+    <EditText
+        android:id="@+id/pricetxt"
+        android:layout_width="252dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginLeft="88dp"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:inputType="numberDecimal"
+        android:maxLength="20"
+        android:paddingBottom="20dp"
+        android:selectAllOnFocus="false"
+        android:singleLine="true"
+        android:textColorHighlight="@color/colorAccent"
+        android:textColorHint="@color/colorPrimary"
+        android:textColorLink="@color/colorPrimary"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tarihpicker" />
+
+    <TextView
+        android:id="@+id/tarihpicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/borderpic"
+        android:padding="20dp"
+        android:text="Tarih Girmek İçin Tıklayınız"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/masrafkonu" />
+
+    <Button
+        android:id="@+id/deletegelirbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:text="IPTAL"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/kayıtgelirbtn"
+        app:layout_constraintEnd_toStartOf="@+id/kayıtgelirbtn"
+        app:layout_constraintTop_toTopOf="@+id/kayıtgelirbtn" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="GELIR KAYIT"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toEndOf="@+id/imageView7"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinnerlabel"
+        android:layout_width="140dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:fadeScrollbars="false"
+        android:scrollbarSize="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pricetxt" />
+
+    <ImageView
+        android:id="@+id/infoerror"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/tarihpicker"
+        app:layout_constraintEnd_toEndOf="@+id/masrafkonu"
+        app:layout_constraintTop_toTopOf="@+id/masrafkonu"
+        app:layout_constraintVertical_bias="0.512"
+        app:srcCompat="@android:drawable/presence_busy" />
+
+    <ImageView
+        android:id="@+id/tariherror"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/tarihpicker"
+        app:layout_constraintEnd_toEndOf="@+id/tarihpicker"
+        app:layout_constraintTop_toTopOf="@+id/tarihpicker"
+        app:layout_constraintVertical_bias="0.435"
+        app:srcCompat="@android:drawable/presence_busy" />
+
+    <ImageView
+        android:id="@+id/tutarerror"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/textinfo"
+        app:layout_constraintEnd_toEndOf="@+id/textinfo"
+        app:layout_constraintTop_toTopOf="@+id/textinfo"
+        app:layout_constraintVertical_bias="0.512"
+        app:srcCompat="@android:drawable/presence_busy" />
+
+    <CheckBox
+        android:id="@+id/monthrepeat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="Her Ay İşlemi Tekrarla"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerlabel"
+        app:layout_constraintStart_toEndOf="@+id/spinnerlabel"
+        app:layout_constraintTop_toTopOf="@+id/spinnerlabel" />
+
+</android.support.constraint.ConstraintLayout>
