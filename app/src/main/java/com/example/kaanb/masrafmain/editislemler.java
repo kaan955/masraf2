@@ -76,15 +76,20 @@ public class editislemler extends AppCompatActivity {
                 tv3.setLayoutParams(lp);
                 tv3.setSingleLine();
                 //tv3.setBackgroundResource(R.drawable.grentxtbar);
+                counter = c.getInt(c.getColumnIndex("processid"));
+                tv.setTag(counter);
+
 
                 tv.setText(c.getInt(c.getColumnIndex("day")) + "." +
                         c.getInt(c.getColumnIndex("month")) + "." +
                         c.getInt(c.getColumnIndex("year")) + "\n");
                 tv2.setText(c.getString(c.getColumnIndex("info")) +"\n");
                 tv3.setText("₺" +String.format ("%.2f", c.getDouble(c.getColumnIndex("price"))) + "\n" );
-                tv.setId(c.getInt(c.getColumnIndex("processid")));
+                //tv.setId(c.getInt(c.getColumnIndex("processid")));
 
-                final int myh = c.getInt(c.getColumnIndex("processid"));
+              //  final int myh = c.getInt(c.getColumnIndex("processid"));
+
+
 
                 tv.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -101,7 +106,7 @@ public class editislemler extends AppCompatActivity {
                         tutarerror = tasarim.findViewById(R.id.tutarerror);
                         monthrepeat = tasarim.findViewById(R.id.monthrepeat);
 
-                        pricetxt.setText("Kaan" + myh );
+                        pricetxt.setText("Kaan" + tv.getTag() );
 
                         etiketler.add("Diğer");
                         etiketler.add("Maaş");
@@ -147,6 +152,8 @@ public class editislemler extends AppCompatActivity {
 
                             }
                         });
+
+
 
                         kayıtgelirbtn.setOnClickListener(new View.OnClickListener() {
                             @Override

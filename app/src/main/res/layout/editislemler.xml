@@ -74,11 +74,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/linear" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/editbox_dropdown_dark_frame"
-        tools:layout_editor_absoluteX="324dp"
-        tools:layout_editor_absoluteY="48dp" />
 </android.support.constraint.ConstraintLayout>
