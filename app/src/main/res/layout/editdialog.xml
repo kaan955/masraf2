@@ -9,8 +9,6 @@
         android:id="@+id/imageView7"
         android:layout_width="69dp"
         android:layout_height="39dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         app:layout_constraintStart_toStartOf="@+id/masrafkonu"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/grennadd" />
@@ -31,79 +29,76 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="57dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/borderpic"
         android:freezesText="true"
         android:padding="20dp"
-        android:text="Açıklama:"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView7" />
 
     <EditText
         android:id="@+id/informationtext"
-        android:layout_width="227dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="125dp"
-        android:layout_marginLeft="125dp"
-        android:layout_marginTop="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@null"
         android:ems="10"
         android:inputType="textPersonName"
         android:maxLength="17"
         android:paddingBottom="18dp"
-        android:singleLine="true"
+        android:singleLine="false"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/masrafkonu"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView15"
+        app:layout_constraintTop_toTopOf="@+id/textView15" />
 
     <TextView
         android:id="@+id/textinfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/borderpic"
         android:padding="18dp"
-        android:text="Tutar:"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tarihpicker" />
 
     <EditText
         android:id="@+id/pricetxt"
-        android:layout_width="252dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginLeft="88dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:background="@null"
         android:inputType="numberDecimal"
         android:maxLength="20"
-        android:paddingBottom="20dp"
-        android:selectAllOnFocus="false"
         android:singleLine="true"
-        android:textColorHighlight="@color/colorAccent"
-        android:textColorHint="@color/colorPrimary"
-        android:textColorLink="@color/colorPrimary"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tarihpicker" />
+
+
+        app:layout_constraintEnd_toEndOf="@+id/textinfo"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView17"
+        app:layout_constraintTop_toTopOf="@+id/textView17" />
 
     <TextView
         android:id="@+id/tarihpicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/borderpic"
         android:padding="20dp"
         android:text="Tarih Girmek İçin Tıklayınız"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/masrafkonu" />
 
@@ -123,22 +118,21 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:text="GELIR KAYIT"
         android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
         app:layout_constraintStart_toEndOf="@+id/imageView7"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/imageView7" />
 
     <Spinner
         android:id="@+id/spinnerlabel"
         android:layout_width="140dp"
         android:layout_height="34dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginTop="8dp"
         android:fadeScrollbars="false"
         android:scrollbarSize="2dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pricetxt" />
+        app:layout_constraintStart_toStartOf="@+id/textinfo"
+        app:layout_constraintTop_toBottomOf="@+id/textinfo" />
 
     <ImageView
         android:id="@+id/infoerror"
@@ -194,7 +188,34 @@
         android:text="Her Ay İşlemi Tekrarla"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/spinnerlabel"
+        app:layout_constraintEnd_toEndOf="@+id/textinfo"
         app:layout_constraintStart_toEndOf="@+id/spinnerlabel"
         app:layout_constraintTop_toTopOf="@+id/spinnerlabel" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="Açıklama: "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/masrafkonu"
+        app:layout_constraintStart_toStartOf="@+id/masrafkonu"
+        app:layout_constraintTop_toTopOf="@+id/masrafkonu" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="Tutar:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textinfo"
+        app:layout_constraintStart_toStartOf="@+id/textinfo"
+        app:layout_constraintTop_toTopOf="@+id/textinfo" />
 
 </android.support.constraint.ConstraintLayout>

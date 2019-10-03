@@ -1,6 +1,7 @@
 package com.example.kaanb.masrafmain;
 
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -48,7 +49,7 @@ public class editislemler extends AppCompatActivity {
         init();
         db5 = new Databasehelper(this);
         new Database_dao().veriler(db5);
-        SQLiteDatabase dbm = db5.getReadableDatabase();
+        final SQLiteDatabase dbm = db5.getReadableDatabase();
         DecimalFormat df = new DecimalFormat("0");
         df.setMaximumFractionDigits(340);
 
@@ -258,8 +259,23 @@ public class editislemler extends AppCompatActivity {
                         alert.setView(tasarim);
 
                         alert.create().show();
+                        ContentValues cv = new ContentValues();
+                        cv.put("info","Kaangüncellendi"); //These Fields should be your String values of actual column names
+                        cv.put("month","19");
+                        cv.put("year","2013");
+                        cv.put("price","20");
+                        cv.put("repeat","2");
+                        cv.put("label","2");
+                        cv.put("pricetype","2");
+                        cv.put("taksit","2");
 
+                        dbm.update("holder", cv, "processid="+tv.getTag(), null);
+                        dbm.close();
                     }
+
+
+
+
                 });
                 linear.addView(tv);
                 linear2.addView(tv2);
