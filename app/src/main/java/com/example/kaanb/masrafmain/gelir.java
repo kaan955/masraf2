@@ -3,8 +3,10 @@ package com.example.kaanb.masrafmain;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.view.View;
@@ -30,6 +32,7 @@ public class gelir extends AppCompatActivity {
     private Spinner myspinner;
     private ArrayList<String>etiketler = new ArrayList<>();
     private ArrayAdapter<String> etiketadaptoru;
+    private ConstraintLayout constraintana;
     private CheckBox monthrepeat;
     static int currentday,currentmonth,currentyear,my_day = 0,my_month = 0,my_year = 0;
     static double prices = 0.0;
@@ -42,6 +45,8 @@ public class gelir extends AppCompatActivity {
 
         init();
        addID();
+
+       // constraintana.setBackgroundColor(Color.parseColor("#FF726C6C"));
 
         etiketler.add("Diğer");
         etiketler.add("Maaş");
@@ -203,7 +208,7 @@ public class gelir extends AppCompatActivity {
         tariherror = new ImageView(this);
         tutarerror = new ImageView(this);
         monthrepeat = new CheckBox(this);
-
+        constraintana = new ConstraintLayout(this);
     }
     void addID()
     {
@@ -217,5 +222,6 @@ public class gelir extends AppCompatActivity {
         tariherror = findViewById(R.id.tariherror);
         tutarerror = findViewById(R.id.tutarerror);
         monthrepeat = findViewById(R.id.monthrepeat);
+        constraintana = findViewById(R.id.constraintana);
     }
 }

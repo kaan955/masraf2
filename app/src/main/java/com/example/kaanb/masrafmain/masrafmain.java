@@ -24,10 +24,10 @@ public class masrafmain extends AppCompatActivity {
 private Button gelir,gider,bildirimbutton;
 private TextView ser,lastprocessshow,lastprocesswriter2,lasttenshow,lastprocesswriter,textdate,textinfo,textprice,bildirimtxt,kalanguntxt,gunkaldıtxt,bildirimnotxt,islemlernotxt,gelirtxt,gidertxt,totaltxt;
 private ScrollView myscroll;
-private ConstraintLayout constraint,constraintbildirim,constaintmain;
+private ConstraintLayout constraint,constraintbildirim,constaintmain,constraintana;
 private LinearLayout linear;
 private Databasehelper db,db2,db3;
-private ImageView imageislemedit;
+private ImageView imageislemedit,gelirimagebtn;
 
 
     String datex = "",datebildirim = "",infobildirim = "",datebildirim2 = "",infobildirim2 = "",gunkaldi = "",infox = "",pricex = "",pricex2 = "";
@@ -46,10 +46,11 @@ private ImageView imageislemedit;
 
         array = new int[500];
         arrays = new String[500];
-        constraint.setBackgroundColor(Color.parseColor("#C5E1A5")); //C5E1A5 B1C282 96B478
-        constaintmain.setBackgroundColor(Color.parseColor("#C5E1A5"));
-        constraintbildirim.setBackgroundColor(Color.parseColor("#C5E1A5"));
 
+        constraint.setBackgroundColor(Color.parseColor("#FFE2E1E3")); //C5E1A5 B1C282 96B478  C5E1A5
+        constaintmain.setBackgroundColor(Color.parseColor("#FFE2E1E3"));
+        constraintbildirim.setBackgroundColor(Color.parseColor("#FFE2E1E3"));
+        constraintana.setBackgroundColor(Color.parseColor("#FF726C6C"));
 
         new Database_dao().veriler(db);
         SQLiteDatabase dbm = db.getReadableDatabase();
@@ -194,7 +195,7 @@ private ImageView imageislemedit;
         }
 
 
-        gelir.setOnClickListener(new View.OnClickListener() {
+        gelirimagebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -304,6 +305,7 @@ private ImageView imageislemedit;
         lastprocesswriter =  new TextView(this);
         textdate = new TextView(this);
         lastprocesswriter2 =  new TextView(this);
+        gelirimagebtn = new ImageView(this);
         myscroll = new ScrollView(this);
         linear = new LinearLayout(this);
         constraintbildirim = new ConstraintLayout(this);
@@ -324,18 +326,17 @@ private ImageView imageislemedit;
         constraintbildirim = new ConstraintLayout(this);
         constaintmain = new ConstraintLayout(this);
         imageislemedit = new ImageView(this);
+        constraintana = new ConstraintLayout(this);
     }
 
     public void addID()
     {
-        gelir = findViewById(R.id.gelir);
-        gider = findViewById(R.id.gider);
+
         lastprocessshow = findViewById(R.id.lastprocessshow);
         lasttenshow = findViewById(R.id.lasttenshow);
         lastprocesswriter = findViewById(R.id.lastprocesswriter);
         textdate = findViewById(R.id.textdate);
         myscroll = findViewById(R.id.scroll);
-        bildirimbutton = findViewById(R.id.bildirimbutton);
         textinfo = findViewById(R.id.textinfo);
         textprice = findViewById(R.id.textprice);
         bildirimtxt = findViewById(R.id.bildirimtxt);
@@ -352,6 +353,8 @@ private ImageView imageislemedit;
         constraintbildirim = findViewById(R.id.constraintbildirim);
         constaintmain = findViewById(R.id.constaintmain);
         imageislemedit = findViewById(R.id.imageislemedit);
+        gelirimagebtn = findViewById(R.id.gelirimagebtn);
+        constraintana = findViewById(R.id.constraintana);
     }
 
 

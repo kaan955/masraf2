@@ -2,35 +2,15 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintana"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent"
 
-    android:scrollbarThumbVertical="@android:color/black"
     android:scrollbarAlwaysDrawVerticalTrack="true"
     android:scrollbarFadeDuration="0"
+    android:scrollbarThumbVertical="@android:color/black"
     tools:context=".masrafmain">
-
-    <Button
-        android:id="@+id/gelir"
-        android:layout_width="100dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Gelir Ekle"
-        app:layout_constraintEnd_toStartOf="@+id/gider"
-        app:layout_constraintTop_toBottomOf="@+id/scroll" />
-
-    <Button
-        android:id="@+id/gider"
-        android:layout_width="100dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Gider Ekle"
-        app:layout_constraintEnd_toStartOf="@+id/bildirimbutton"
-        app:layout_constraintTop_toBottomOf="@+id/scroll" />
 
     <TextView
         android:id="@+id/lastprocesswriter"
@@ -50,7 +30,7 @@
         android:layout_marginLeft="24dp"
         android:layout_marginTop="8dp"
         android:text="Son İşlemler"
-        android:textColor="#3F51B5"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollbildirim"
@@ -62,22 +42,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="14dp"
         android:text="(Son 15 işlem gözükür!)"
+        app:layout_constraintBottom_toBottomOf="@+id/lastprocessshow"
         app:layout_constraintStart_toEndOf="@+id/lastprocessshow"
-        app:layout_constraintTop_toBottomOf="@+id/scrollbildirim"
+        app:layout_constraintTop_toTopOf="@+id/lastprocessshow"
         tools:text="(Son 15 işlem gözükür!)" />
-
-    <Button
-        android:id="@+id/bildirimbutton"
-        android:layout_width="100dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:text="Bildirim"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scroll" />
 
     <ScrollView
         android:id="@+id/scroll"
@@ -85,11 +54,10 @@
         android:layout_height="100dp"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="30dp"
         android:fadeScrollbars="false"
         android:fillViewport="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lastprocessshow">
+        app:layout_constraintTop_toBottomOf="@+id/tarihtext">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraint"
@@ -114,8 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                app:layout_constraintStart_toEndOf="@+id/textdate"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/textdate" />
 
             <TextView
                 android:id="@+id/textdate"
@@ -142,7 +109,7 @@
         android:layout_marginLeft="24dp"
         android:layout_marginTop="8dp"
         android:text="Yaklaşan Bildirimler"
-        android:textColor="#3F51B5"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constaintmain" />
@@ -156,7 +123,6 @@
         android:layout_marginTop="5dp"
         android:text="Tarih"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/scroll"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lastprocessshow" />
 
@@ -166,12 +132,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="5dp"
         android:text="Açıklama"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/scroll"
+        app:layout_constraintBottom_toBottomOf="@+id/tarihtext"
         app:layout_constraintStart_toEndOf="@+id/tarihtext"
-        app:layout_constraintTop_toBottomOf="@+id/lastprocessshow" />
+        app:layout_constraintTop_toTopOf="@+id/tarihtext" />
 
     <TextView
         android:id="@+id/tutartxt"
@@ -179,11 +144,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="5dp"
         android:text="Tutar"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/aciklamatxt"
         app:layout_constraintStart_toEndOf="@+id/aciklamatxt"
-        app:layout_constraintTop_toBottomOf="@+id/lastprocessshow" />
+        app:layout_constraintTop_toTopOf="@+id/aciklamatxt" />
 
     <ScrollView
         android:id="@+id/scrollbildirim"
@@ -393,6 +358,77 @@
         app:layout_constraintBottom_toBottomOf="@+id/lasttenshow"
         app:layout_constraintStart_toEndOf="@+id/lasttenshow"
         app:layout_constraintTop_toTopOf="@+id/lasttenshow"
-        app:srcCompat="@mipmap/editlast" />
+        app:srcCompat="@drawable/reddadd" />
+
+    <ImageView
+        android:id="@+id/gelirimagebtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@mipmap/maingelir"
+        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/scroll" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gelir Ekle"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/gelirimagebtn"
+        app:layout_constraintHorizontal_bias="0.583"
+        app:layout_constraintStart_toStartOf="@+id/gelirimagebtn"
+        app:layout_constraintTop_toBottomOf="@+id/gelirimagebtn" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView20"
+        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="@+id/gelirimagebtn"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@mipmap/maingider" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gider Ekle"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imageView3"
+        app:layout_constraintStart_toStartOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView21"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:srcCompat="@mipmap/mainbell" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bildirim"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textView21"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="@+id/textView21" />
 
 </android.support.constraint.ConstraintLayout>
