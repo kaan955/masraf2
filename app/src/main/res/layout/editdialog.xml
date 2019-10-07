@@ -7,11 +7,11 @@
 
     <ImageView
         android:id="@+id/imageView7"
-        android:layout_width="69dp"
-        android:layout_height="39dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@+id/masrafkonu"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/grennadd" />
+        app:srcCompat="@mipmap/grennadd" />
 
     <Button
         android:id="@+id/kayıtgelirbtn"
@@ -127,6 +127,8 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:text="GELIR KAYIT"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="@+id/imageView7"
@@ -194,10 +196,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:text="Her Ay İşlemi Tekrarla"
+        android:text="Her Ay Tekrarla"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/spinnerlabel"
         app:layout_constraintEnd_toEndOf="@+id/textinfo"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/spinnerlabel"
         app:layout_constraintTop_toTopOf="@+id/spinnerlabel" />
 

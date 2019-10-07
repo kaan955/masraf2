@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class editislemler extends AppCompatActivity {
-    private Databasehelper db5;
+    private Databasehelper db5,db6,db7;
     private TextView Islemselect;
     private int counter = 0;
     private Databasehelper db;
@@ -39,7 +39,7 @@ public class editislemler extends AppCompatActivity {
     static double prices = 0.0;
     static String myrepeat ="NO";
     private LinearLayout linear,linear2,linear3;
-    private Cursor c;
+    private Cursor c,k,z;
     static TextView []tv = new TextView[10];
 
     @Override
@@ -48,8 +48,16 @@ public class editislemler extends AppCompatActivity {
         setContentView(R.layout.editislemler);
         init();
         db5 = new Databasehelper(this);
+        db6= new Databasehelper(this);
+        db7= new Databasehelper(this);
+
+        new Database_dao().veriler(db7);
+        new Database_dao().veriler(db6);
         new Database_dao().veriler(db5);
         final SQLiteDatabase dbm = db5.getReadableDatabase();
+        final SQLiteDatabase dbm2 = db6.getReadableDatabase();
+        final SQLiteDatabase dbm3 = db7.getReadableDatabase();
+
         DecimalFormat df = new DecimalFormat("0");
         df.setMaximumFractionDigits(340);
 
@@ -96,6 +104,7 @@ public class editislemler extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                     View tasarim = getLayoutInflater().inflate(R.layout.editdialog,null );
+
                         myspinner = tasarim.findViewById(R.id.spinnerlabel);
                         tarihtext = tasarim.findViewById(R.id.tarihpicker);
                         kayıtgelirbtn = tasarim.findViewById(R.id.kayıtgelirbtn);
@@ -106,6 +115,18 @@ public class editislemler extends AppCompatActivity {
                         tariherror = tasarim.findViewById(R.id.tariherror);
                         tutarerror = tasarim.findViewById(R.id.tutarerror);
                         monthrepeat = tasarim.findViewById(R.id.monthrepeat);
+
+                        k = dbm2.rawQuery("SELECT * FROM holder", null);
+                        k.moveToFirst();
+
+                        z = dbm3.rawQuery("SELECT * FROM holder WHERE processid="+tv.getTag(), null);
+
+                        informationtext.setText(z.getInt(z.getColumnIndex("year")));
+
+
+
+
+
 
                         pricetxt.setText("Kaan" + tv.getTag() );
 
@@ -174,6 +195,8 @@ public class editislemler extends AppCompatActivity {
                                         }
                                     }
                                 });
+
+
 
 
                                 if(my_year > 0 && !pricescontrol.equals("") &&  !control.equals("")) {
@@ -250,12 +273,14 @@ public class editislemler extends AppCompatActivity {
                             public void onClick(View v) {
                                 Intent intent = new Intent(editislemler.this, masrafmain.class);
                                 startActivity(intent);
+                                dbm2.delete("holder","processid="+tv.getTag(),null);
+                                dbm2.close();
                             }
                         });
 
 
                         AlertDialog.Builder alert = new AlertDialog.Builder(editislemler.this);
-                        alert.setMessage("Deneme alarm");
+                        //alert.setMessage("Deneme alarm");
                         alert.setView(tasarim);
 
                         alert.create().show();

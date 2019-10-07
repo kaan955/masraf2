@@ -27,7 +27,7 @@ private ScrollView myscroll;
 private ConstraintLayout constraint,constraintbildirim,constaintmain,constraintana;
 private LinearLayout linear;
 private Databasehelper db,db2,db3;
-private ImageView imageislemedit,gelirimagebtn;
+private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebutton;
 
 
     String datex = "",datebildirim = "",infobildirim = "",datebildirim2 = "",infobildirim2 = "",gunkaldi = "",infox = "",pricex = "",pricex2 = "";
@@ -286,7 +286,34 @@ private ImageView imageislemedit,gelirimagebtn;
                 Intent intent = new Intent(masrafmain.this, editislemler.class);
                 startActivity(intent);
             }
+
+
         });
+        lasttenshow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(masrafmain.this, editislemler.class);
+                startActivity(intent);
+            }
+        });
+
+        giderimagebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(masrafmain.this, gider.class);
+                startActivity(intent);
+            }
+        });
+
+        bildirimimagebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(masrafmain.this, bildirimler.class);
+                startActivity(intent);
+            }
+        });
+
+
 
 
 
@@ -326,7 +353,9 @@ private ImageView imageislemedit,gelirimagebtn;
         constraintbildirim = new ConstraintLayout(this);
         constaintmain = new ConstraintLayout(this);
         imageislemedit = new ImageView(this);
+        giderimagebutton = new ImageView(this);
         constraintana = new ConstraintLayout(this);
+        bildirimimagebutton = new ImageView(this);
     }
 
     public void addID()
@@ -355,6 +384,8 @@ private ImageView imageislemedit,gelirimagebtn;
         imageislemedit = findViewById(R.id.imageislemedit);
         gelirimagebtn = findViewById(R.id.gelirimagebtn);
         constraintana = findViewById(R.id.constraintana);
+        giderimagebutton = findViewById(R.id.giderimagebutton);
+        bildirimimagebutton = findViewById(R.id.bildirimimagebutton);
     }
 
 

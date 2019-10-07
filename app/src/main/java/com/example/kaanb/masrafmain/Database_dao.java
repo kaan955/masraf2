@@ -100,6 +100,12 @@ public class Database_dao extends AppCompatActivity {
         return myveri2;
     }
 
+    public void databaseguncelle(Databasehelper dh,int my_id)
+    {
+        SQLiteDatabase dbx = dh.getWritableDatabase();
+        dbx.delete("holder","my_id=?",new String[]{String.valueOf(my_id)});
+        dbx.close();
+    }
 
 
 }
