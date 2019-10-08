@@ -32,8 +32,8 @@ public class editislemler extends AppCompatActivity {
     private Button tarihpicker,kayıtgelirbtn,deletegelirbtn;
     private ImageView infoerror,tariherror,tutarerror;
     private Spinner myspinner;
-    private ArrayList<String> etiketler = new ArrayList<>();
-    private ArrayAdapter<String> etiketadaptoru;
+    private final ArrayList<String> etiketler = new ArrayList<>();
+    private  ArrayAdapter<String> etiketadaptoru;
     private CheckBox monthrepeat;
     static int currentday,currentmonth,currentyear,my_day = 0,my_month = 0,my_year = 0;
     static double prices = 0.0;
@@ -98,13 +98,31 @@ public class editislemler extends AppCompatActivity {
 
               //  final int myh = c.getInt(c.getColumnIndex("processid"));
 
+                etiketler.add("Diğer");
+                etiketler.add("Maaş");
+                etiketler.add("Yemek");
+                etiketler.add("Eğlence");
+                etiketler.add("Yol");
+                etiketler.add("Araba");
+                etiketler.add("Sağlık");
+                etiketler.add("Giyim");
+                etiketler.add("Eğitim");
+                etiketler.add("Sigara");
+                etiketler.add("Ev");
+                etiketler.add("Fatura");
+                etiketler.add("Market");
+                etiketler.add("Hobiler");
+                etiketler.add("Telefon");
+                etiketadaptoru = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,android.R.id.text1,etiketler);
+                myspinner.setAdapter(etiketadaptoru);
+
+
 
 
                 tv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                     View tasarim = getLayoutInflater().inflate(R.layout.editdialog,null );
-
                         myspinner = tasarim.findViewById(R.id.spinnerlabel);
                         tarihtext = tasarim.findViewById(R.id.tarihpicker);
                         kayıtgelirbtn = tasarim.findViewById(R.id.kayıtgelirbtn);
@@ -120,33 +138,15 @@ public class editislemler extends AppCompatActivity {
                         k.moveToFirst();
 
                         z = dbm3.rawQuery("SELECT * FROM holder WHERE processid="+tv.getTag(), null);
+                        z.moveToFirst();
 
-                        informationtext.setText(z.getInt(z.getColumnIndex("year")));
+                        informationtext.setText("" + z.getString(z.getColumnIndex("info")));
+                        tarihtext.setText("Tarih: " + z.getInt(z.getColumnIndex("day")) + "." +
+                                z.getInt(z.getColumnIndex("month")) + "." +
+                                z.getInt(z.getColumnIndex("year")));
+                        pricetxt.setText("" + z.getInt(z.getColumnIndex("price")));
 
 
-
-
-
-
-                        pricetxt.setText("Kaan" + tv.getTag() );
-
-                        etiketler.add("Diğer");
-                        etiketler.add("Maaş");
-                        etiketler.add("Yemek");
-                        etiketler.add("Eğlence");
-                        etiketler.add("Yol");
-                        etiketler.add("Araba");
-                        etiketler.add("Sağlık");
-                        etiketler.add("Giyim");
-                        etiketler.add("Eğitim");
-                        etiketler.add("Sigara");
-                        etiketler.add("Ev");
-                        etiketler.add("Fatura");
-                        etiketler.add("Market");
-                        etiketler.add("Hobiler");
-                        etiketler.add("Telefon");
-                        //etiketadaptoru = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,android.R.id.text1,etiketler);
-                        myspinner.setAdapter(etiketadaptoru);
 
                         tarihtext.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -204,7 +204,20 @@ public class editislemler extends AppCompatActivity {
                                     prices = Double.parseDouble(pricesx);
                                     s = informationtext.getText().toString();
                                     spin = myspinner.getSelectedItem().toString();
-                                    new Database_dao().adding(db,"gelir",s,my_day,my_month,my_year,prices,myrepeat,spin,"devam",1);
+                                    ContentValues cv = new ContentValues();
+                                    cv.put("info",""+s); //These Fields should be your String values of actual column names
+                                    cv.put("day",""+my_day);
+                                    cv.put("month",""+my_month);
+                                    cv.put("year",""+my_year);
+                                    cv.put("price",""+prices);
+                                    cv.put("repeat",""+myrepeat);
+                                    cv.put("label",""+spin);
+
+
+                                    dbm.update("holder", cv, "processid="+tv.getTag(), null);
+                                    dbm.close();
+
+
                                     Intent intent = new Intent(editislemler.this, masrafmain.class);
                                     startActivity(intent);
                                     infoerror.setVisibility(View.GONE);
@@ -282,20 +295,10 @@ public class editislemler extends AppCompatActivity {
                         AlertDialog.Builder alert = new AlertDialog.Builder(editislemler.this);
                         //alert.setMessage("Deneme alarm");
                         alert.setView(tasarim);
-
                         alert.create().show();
-                        ContentValues cv = new ContentValues();
-                        cv.put("info","Kaangüncellendi"); //These Fields should be your String values of actual column names
-                        cv.put("month","19");
-                        cv.put("year","2013");
-                        cv.put("price","20");
-                        cv.put("repeat","2");
-                        cv.put("label","2");
-                        cv.put("pricetype","2");
-                        cv.put("taksit","2");
 
-                        dbm.update("holder", cv, "processid="+tv.getTag(), null);
-                        dbm.close();
+
+
                     }
 
 
@@ -326,6 +329,9 @@ public class editislemler extends AppCompatActivity {
         linear3 = findViewById(R.id.linear3);
         Islemselect = new TextView(this);
         Islemselect = findViewById(R.id.Islemselect);
+
+
+
     }
 }
 
