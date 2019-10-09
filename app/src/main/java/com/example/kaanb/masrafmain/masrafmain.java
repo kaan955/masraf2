@@ -27,7 +27,7 @@ private ScrollView myscroll;
 private ConstraintLayout constraint,constraintbildirim,constaintmain,constraintana;
 private LinearLayout linear;
 private Databasehelper db,db2,db3;
-private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebutton;
+private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebutton,imagebildirimedit;
 
 
     String datex = "",datebildirim = "",infobildirim = "",datebildirim2 = "",infobildirim2 = "",gunkaldi = "",infox = "",pricex = "",pricex2 = "";
@@ -312,6 +312,13 @@ private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebut
                 startActivity(intent);
             }
         });
+        imagebildirimedit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(masrafmain.this, bildirimler.class);
+                startActivity(intent);
+            }
+        });
 
 
 
@@ -356,6 +363,7 @@ private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebut
         giderimagebutton = new ImageView(this);
         constraintana = new ConstraintLayout(this);
         bildirimimagebutton = new ImageView(this);
+        imagebildirimedit = new ImageView(this);
     }
 
     public void addID()
@@ -386,6 +394,7 @@ private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebut
         constraintana = findViewById(R.id.constraintana);
         giderimagebutton = findViewById(R.id.giderimagebutton);
         bildirimimagebutton = findViewById(R.id.bildirimimagebutton);
+        imagebildirimedit = findViewById(R.id.imagebildirimedit);
     }
 
 

@@ -99,9 +99,7 @@ public class gelir extends AppCompatActivity {
                 String s,spin,control,pricescontrol=pricetxt.getText().toString();
                 control = informationtext.getText().toString();
 
-                monthrepeat.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+
                         if ( monthrepeat.isChecked() )
                         {
                             myrepeat ="YES";
@@ -109,8 +107,7 @@ public class gelir extends AppCompatActivity {
                         else {
                             myrepeat = "NO";
                         }
-                    }
-                });
+
 
 
                 if(my_year > 0 && !pricescontrol.equals("") &&  !control.equals("")) {

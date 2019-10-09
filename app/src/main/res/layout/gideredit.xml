@@ -11,17 +11,17 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@+id/masrafkonu"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/grennadd" />
+        app:srcCompat="@mipmap/redaddd" />
 
     <Button
         android:id="@+id/kayıtgelirbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:text="KAYDET"
-        app:layout_constraintEnd_toEndOf="@+id/textinfo"
-        app:layout_constraintTop_toBottomOf="@+id/monthrepeat" />
+        app:layout_constraintEnd_toEndOf="@+id/taksittxt"
+        app:layout_constraintTop_toBottomOf="@+id/Taksit" />
 
     <TextView
         android:id="@+id/masrafkonu"
@@ -78,7 +78,7 @@
 
     <EditText
         android:id="@+id/pricetxt"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
@@ -115,8 +115,8 @@
         android:id="@+id/deletegelirbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
         android:text="KAYDI SİL"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/kayıtgelirbtn"
@@ -129,7 +129,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
-        android:text="GELIR KAYIT DUZENLEME"
+        android:text="GIDER KAYIT DUZENLEME"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="@+id/imageView7"
         app:layout_constraintStart_toEndOf="@+id/imageView7"
@@ -190,19 +190,33 @@
         app:layout_constraintVertical_bias="0.512"
         app:srcCompat="@android:drawable/presence_busy" />
 
-    <CheckBox
-        android:id="@+id/monthrepeat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:text="Her Ay Tekrarla"
+    <TextView
+        android:id="@+id/Taksit"
+        android:layout_width="89dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="Kaç Taksit?"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/spinnerlabel"
-        app:layout_constraintEnd_toEndOf="@+id/textinfo"
+        app:layout_constraintEnd_toStartOf="@+id/taksittxt"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/spinnerlabel"
         app:layout_constraintTop_toTopOf="@+id/spinnerlabel" />
+
+    <EditText
+        android:id="@+id/taksittxt"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:freezesText="false"
+        android:hint="1"
+        android:inputType="number"
+        android:maxLength="3"
+        app:layout_constraintBottom_toBottomOf="@+id/Taksit"
+        app:layout_constraintEnd_toEndOf="@+id/textinfo"
+        app:layout_constraintTop_toTopOf="@+id/Taksit" />
 
     <TextView
         android:id="@+id/textView15"
