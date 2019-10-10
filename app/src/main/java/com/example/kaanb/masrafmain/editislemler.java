@@ -210,7 +210,7 @@ public class editislemler extends AppCompatActivity {
                                         s = informationtext.getText().toString();
                                         spin = myspinner.getSelectedItem().toString();
                                         ContentValues cv = new ContentValues();
-                                        cv.put("info", "" + s); //These Fields should be your String values of actual column names
+                                        cv.put("info", "" + s);
                                         cv.put("day", "" + my_day);
                                         cv.put("month", "" + my_month);
                                         cv.put("year", "" + my_year);

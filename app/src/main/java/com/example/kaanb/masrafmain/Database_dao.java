@@ -89,7 +89,7 @@ public class Database_dao extends AppCompatActivity {
         while(d.moveToNext())
         {
             Mydatabase verilerimalarm = new Mydatabase(
-
+                    d.getInt(d.getColumnIndex("processidx")),
                     d.getString(d.getColumnIndex("informationx")),
                     d.getInt(d.getColumnIndex("month")),
                     d.getInt(d.getColumnIndex("day")),
@@ -106,6 +106,13 @@ public class Database_dao extends AppCompatActivity {
         dbx.delete("holder","my_id=?",new String[]{String.valueOf(my_id)});
         dbx.close();
     }
+    public void bildirimguncelle(Databasehelper dh,int my_id)
+    {
+        SQLiteDatabase dbx = dh.getWritableDatabase();
+        dbx.delete("bildirim","my_id=?",new String[]{String.valueOf(my_id)});
+        dbx.close();
+    }
+
 
 
 }

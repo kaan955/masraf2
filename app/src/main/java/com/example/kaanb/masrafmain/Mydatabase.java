@@ -15,7 +15,7 @@ public class Mydatabase {
     private int taksit;
 
     //
-    private int bmonth,bday,byear;
+    private int bmonth,bday,byear,bprocessid;
     private String binformation;
 
     public Mydatabase() {
@@ -71,8 +71,9 @@ public class Mydatabase {
         this.binformation = binformation;
     }
 
-    public  Mydatabase(String informationx, int month, int day, int year)
+    public  Mydatabase(int processidx,String informationx, int month, int day, int year)
     {
+        this.bprocessid = processidx;
         this.binformation = informationx;
         this.bday = day;
         this.bmonth = month;

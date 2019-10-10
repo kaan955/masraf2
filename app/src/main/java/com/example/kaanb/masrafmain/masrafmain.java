@@ -315,7 +315,7 @@ private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebut
         imagebildirimedit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(masrafmain.this, bildirimler.class);
+                Intent intent = new Intent(masrafmain.this, editislemlerbildirim.class);
                 startActivity(intent);
             }
         });
