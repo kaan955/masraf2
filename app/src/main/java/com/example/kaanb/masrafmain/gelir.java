@@ -10,6 +10,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -45,8 +46,8 @@ public class gelir extends AppCompatActivity {
 
         init();
        addID();
+        constraintana.setBackgroundColor(Color.parseColor("#D0141414"));
 
-       // constraintana.setBackgroundColor(Color.parseColor("#FF726C6C"));
 
         etiketler.add("Diğer");
         etiketler.add("Maaş");
@@ -65,6 +66,19 @@ public class gelir extends AppCompatActivity {
         etiketler.add("Telefon");
         etiketadaptoru = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,android.R.id.text1,etiketler);
         myspinner.setAdapter(etiketadaptoru);
+
+        myspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) view).setTextColor(Color.parseColor("#FCE4EC"));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
         tarihtext.setOnClickListener(new View.OnClickListener() {
             @Override

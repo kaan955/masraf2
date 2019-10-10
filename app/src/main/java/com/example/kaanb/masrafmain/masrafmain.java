@@ -47,6 +47,7 @@ private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebut
         array = new int[500];
         arrays = new String[500];
 
+
         constraint.setBackgroundColor(Color.parseColor("#FFE2E1E3")); //C5E1A5 B1C282 96B478  C5E1A5
         constaintmain.setBackgroundColor(Color.parseColor("#FFE2E1E3"));
         constraintbildirim.setBackgroundColor(Color.parseColor("#FFE2E1E3"));

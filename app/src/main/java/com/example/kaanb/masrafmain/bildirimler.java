@@ -4,7 +4,9 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +21,7 @@ public class bildirimler extends AppCompatActivity {
 
 
     private TextView tarihtxt,tarihset,alarminfotxt,uyarı;
+    private ConstraintLayout constraint;
     private ImageView tariherror,infoerror;
     private Button kayıtbtn,iptalbtn;
     static int day, month, year;
@@ -59,8 +62,8 @@ public class bildirimler extends AppCompatActivity {
         infoerror = new ImageView(this);
         infoerror = findViewById(R.id.infoerror);
 
-
-
+        constraint = new ConstraintLayout(this);
+        constraint = findViewById(R.id.constraint);
 
     }
 
@@ -71,6 +74,9 @@ public class bildirimler extends AppCompatActivity {
         setContentView(R.layout.bildirimler);
 
         init();
+
+        constraint.setBackgroundColor(Color.parseColor("#D0141414"));
+
 
         Calendar c = Calendar.getInstance();
         final int currentday = c.get(Calendar.DAY_OF_MONTH);

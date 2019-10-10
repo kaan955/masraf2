@@ -3,11 +3,14 @@ package com.example.kaanb.masrafmain;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -26,6 +29,7 @@ public class gider extends AppCompatActivity {
     private TextView tarihtext,informationtext,pricetxt,uyarı,taksittxt;
     private Button tarihpicker,kayıtgelirbtn,deletegiderbutton;
     private ImageView infoerror,tariherror,tutarerror;
+    private ConstraintLayout constraintana;
     private Spinner myspinner;
     private ArrayList<String>etiketler = new ArrayList<>();
     private ArrayAdapter<String> etiketadaptoru;
@@ -41,6 +45,9 @@ public class gider extends AppCompatActivity {
 
          init();
         addID();
+
+        constraintana.setBackgroundColor(Color.parseColor("#D0312F2F"));
+
 
         etiketler.add("Diğer");
         etiketler.add("Maaş");
@@ -60,7 +67,17 @@ public class gider extends AppCompatActivity {
         etiketadaptoru = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,android.R.id.text1,etiketler);
         myspinner.setAdapter(etiketadaptoru);
 
+        myspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) view).setTextColor(Color.parseColor("#FCE4EC")); //Change selected text color
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         tarihtext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,6 +219,7 @@ public class gider extends AppCompatActivity {
         infoerror = new ImageView(this);
         tariherror = new ImageView(this);
         tutarerror = new ImageView(this);
+        constraintana = new ConstraintLayout(this);
 
 
 
@@ -220,6 +238,7 @@ public class gider extends AppCompatActivity {
         infoerror = findViewById(R.id.infoerror);
         tariherror = findViewById(R.id.tariherror);
         tutarerror = findViewById(R.id.tutarerror);
+        constraintana = findViewById(R.id.constraintana);
     }
 
 

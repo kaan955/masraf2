@@ -56,9 +56,12 @@
 
 
     <activity android:name=".bildirimler">
+
         <intent-filter>
 
             <category android:name="android.intent.category.LAUNCHER" />
+
+
         </intent-filter>
 
 
