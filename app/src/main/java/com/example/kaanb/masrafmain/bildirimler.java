@@ -35,7 +35,7 @@ public class bildirimler extends AppCompatActivity {
     private Button kayıtbtn,iptalbtn;
     static int day, month, year;
     static int my_day = 0, my_month = 0, my_year = 0;
-    private Databasehelper db2;
+    private Databasehelper db2,db3;
     String datex = "";
     String infox = "";
     int counter = 0;
@@ -120,7 +120,6 @@ public class bildirimler extends AppCompatActivity {
                 infocontrol=alarminfotxt.getText().toString();
                 if(my_year > 0 && !infocontrol.equals("")) {
 
-                    bildirim(my_month,my_year,my_day,infocontrol);
                     new Database_dao().addingalarm(db2, infocontrol, my_day, my_month, my_year);
                     Intent intent = new Intent(bildirimler.this, masrafmain.class);
                     startActivity(intent);
@@ -162,81 +161,8 @@ public class bildirimler extends AppCompatActivity {
 
     }
 
-    private void bildirim(int ay,int yil,int gün,String aciklama) {
-
-        NotificationCompat.Builder builder;
-
-        NotificationManager bildirimYoneticisi =
-                (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-
-        Intent ıntent = new Intent(this,masrafmain.class);
-
-        PendingIntent gidilecekIntent = PendingIntent.getActivity(this,1,ıntent,PendingIntent.FLAG_UPDATE_CURRENT);
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { // For Oreo
-
-            String kanalId = "kanalId";
-            String kanalAd = "kanalAd";
-            String kanalTanım = "kanalTanım";
-
-            int kanalOnceligi = NotificationManager.IMPORTANCE_HIGH;
-
-            NotificationChannel kanal = bildirimYoneticisi.getNotificationChannel(kanalId);
-
-            if (kanal == null) {
-                kanal = new NotificationChannel(kanalId, kanalAd, kanalOnceligi);
-                kanal.setDescription(kanalTanım);
-                bildirimYoneticisi.createNotificationChannel(kanal);
-            }
-
-            builder = new NotificationCompat.Builder(this, kanalId);
-
-            builder.setContentTitle("Bildirim")  // gerekli
-                    .setContentText("İçerik" + " " +"1 gün kaldı.")  // gerekli
-                    .setSmallIcon(R.drawable.grennadd) // gerekli
-                    .setAutoCancel(true)  // Bildirim tıklandıktan sonra kaybolur."
-                    .setContentIntent(gidilecekIntent);
-
-        } else {
-
-            builder = new NotificationCompat.Builder(this);
-
-            builder.setContentTitle("Bildirim")  // gerekli
-                    .setContentText("" + aciklama +" " + ay + " gün kaldı.")  // gerekli
-                    .setSmallIcon(R.drawable.grennadd) // gerekli
-                    .setContentIntent(gidilecekIntent)
-                    .setAutoCancel(true)  // Bildirim tıklandıktan sonra kaybolur."
-                    .setPriority(Notification.PRIORITY_HIGH);
-        }
-
-
-        Intent broadcastIntent =
-                new Intent(bildirimler.this,Bildirimyakalayici.class);
-
-        broadcastIntent.putExtra("bildirimNesnesi",builder.build());
-
-        PendingIntent gidilecekBroadcast = PendingIntent.getBroadcast(this
-                ,0
-                ,broadcastIntent
-                ,PendingIntent.FLAG_UPDATE_CURRENT);
-
-        long gecikme  = SystemClock.elapsedRealtime() + 10000;
-
-        AlarmManager alarmManager =
-                (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY,17);
-        calendar.set(Calendar.MINUTE,16);
-        calendar.set(Calendar.SECOND, 0);
 
 
 
-        alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),gidilecekBroadcast);
-
-
-
-    }
 
 }

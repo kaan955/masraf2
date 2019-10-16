@@ -75,7 +75,7 @@ public class editislemlerbildirim extends AppCompatActivity {
             c.close();
             Islemselect.setText("Öncelikle bir bildirim giriniz..");
         } else {
-            c.moveToFirst();
+            c.moveToLast();
             do {
 
                 final TextView tv = new TextView(this);
@@ -222,8 +222,7 @@ public class editislemlerbildirim extends AppCompatActivity {
                 linear.addView(tv);
                 linear2.addView(tv2);
 
-            }
-            while (c.moveToPrevious());
+            } while (c.moveToPrevious());
         }
 
 
