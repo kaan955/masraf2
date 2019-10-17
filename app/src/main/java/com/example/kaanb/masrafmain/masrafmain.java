@@ -357,15 +357,7 @@ private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebut
                 startActivity(intent);
             }
         });
-
-
-
-
-
-
     }
-
-
 
     public void init()
     {
@@ -403,12 +395,6 @@ private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebut
         bildirimimagebutton = new ImageView(this);
         imagebildirimedit = new ImageView(this);
     }
-
-
-
-
-
-
     public void addID()
     {
 
@@ -441,42 +427,6 @@ private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebut
     }
 
 
-    private void bildirimtry()
-    {
-
-
-        AlarmManager manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        Intent myIntent;
-        PendingIntent pendingIntent;
-        long reminderDateTimeInMilliseconds = 000;
-
-        myIntent = new Intent(this,Bildirimyakalayici.class);
-
-        pendingIntent = PendingIntent.getBroadcast(this,0,myIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-
-//TODO : Reminder the user to take medication on the 13th July 2018 at 15:30
-// Note: For the month of July the int value will actuall be 6 instead of 7
-        Calendar calendarToSchedule = Calendar.getInstance();
-        calendarToSchedule.setTimeInMillis(System.currentTimeMillis());
-        calendarToSchedule.clear();
-
-//.Set(Year, Month, Day, Hour, Minutes, Seconds);
-        calendarToSchedule.set(2019, 9, 16, 16, 37, 0);
-
-
-        reminderDateTimeInMilliseconds = calendarToSchedule.getTimeInMillis();
-
-        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O){
-
-            manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, reminderDateTimeInMilliseconds, pendingIntent);
-        }
-        else{
-
-            manager.set(AlarmManager.RTC_WAKEUP, reminderDateTimeInMilliseconds, pendingIntent);
-        }
-    }
-
-
     private void bildirim(int id,int ayson,int yilson,int günson,int ay3,int yil3,int gün3,int ay7,int yil7,int gün7,String aciklama) {
 
         NotificationCompat.Builder builder;
@@ -487,6 +437,7 @@ private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebut
         Intent ıntent = new Intent(this,masrafmain.class);
 
         PendingIntent gidilecekIntent = PendingIntent.getActivity(this,1,ıntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { // For Oreo
@@ -508,7 +459,7 @@ private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebut
             builder = new NotificationCompat.Builder(this, kanalId);
 
             builder.setContentTitle("Bildirim")  // gerekli
-                    .setContentText("İçerik" + " " +"3 gün kaldı.")  // gerekli
+                    .setContentText(""+aciklama + " " +"3 gün kaldı.")  // gerekli
                     .setSmallIcon(R.drawable.grennadd) // gerekli
                     .setAutoCancel(true)  // Bildirim tıklandıktan sonra kaybolur."
                     .setContentIntent(gidilecekIntent);
@@ -529,46 +480,32 @@ private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebut
         Intent broadcastIntent =
                 new Intent(masrafmain.this,Bildirimyakalayici.class);
 
+
         broadcastIntent.putExtra("bildirimNesnesi",builder.build());
 
         PendingIntent gidilecekBroadcast = PendingIntent.getBroadcast(this,id,broadcastIntent
                 ,PendingIntent.FLAG_UPDATE_CURRENT);
-        PendingIntent gidilecekBroadcast3 = PendingIntent.getBroadcast(this,id,broadcastIntent
+        PendingIntent gidilecekBroadcast3 = PendingIntent.getBroadcast(this,id+100,broadcastIntent
                 ,PendingIntent.FLAG_UPDATE_CURRENT);
-        PendingIntent gidilecekBroadcast7 = PendingIntent.getBroadcast(this,id,broadcastIntent
+        PendingIntent gidilecekBroadcast7 = PendingIntent.getBroadcast(this,id+1000,broadcastIntent
                 ,PendingIntent.FLAG_UPDATE_CURRENT);
-
 
         AlarmManager alarmManager =
                 (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        AlarmManager alarmManager3 =
-                (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        AlarmManager alarmManager7 =
-                (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-
 
         Calendar calendar = Calendar.getInstance();
         Calendar calendar3 = Calendar.getInstance();
         Calendar calendar7 = Calendar.getInstance();
 
-      //  calendar.set(Calendar.MONTH, 10); // Synonym of DATE
-        //calendar.set(Calendar.DAY_OF_MONTH, 16); // Synonym of DAY_OF_MONTH
-        //calendar.set(Calendar.YEAR,2019);
-
-        //calendar.set(Calendar.HOUR_OF_DAY,15);
-        //calendar.set(Calendar.MINUTE,55);
-       // calendar.set(Calendar.SECOND, 0);
 
         Date currentTime = Calendar.getInstance().getTime();
         long reminderDateTimeInMilliseconds=0000;
         long reminderDateTimeInMilliseconds3=0000;
         long reminderDateTimeInMilliseconds7=0000;
 
-        calendar.set(2019, 9, 16, 17, 26, 0);
-        calendar3.set(2019, 9, 16, 17, 28, 0);
-        calendar7.set(2019, 9, 16, 17, 29, 0);
+        calendar.set(2019, 9, 17, 15, 10, 0);
+        calendar3.set(2019, 9, 17, 15, 10, 0);
+        calendar7.set(2019, 9, 17, 15, 10, 0);
 
         reminderDateTimeInMilliseconds = calendar.getTimeInMillis();
         reminderDateTimeInMilliseconds3 = calendar3.getTimeInMillis();
@@ -586,8 +523,8 @@ private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebut
 
 
         alarmManager.set(AlarmManager.RTC_WAKEUP,reminderDateTimeInMilliseconds,gidilecekBroadcast);
-        alarmManager3.set(AlarmManager.RTC_WAKEUP,reminderDateTimeInMilliseconds3,gidilecekBroadcast3);
-        alarmManager7.set(AlarmManager.RTC_WAKEUP,reminderDateTimeInMilliseconds7,gidilecekBroadcast7);
+        alarmManager.set(AlarmManager.RTC_WAKEUP,reminderDateTimeInMilliseconds3,gidilecekBroadcast3);
+        alarmManager.set(AlarmManager.RTC_WAKEUP,reminderDateTimeInMilliseconds7,gidilecekBroadcast7);
 
 
 
