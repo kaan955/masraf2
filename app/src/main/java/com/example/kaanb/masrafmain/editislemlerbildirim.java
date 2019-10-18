@@ -1,13 +1,17 @@
 package com.example.kaanb.masrafmain;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,6 +24,7 @@ import android.widget.TextView;
 import java.util.Calendar;
 
 public class editislemlerbildirim extends AppCompatActivity {
+    private static final String TAG = "MyActivity";
 
     private Databasehelper db5,db6,db7,db8;
     private TextView Islemselect;
@@ -125,6 +130,7 @@ public class editislemlerbildirim extends AppCompatActivity {
                             l = dbm3.rawQuery("SELECT * FROM bildirim WHERE processid=" + tv.getTag(), null);
                             l.moveToFirst();
                                 String deneme = l.getString(l.getColumnIndex("informationx"));
+                                final int processid = l.getInt(l.getColumnIndex("processid"));
                             alarminfotxt.setText("" + l.getString(l.getColumnIndex("informationx")));
                             tarihset.setText("" + l.getInt(l.getColumnIndex("day")) + "." +
                                     l.getInt(l.getColumnIndex("month")) + "." +
@@ -206,6 +212,20 @@ public class editislemlerbildirim extends AppCompatActivity {
                                     startActivity(intent);
                                     dbm2.delete("bildirim", "processid=" + tv.getTag(), null);
                                     dbm2.close();
+
+
+                                    AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                                    //Intent intent2 = new Intent(editislemlerbildirim.this, Bildirimyakalayici.class);
+                                     Intent intent2 = new Intent(getApplicationContext(), Bildirimyakalayici.class);
+
+                                    PendingIntent pintent = PendingIntent.getActivity(editislemlerbildirim.this, 0, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
+                                    try {
+                                        alarmManager.cancel(pintent);
+                                        Log.e(TAG, "Cancelling all pending intents");
+                                    } catch (Exception e) {
+                                        Log.e(TAG, "AlarmManager update was not canceled. " + e.toString());
+                                    }
+
                                 }
                             });
 

@@ -29,16 +29,17 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 public class masrafmain extends AppCompatActivity {
 
-private Button gelir,gider,bildirimbutton;
-private TextView ser,lastprocessshow,lastprocesswriter2,lasttenshow,lastprocesswriter,textdate,textinfo,textprice,bildirimtxt,kalanguntxt,gunkaldıtxt,bildirimnotxt,islemlernotxt,gelirtxt,gidertxt,totaltxt;
-private ScrollView myscroll;
-private ConstraintLayout constraint,constraintbildirim,constaintmain,constraintana;
-private LinearLayout linear;
-private Databasehelper db,db2,db3;
-private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebutton,imagebildirimedit;
+    private Button gelir,gider,bildirimbutton;
+    private TextView ser,lastprocessshow,lastprocesswriter2,lasttenshow,lastprocesswriter,textdate,textinfo,textprice,bildirimtxt,kalanguntxt,gunkaldıtxt,bildirimnotxt,islemlernotxt,gelirtxt,gidertxt,totaltxt;
+    private ScrollView myscroll;
+    private ConstraintLayout constraint,constraintbildirim,constaintmain,constraintana;
+    private LinearLayout linear;
+    private Databasehelper db,db2,db3;
+    private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebutton,imagebildirimedit;
 
 
     String datex = "",datebildirim = "",infobildirim = "",datebildirim2 = "",infobildirim2 = "",gunkaldi = "",infox = "",pricex = "",pricex2 = "";
@@ -134,6 +135,9 @@ private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebut
 
             do {
                 int checkprocessid = d.getInt(d.getColumnIndex("processid"));
+                int checkprocessid3 = d.getInt(d.getColumnIndex("processid"))+1000;
+                int checkprocessid7 = d.getInt(d.getColumnIndex("processid"))+10000;
+
                 int checkmonth = d.getInt(d.getColumnIndex("month"));
                 int checkday = d.getInt(d.getColumnIndex("day"));
                 int checkyear = d.getInt(d.getColumnIndex("year"));
@@ -146,20 +150,26 @@ private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebut
 
                         int day_counter = (d.getInt(d.getColumnIndex("day"))) - mDay;
 
-                        if(day_counter >= 7)
-                        {
-                            int mycounterweek = 7,mycounter3 = 3,mycounterson = 0;
-                            int myalarmdayweek = 0,myalarmday3 = 0,myalarmdayson = 0;
-                            myalarmdayweek = mDay + (day_counter - mycounterweek);
-                            myalarmday3 = mDay +(day_counter - mycounter3);
-                            myalarmdayson = mDay;
 
-                            bildirim(checkprocessid,checkmonth,checkyear,checkday,checkmonth,checkyear,myalarmday3,checkmonth,checkyear,myalarmdayweek,checkinfo);
-                           // bildirimtry();
+                        int mycounterweek = 7,mycounter3 = 3,mycounterson = 0;
+                        int myalarmday7 = 0,myalarmday3 = 0,myalarmdayson = 0;
+                        myalarmday7 = mDay + (day_counter - mycounterweek);
+                        myalarmday3 = mDay +(day_counter - mycounter3);
+                        myalarmdayson = mDay;
 
+                        /*
+                        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                        Intent myIntent = new Intent(getApplicationContext(), Bildirimyakalayici.class);
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                                getApplicationContext(), 1, myIntent,
+                                PendingIntent.FLAG_UPDATE_CURRENT);
 
+                        alarmManager.cancel(pendingIntent);
+                       // bildirim(checkprocessid,checkmonth,checkyear,myalarmdayson,0,checkinfo);
+                        //bildirim(checkprocessid3,checkmonth,checkyear,myalarmday3,3,checkinfo);
+                        //bildirim(checkprocessid7,checkmonth,checkyear,myalarmday7,7,checkinfo);
+                        */
 
-                        }
 
                         datebildirim = datebildirim + day_counter + "\n";
                         infobildirim = infobildirim + d.getString(d.getColumnIndex("informationx")) + "\n";
@@ -427,16 +437,30 @@ private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebut
     }
 
 
-    private void bildirim(int id,int ayson,int yilson,int günson,int ay3,int yil3,int gün3,int ay7,int yil7,int gün7,String aciklama) {
+    private void bildirim(int id,int ayson,int yilson,int günson,int kalan,String aciklama) {
 
         NotificationCompat.Builder builder;
 
+        String messagekalan = "";
         NotificationManager bildirimYoneticisi =
                 (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
 
         Intent ıntent = new Intent(this,masrafmain.class);
 
-        PendingIntent gidilecekIntent = PendingIntent.getActivity(this,1,ıntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent gidilecekIntent = PendingIntent.getActivity(this,id,ıntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if(kalan == 0)
+        {
+            messagekalan = "bugün son gün !";
+        }
+        else if(kalan ==3)
+        {
+            messagekalan = "Son 3 gün!";
+        }
+        else if(kalan == 7)
+        {
+            messagekalan = "7 gün kaldı.";
+        }
 
 
 
@@ -459,7 +483,7 @@ private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebut
             builder = new NotificationCompat.Builder(this, kanalId);
 
             builder.setContentTitle("Bildirim")  // gerekli
-                    .setContentText(""+aciklama + " " +"3 gün kaldı.")  // gerekli
+                    .setContentText("" + aciklama +", " + messagekalan)  // gerekli
                     .setSmallIcon(R.drawable.grennadd) // gerekli
                     .setAutoCancel(true)  // Bildirim tıklandıktan sonra kaybolur."
                     .setContentIntent(gidilecekIntent);
@@ -469,7 +493,7 @@ private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebut
             builder = new NotificationCompat.Builder(this);
 
             builder.setContentTitle("Bildirim")  // gerekli
-                    .setContentText("" + aciklama +"" + " 3 gün kaldı.")  // gerekli
+                    .setContentText("" + aciklama +", " + messagekalan)  // gerekli
                     .setSmallIcon(R.drawable.grennadd) // gerekli
                     .setContentIntent(gidilecekIntent)
                     .setAutoCancel(true)  // Bildirim tıklandıktan sonra kaybolur."
@@ -485,31 +509,27 @@ private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebut
 
         PendingIntent gidilecekBroadcast = PendingIntent.getBroadcast(this,id,broadcastIntent
                 ,PendingIntent.FLAG_UPDATE_CURRENT);
-        PendingIntent gidilecekBroadcast3 = PendingIntent.getBroadcast(this,id+100,broadcastIntent
-                ,PendingIntent.FLAG_UPDATE_CURRENT);
-        PendingIntent gidilecekBroadcast7 = PendingIntent.getBroadcast(this,id+1000,broadcastIntent
-                ,PendingIntent.FLAG_UPDATE_CURRENT);
+
 
         AlarmManager alarmManager =
                 (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         Calendar calendar = Calendar.getInstance();
-        Calendar calendar3 = Calendar.getInstance();
-        Calendar calendar7 = Calendar.getInstance();
-
-
+        calendar.clear();
         Date currentTime = Calendar.getInstance().getTime();
         long reminderDateTimeInMilliseconds=0000;
-        long reminderDateTimeInMilliseconds3=0000;
-        long reminderDateTimeInMilliseconds7=0000;
 
-        calendar.set(2019, 9, 17, 15, 10, 0);
-        calendar3.set(2019, 9, 17, 15, 10, 0);
-        calendar7.set(2019, 9, 17, 15, 10, 0);
+        Random r=new Random(); //random sınıfı
+        int a=r.nextInt(60);
+
+
+        calendar.set(2019, 9, 18, 14, a, 0);
+
+        if (System.currentTimeMillis() < calendar.getTimeInMillis()) {
+
+
 
         reminderDateTimeInMilliseconds = calendar.getTimeInMillis();
-        reminderDateTimeInMilliseconds3 = calendar3.getTimeInMillis();
-        reminderDateTimeInMilliseconds7 = calendar7.getTimeInMillis();
 
 
         Log.i("ET", "CalDAy: " +  calendar.get(Calendar.DAY_OF_MONTH));
@@ -521,17 +541,14 @@ private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebut
         Log.i("ET", "CalDAy: " +  currentTime);
 
 
-
         alarmManager.set(AlarmManager.RTC_WAKEUP,reminderDateTimeInMilliseconds,gidilecekBroadcast);
-        alarmManager.set(AlarmManager.RTC_WAKEUP,reminderDateTimeInMilliseconds3,gidilecekBroadcast3);
-        alarmManager.set(AlarmManager.RTC_WAKEUP,reminderDateTimeInMilliseconds7,gidilecekBroadcast7);
+
+        }
+
+
+        }
 
 
 
 
     }
-
-
-
-
-}
