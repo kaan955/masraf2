@@ -2,13 +2,18 @@ package com.example.kaanb.masrafmain;
 
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,6 +27,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
 
 public class editislemlerbildirim extends AppCompatActivity {
     private static final String TAG = "MyActivity";
@@ -129,8 +136,20 @@ public class editislemlerbildirim extends AppCompatActivity {
 
                             l = dbm3.rawQuery("SELECT * FROM bildirim WHERE processid=" + tv.getTag(), null);
                             l.moveToFirst();
+
+                        final int checkprocessid = l.getInt(l.getColumnIndex("processid"));
+                        final int checkprocessid3 = l.getInt(l.getColumnIndex("processid"))+10000;
+                        final int checkprocessid7 = l.getInt(l.getColumnIndex("processid"))+100000;
+
+                        int checkmonth = l.getInt(l.getColumnIndex("month"));
+                        int checkday = l.getInt(l.getColumnIndex("day"));
+                        int checkyear = l.getInt(l.getColumnIndex("year"));
+                          final String checkinfo = l.getString(l.getColumnIndex("informationx"));
+
+
                                 String deneme = l.getString(l.getColumnIndex("informationx"));
                                 final int processid = l.getInt(l.getColumnIndex("processid"));
+
                             alarminfotxt.setText("" + l.getString(l.getColumnIndex("informationx")));
                             tarihset.setText("" + l.getInt(l.getColumnIndex("day")) + "." +
                                     l.getInt(l.getColumnIndex("month")) + "." +
@@ -178,6 +197,18 @@ public class editislemlerbildirim extends AppCompatActivity {
 
 
                                     dbm3.update("bildirim", cv, "processid=" + tv.getTag(), null);
+
+
+                                    ///////////////////
+
+
+                                    bildirim(checkprocessid, 1, 1, 1, 0, infocontrol);
+
+                                    ///////////
+
+
+
+
                                     dbm3.close();
                                     Intent intent = new Intent(editislemlerbildirim.this, masrafmain.class);
                                     startActivity(intent);
@@ -211,20 +242,28 @@ public class editislemlerbildirim extends AppCompatActivity {
                                     Intent intent = new Intent(editislemlerbildirim.this, masrafmain.class);
                                     startActivity(intent);
                                     dbm2.delete("bildirim", "processid=" + tv.getTag(), null);
+
+
+
+                                    AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                                    Intent myIntent = new Intent(getApplicationContext(), Bildirimyakalayici.class);
+                                    PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                                            getApplicationContext(), checkprocessid, myIntent,
+                                            PendingIntent.FLAG_UPDATE_CURRENT);
+                                    PendingIntent pendingIntent3 = PendingIntent.getBroadcast(
+                                            getApplicationContext(), checkprocessid3, myIntent,
+                                            PendingIntent.FLAG_UPDATE_CURRENT);
+                                    PendingIntent pendingIntent7 = PendingIntent.getBroadcast(
+                                            getApplicationContext(), checkprocessid7, myIntent,
+                                            PendingIntent.FLAG_UPDATE_CURRENT);
+
+                                    alarmManager.cancel(pendingIntent);
+                                    alarmManager.cancel(pendingIntent3);
+                                    alarmManager.cancel(pendingIntent7);
+
+
                                     dbm2.close();
 
-
-                                    AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-                                    //Intent intent2 = new Intent(editislemlerbildirim.this, Bildirimyakalayici.class);
-                                     Intent intent2 = new Intent(getApplicationContext(), Bildirimyakalayici.class);
-
-                                    PendingIntent pintent = PendingIntent.getActivity(editislemlerbildirim.this, 0, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
-                                    try {
-                                        alarmManager.cancel(pintent);
-                                        Log.e(TAG, "Cancelling all pending intents");
-                                    } catch (Exception e) {
-                                        Log.e(TAG, "AlarmManager update was not canceled. " + e.toString());
-                                    }
 
                                 }
                             });
@@ -257,6 +296,108 @@ public class editislemlerbildirim extends AppCompatActivity {
         linear2 = findViewById(R.id.linear2);
         Islemselect = new TextView(this);
         Islemselect = findViewById(R.id.Islemselect);
+
+    }
+
+
+    private void bildirim(int id,int ayson,int yilson,int gunson,int kalan,String aciklama) {
+
+        NotificationCompat.Builder builder;
+
+        String messagekalan = "";
+        NotificationManager bildirimYoneticisi =
+                (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+
+        Intent ıntent = new Intent(this,editislemlerbildirim.class);
+
+        PendingIntent gidilecekIntent = PendingIntent.getActivity(this,id,ıntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if(kalan == 0)
+        {
+            messagekalan = "bugün son gün !";
+        }
+        else if(kalan == 3)
+        {
+            messagekalan = "Son 3 gün!";
+        }
+        else if(kalan == 7)
+        {
+            messagekalan = "7 gün kaldı.";
+        }
+
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { // For Oreo
+
+            String kanalId = "kanalId";
+            String kanalAd = "kanalAd";
+            String kanalTanım = "kanalTanım";
+
+            int kanalOnceligi = NotificationManager.IMPORTANCE_HIGH;
+
+            NotificationChannel kanal = bildirimYoneticisi.getNotificationChannel(kanalId);
+
+            if (kanal == null) {
+                kanal = new NotificationChannel(kanalId, kanalAd, kanalOnceligi);
+                kanal.setDescription(kanalTanım);
+                bildirimYoneticisi.createNotificationChannel(kanal);
+            }
+
+            builder = new NotificationCompat.Builder(this, kanalId);
+
+            builder.setContentTitle("Bildirim")  // gerekli
+                    .setContentText("" + aciklama +", " + messagekalan)  // gerekli
+                    .setSmallIcon(R.drawable.grennadd) // gerekli
+                    .setAutoCancel(true)  // Bildirim tıklandıktan sonra kaybolur."
+                    .setContentIntent(gidilecekIntent);
+
+        } else {
+
+            builder = new NotificationCompat.Builder(this);
+
+            builder.setContentTitle("Bildirim")  // gerekli
+                    .setContentText("" + aciklama +", " + messagekalan)  // gerekli
+                    .setSmallIcon(R.drawable.grennadd) // gerekli
+                    .setContentIntent(gidilecekIntent)
+                    .setAutoCancel(true)  // Bildirim tıklandıktan sonra kaybolur."
+                    .setPriority(Notification.PRIORITY_HIGH);
+        }
+
+
+        Intent broadcastIntent =
+                new Intent(editislemlerbildirim.this,Bildirimyakalayici.class);
+
+
+        broadcastIntent.putExtra("bildirimNesnesi",builder.build());
+
+        PendingIntent gidilecekBroadcast = PendingIntent.getBroadcast(this,id,broadcastIntent
+                ,PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+        AlarmManager alarmManager =
+                (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        Date currentTime = Calendar.getInstance().getTime();
+        long reminderDateTimeInMilliseconds=0000;
+
+        Random r=new Random(); //random sınıfı
+        int result = r.nextInt(59-1) + 1;
+
+
+        calendar.set(2019, 9, 19, 21, 34, 0);
+
+        if (System.currentTimeMillis() < calendar.getTimeInMillis()) {
+
+
+            reminderDateTimeInMilliseconds = calendar.getTimeInMillis();
+
+
+            alarmManager.set(AlarmManager.RTC_WAKEUP,reminderDateTimeInMilliseconds,gidilecekBroadcast);
+
+        }
+
 
     }
 

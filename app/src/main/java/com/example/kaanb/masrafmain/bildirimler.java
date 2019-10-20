@@ -152,8 +152,8 @@ public class bildirimler extends AppCompatActivity {
 
 
                         int checkprocessid = g.getInt(g.getColumnIndex("processid"));
-                        int checkprocessid3 = g.getInt(g.getColumnIndex("processid")) + 1000;
-                        int checkprocessid7 = g.getInt(g.getColumnIndex("processid")) + 10000;
+                        int checkprocessid3 = g.getInt(g.getColumnIndex("processid")) + 10000;
+                        int checkprocessid7 = g.getInt(g.getColumnIndex("processid")) + 100000;
 
                         int checkmonth = g.getInt(g.getColumnIndex("month"));
                         int checkday = g.getInt(g.getColumnIndex("day"));
@@ -172,7 +172,7 @@ public class bildirimler extends AppCompatActivity {
                                 int myalarmday7 = 0, myalarmday3 = 0, myalarmdayson = 0;
                                 myalarmday7 = mDay + (day_counter - mycounterweek);
                                 myalarmday3 = mDay + (day_counter - mycounter3);
-                                myalarmdayson = mDay;
+                                myalarmdayson = mDay +(day_counter - mycounterson );
 
                                 bildirim(checkprocessid, checkmonth, checkyear, myalarmdayson, 0, checkinfo);
                                 bildirim(checkprocessid3, checkmonth, checkyear, myalarmday3, 3, checkinfo);
@@ -189,10 +189,10 @@ public class bildirimler extends AppCompatActivity {
                             int myalarmday7 = 0, myalarmday3 = 0, myalarmdayson = 0;
                             myalarmday7 = mDay + (day_counter - mycounterweek);
                             myalarmday3 = mDay + (day_counter - mycounter3);
-                            myalarmdayson = mDay;
+                            myalarmdayson = mDay +(day_counter - mycounterson );
 
                             bildirim(checkprocessid, checkmonth, checkyear, myalarmdayson, 0, checkinfo);
-                            bildirim(checkprocessid3, checkmonth, checkyear, myalarmday3, 3, checkinfo);
+                           bildirim(checkprocessid3, checkmonth, checkyear, myalarmday3, 3, checkinfo);
                             bildirim(checkprocessid7, checkmonth, checkyear, myalarmday7, 7, checkinfo);
 
                         }
@@ -328,10 +328,10 @@ public class bildirimler extends AppCompatActivity {
         long reminderDateTimeInMilliseconds=0000;
 
         Random r=new Random(); //random sınıfı
-        int result = r.nextInt(59-1) + 1;
+        int result = r.nextInt(57-52) + 52;
 
 
-        calendar.set(2019, 9, 18, 19, 59, 0);
+        calendar.set(yilson, ayson-1,gunson , 23, 27, 0);
 
         if (System.currentTimeMillis() < calendar.getTimeInMillis()) {
 

@@ -150,27 +150,6 @@ public class masrafmain extends AppCompatActivity {
 
                         int day_counter = (d.getInt(d.getColumnIndex("day"))) - mDay;
 
-
-                        int mycounterweek = 7,mycounter3 = 3,mycounterson = 0;
-                        int myalarmday7 = 0,myalarmday3 = 0,myalarmdayson = 0;
-                        myalarmday7 = mDay + (day_counter - mycounterweek);
-                        myalarmday3 = mDay +(day_counter - mycounter3);
-                        myalarmdayson = mDay;
-
-                        /*
-                        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                        Intent myIntent = new Intent(getApplicationContext(), Bildirimyakalayici.class);
-                        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                                getApplicationContext(), 1, myIntent,
-                                PendingIntent.FLAG_UPDATE_CURRENT);
-
-                        alarmManager.cancel(pendingIntent);
-                       // bildirim(checkprocessid,checkmonth,checkyear,myalarmdayson,0,checkinfo);
-                        //bildirim(checkprocessid3,checkmonth,checkyear,myalarmday3,3,checkinfo);
-                        //bildirim(checkprocessid7,checkmonth,checkyear,myalarmday7,7,checkinfo);
-                        */
-
-
                         datebildirim = datebildirim + day_counter + "\n";
                         infobildirim = infobildirim + d.getString(d.getColumnIndex("informationx")) + "\n";
                         array[arraycounter] = day_counter;
@@ -192,6 +171,21 @@ public class masrafmain extends AppCompatActivity {
 
 
                     }
+
+                }else if((d.getInt(d.getColumnIndex("month")) == 0) && (mMonth == 11))
+                {
+                    int res = e.getActualMaximum(Calendar.DATE);
+                    int day_counter = (d.getInt(d.getColumnIndex("day"))) + (res - mDay);
+
+                    if (day_counter <= 30) {
+                        datebildirim = datebildirim + day_counter + "\n";
+                        infobildirim = infobildirim + d.getString(d.getColumnIndex("informationx")) + "\n";
+                        array[arraycounter] = day_counter;
+                        arrays[arraycounter] = d.getString(d.getColumnIndex("informationx"));
+                        arraycounter++;
+                        gunkaldi = gunkaldi + " gün kaldı." + "\n";
+                    }
+
 
                 }
 
