@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,7 +37,8 @@ public class gider extends AppCompatActivity {
     static int currentday,currentmonth,currentyear,taksit=1;
     static int my_day = 0,my_month = 0,my_year = 0;
     static double prices = 0.0;
-
+    private CheckBox monthrepeat;
+    static String myrepeat ="NO";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +113,15 @@ public class gider extends AppCompatActivity {
                 String pricescontrol = pricetxt.getText().toString();
                 control = informationtext.getText().toString();
                 String taksitx = taksittxt.getText().toString();
+
+                if ( monthrepeat.isChecked() )
+                {
+                    myrepeat ="YES";
+                }
+                else {
+                    myrepeat = "NO";
+                }
+
                 if(taksitx.equals("") || taksitx.equals("0"))
                 {
                     taksitx = "1";
@@ -127,7 +138,7 @@ public class gider extends AppCompatActivity {
 
                     s = informationtext.getText().toString();
                     spin= myspinner.getSelectedItem().toString();
-                    new Database_dao().adding(db,"gider",s,my_day,my_month,my_year,prices,"radiostring",spin,"devam",taksit);
+                    new Database_dao().adding(db,"gider",s,my_day,my_month,my_year,prices,myrepeat,spin,"devam",taksit);
                     Intent intent = new Intent(gider.this, masrafmain.class);
                     startActivity(intent);
                     infoerror.setVisibility(View.GONE);
@@ -220,6 +231,7 @@ public class gider extends AppCompatActivity {
         tariherror = new ImageView(this);
         tutarerror = new ImageView(this);
         constraintana = new ConstraintLayout(this);
+        monthrepeat = new CheckBox(this);
 
 
 
@@ -239,6 +251,7 @@ public class gider extends AppCompatActivity {
         tariherror = findViewById(R.id.tariherror);
         tutarerror = findViewById(R.id.tutarerror);
         constraintana = findViewById(R.id.constraintana);
+        monthrepeat = findViewById(R.id.monthrepeat);
     }
 
 

@@ -74,24 +74,28 @@
 
     <TextView
         android:id="@+id/tarihset"
-        android:layout_width="323dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="16dp"
-        android:textSize="18sp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/alarmdatetxt"
+        app:layout_constraintEnd_toStartOf="@+id/tariherror"
+        app:layout_constraintHorizontal_bias="0.24"
         app:layout_constraintStart_toStartOf="@+id/alarmdatetxt"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toTopOf="@+id/alarmdatetxt" />
 
     <Button
         android:id="@+id/kayıtbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="12dp"
         android:text="KAYDET"
         app:layout_constraintEnd_toEndOf="@+id/alarmdatetxt"
-        app:layout_constraintTop_toBottomOf="@+id/tarihset" />
+        app:layout_constraintTop_toBottomOf="@+id/monthrepeat" />
 
     <Button
         android:id="@+id/iptalbutton"
@@ -127,6 +131,16 @@
         app:layout_constraintEnd_toEndOf="@+id/alarmdatetxt"
         app:layout_constraintTop_toTopOf="@+id/alarmdatetxt"
         app:srcCompat="@android:drawable/presence_busy" />
+
+    <CheckBox
+        android:id="@+id/monthrepeat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Her Ay Tekrarla"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/alarmdatetxt"
+        app:layout_constraintTop_toBottomOf="@+id/alarmdatetxt" />
 
     <ImageView
         android:id="@+id/imageView2"

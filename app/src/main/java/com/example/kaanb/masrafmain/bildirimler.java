@@ -20,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -44,6 +45,8 @@ public class bildirimler extends AppCompatActivity {
     String infox = "";
     int counter = 0;
     String infocontrol = "";
+    private CheckBox monthrepeat;
+    static String myrepeat ="NO";
 
 
     public void init()
@@ -78,6 +81,9 @@ public class bildirimler extends AppCompatActivity {
 
         constraint = new ConstraintLayout(this);
         constraint = findViewById(R.id.constraint);
+
+        monthrepeat = new CheckBox(this);
+        monthrepeat = findViewById(R.id.monthrepeat);
 
     }
 
@@ -125,7 +131,16 @@ public class bildirimler extends AppCompatActivity {
                 infocontrol = alarminfotxt.getText().toString();
                 if (my_year > 0 && !infocontrol.equals("")) {
 
-                    new Database_dao().addingalarm(db2, infocontrol, my_day, my_month, my_year);
+                    if ( monthrepeat.isChecked() )
+                    {
+                        myrepeat ="YES";
+                    }
+                    else {
+                        myrepeat = "NO";
+                    }
+
+
+                    new Database_dao().addingalarm(db2, infocontrol, my_day, my_month, my_year,myrepeat);
                     ///////////////
 
 

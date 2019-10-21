@@ -129,10 +129,13 @@ public class editislemlerbildirim extends AppCompatActivity {
                         iptalbtn= tasarim.findViewById(R.id.iptalbutton);
                         tariherror = tasarim.findViewById(R.id.tariherror);
                         infoerror = tasarim.findViewById(R.id.infoerror);
+                        monthrepeat = tasarim.findViewById(R.id.monthrepeat);
 
 
                         k = dbm2.rawQuery("SELECT * FROM bildirim", null);
                             k.moveToFirst();
+
+
 
                             l = dbm3.rawQuery("SELECT * FROM bildirim WHERE processid=" + tv.getTag(), null);
                             l.moveToFirst();
@@ -154,6 +157,9 @@ public class editislemlerbildirim extends AppCompatActivity {
                             tarihset.setText("" + l.getInt(l.getColumnIndex("day")) + "." +
                                     l.getInt(l.getColumnIndex("month")) + "." +
                                     l.getInt(l.getColumnIndex("year")));
+                        if (l.getString(l.getColumnIndex("repeat")).equals("YES")) {
+                            monthrepeat.setChecked(true);
+                        }
 
                         tarihset.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -187,6 +193,12 @@ public class editislemlerbildirim extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
 
+                                if (monthrepeat.isChecked()) {
+                                    myrepeat = "YES";
+                                } else {
+                                    myrepeat = "NO";
+                                }
+
                                 infocontrol=alarminfotxt.getText().toString();
                                 if(my_year > 0 && !infocontrol.equals("")) {
                                     ContentValues cv = new ContentValues();
@@ -194,6 +206,7 @@ public class editislemlerbildirim extends AppCompatActivity {
                                     cv.put("day", "" + my_day);
                                     cv.put("month", "" + my_month);
                                     cv.put("year", "" + my_year);
+                                    cv.put("repeat",""+ myrepeat);
 
 
                                     dbm3.update("bildirim", cv, "processid=" + tv.getTag(), null);

@@ -63,7 +63,7 @@ public class Database_dao extends AppCompatActivity {
         return myveri;
     }
 
-    public void addingalarm(Databasehelper dh,String my_alarminfo,int my_day,int my_month,int my_year)
+    public void addingalarm(Databasehelper dh,String my_alarminfo,int my_day,int my_month,int my_year,String my_repeat)
     {
         SQLiteDatabase dbm = dh.getWritableDatabase();
         ContentValues mycontent = new ContentValues();
@@ -72,6 +72,7 @@ public class Database_dao extends AppCompatActivity {
         mycontent.put("day",my_day);
         mycontent.put("month",my_month);
         mycontent.put("year",my_year);
+        mycontent.put("repeat",my_repeat);
 
         dbm.insertOrThrow("bildirim",null,mycontent);
         dbm.close();
@@ -93,7 +94,8 @@ public class Database_dao extends AppCompatActivity {
                     d.getString(d.getColumnIndex("informationx")),
                     d.getInt(d.getColumnIndex("month")),
                     d.getInt(d.getColumnIndex("day")),
-                    d.getInt(d.getColumnIndex("year")));
+                    d.getInt(d.getColumnIndex("year")),
+                    d.getString(d.getColumnIndex("repeat")));
 
             myveri2.add(verilerimalarm);
         }

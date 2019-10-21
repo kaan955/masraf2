@@ -135,6 +135,20 @@
         app:layout_constraintStart_toEndOf="@+id/imageView7"
         app:layout_constraintTop_toTopOf="@+id/imageView7" />
 
+    <CheckBox
+        android:id="@+id/monthrepeat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="Her Ay Tekrarla"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerlabel"
+        app:layout_constraintEnd_toEndOf="@+id/textinfo"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/spinnerlabel"
+        app:layout_constraintTop_toTopOf="@+id/spinnerlabel" />
+
     <Spinner
         android:id="@+id/spinnerlabel"
         android:layout_width="0dp"
@@ -193,16 +207,13 @@
         android:id="@+id/Taksit"
         android:layout_width="89dp"
         android:layout_height="29dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginTop="8dp"
         android:text="Kaç Taksit?"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/spinnerlabel"
         app:layout_constraintEnd_toStartOf="@+id/taksittxt"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/spinnerlabel"
-        app:layout_constraintTop_toTopOf="@+id/spinnerlabel" />
+        app:layout_constraintStart_toStartOf="@+id/monthrepeat"
+        app:layout_constraintTop_toBottomOf="@+id/monthrepeat" />
 
     <EditText
         android:id="@+id/taksittxt"

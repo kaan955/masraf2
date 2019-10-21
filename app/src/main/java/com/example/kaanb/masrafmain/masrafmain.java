@@ -1,35 +1,24 @@
 package com.example.kaanb.masrafmain;
 
-import android.app.AlarmManager;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.os.Build;
-import android.os.SystemClock;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
+
 
 public class masrafmain extends AppCompatActivity {
 
@@ -79,7 +68,19 @@ public class masrafmain extends AppCompatActivity {
         } else {
             c.moveToLast();
             do {
-                if (counter <= 15) {
+                if((c.getString(c.getColumnIndex("repeat")).equals("YES")) &&(Calendar.getInstance().get(Calendar.MONTH)+1 >c.getInt(c.getColumnIndex("month"))) && Calendar.getInstance().get(Calendar.DATE) >=c.getInt(c.getColumnIndex("day")) )
+                {
+                    ContentValues cv = new ContentValues();
+                    cv.put("repeat", "NO");
+
+                    dbm.update("holder", cv, "processid=" + c.getInt(c.getColumnIndex("processid")), null);
+                    dbm = db.getReadableDatabase();
+                    new Database_dao().adding(db,"gelir",c.getString(c.getColumnIndex("info")),c.getInt(c.getColumnIndex("day")),c.getInt(c.getColumnIndex("month")) +1,
+                            c.getInt(c.getColumnIndex("year")),c.getDouble(c.getColumnIndex("price")),"YES",c.getString(c.getColumnIndex("label")),"devam",1);
+                    dbm = db.getReadableDatabase();
+
+                }
+                if (counter <= 20) {
                     datex = datex + c.getInt(c.getColumnIndex("day")) + "." +
                             c.getInt(c.getColumnIndex("month")) + "." +
                             c.getInt(c.getColumnIndex("year")) + "\n";
@@ -88,8 +89,25 @@ public class masrafmain extends AppCompatActivity {
                     pricex +="₺" + firstNumberAsString + "\n";
                     counter++;
 
+
+                    Calendar calendar5 = Calendar.getInstance();
+                    calendar5.clear();
+                    Date currentTime = Calendar.getInstance().getTime();
+                    long reminderDateTimeInMilliseconds=0000;
+
+                    calendar5.set(c.getInt(c.getColumnIndex("year")), c.getInt(c.getColumnIndex("month"))-1,c.getInt(c.getColumnIndex("day")));
+                            int a = Calendar.getInstance().get(Calendar.MONTH);
+                            int b = c.getInt(c.getColumnIndex("month"));
+                            int d = Calendar.getInstance().get(Calendar.DATE);
+                            int h = c.getInt(c.getColumnIndex("day"));
+                            String s = c.getString(c.getColumnIndex("repeat"));
+
+
+
+
+
                 }
-                if (counter >= 16) {
+                if (counter >= 21) {
                     c.moveToFirst();
                     counter = 0;
                 }
@@ -429,120 +447,4 @@ public class masrafmain extends AppCompatActivity {
         bildirimimagebutton = findViewById(R.id.bildirimimagebutton);
         imagebildirimedit = findViewById(R.id.imagebildirimedit);
     }
-
-
-    private void bildirim(int id,int ayson,int yilson,int günson,int kalan,String aciklama) {
-
-        NotificationCompat.Builder builder;
-
-        String messagekalan = "";
-        NotificationManager bildirimYoneticisi =
-                (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-
-        Intent ıntent = new Intent(this,masrafmain.class);
-
-        PendingIntent gidilecekIntent = PendingIntent.getActivity(this,id,ıntent,PendingIntent.FLAG_UPDATE_CURRENT);
-
-        if(kalan == 0)
-        {
-            messagekalan = "bugün son gün !";
-        }
-        else if(kalan ==3)
-        {
-            messagekalan = "Son 3 gün!";
-        }
-        else if(kalan == 7)
-        {
-            messagekalan = "7 gün kaldı.";
-        }
-
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { // For Oreo
-
-            String kanalId = "kanalId";
-            String kanalAd = "kanalAd";
-            String kanalTanım = "kanalTanım";
-
-            int kanalOnceligi = NotificationManager.IMPORTANCE_HIGH;
-
-            NotificationChannel kanal = bildirimYoneticisi.getNotificationChannel(kanalId);
-
-            if (kanal == null) {
-                kanal = new NotificationChannel(kanalId, kanalAd, kanalOnceligi);
-                kanal.setDescription(kanalTanım);
-                bildirimYoneticisi.createNotificationChannel(kanal);
-            }
-
-            builder = new NotificationCompat.Builder(this, kanalId);
-
-            builder.setContentTitle("Bildirim")  // gerekli
-                    .setContentText("" + aciklama +", " + messagekalan)  // gerekli
-                    .setSmallIcon(R.drawable.grennadd) // gerekli
-                    .setAutoCancel(true)  // Bildirim tıklandıktan sonra kaybolur."
-                    .setContentIntent(gidilecekIntent);
-
-        } else {
-
-            builder = new NotificationCompat.Builder(this);
-
-            builder.setContentTitle("Bildirim")  // gerekli
-                    .setContentText("" + aciklama +", " + messagekalan)  // gerekli
-                    .setSmallIcon(R.drawable.grennadd) // gerekli
-                    .setContentIntent(gidilecekIntent)
-                    .setAutoCancel(true)  // Bildirim tıklandıktan sonra kaybolur."
-                    .setPriority(Notification.PRIORITY_HIGH);
-        }
-
-
-        Intent broadcastIntent =
-                new Intent(masrafmain.this,Bildirimyakalayici.class);
-
-
-        broadcastIntent.putExtra("bildirimNesnesi",builder.build());
-
-        PendingIntent gidilecekBroadcast = PendingIntent.getBroadcast(this,id,broadcastIntent
-                ,PendingIntent.FLAG_UPDATE_CURRENT);
-
-
-        AlarmManager alarmManager =
-                (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.clear();
-        Date currentTime = Calendar.getInstance().getTime();
-        long reminderDateTimeInMilliseconds=0000;
-
-        Random r=new Random(); //random sınıfı
-        int a=r.nextInt(60);
-
-
-        calendar.set(2019, 9, 18, 14, a, 0);
-
-        if (System.currentTimeMillis() < calendar.getTimeInMillis()) {
-
-
-
-        reminderDateTimeInMilliseconds = calendar.getTimeInMillis();
-
-
-        Log.i("ET", "CalDAy: " +  calendar.get(Calendar.DAY_OF_MONTH));
-        Log.i("ET", "CalDAy: " +  calendar.get(Calendar.MONTH));
-        Log.i("ET", "CalDAy: " +  calendar.get(Calendar.YEAR));
-
-        Log.i("ET", "CalDAy: " +  calendar.get(Calendar.HOUR_OF_DAY));
-        Log.i("ET", "CalDAy: " +  calendar.get(Calendar.MINUTE));
-        Log.i("ET", "CalDAy: " +  currentTime);
-
-
-        alarmManager.set(AlarmManager.RTC_WAKEUP,reminderDateTimeInMilliseconds,gidilecekBroadcast);
-
-        }
-
-
-        }
-
-
-
-
     }

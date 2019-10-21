@@ -16,7 +16,7 @@ public class Mydatabase {
 
     //
     private int bmonth,bday,byear,bprocessid;
-    private String binformation;
+    private String binformation, brepeat;
 
     public Mydatabase() {
     }
@@ -71,13 +71,24 @@ public class Mydatabase {
         this.binformation = binformation;
     }
 
-    public  Mydatabase(int processidx,String informationx, int month, int day, int year)
+    public String getBrepeat() {
+        return brepeat;
+    }
+
+    public void setBrepeat(String brepeat) {
+        this.binformation = brepeat;
+    }
+
+
+
+    public  Mydatabase(int processidx,String informationx, int month, int day, int year,String my_repeat)
     {
         this.bprocessid = processidx;
         this.binformation = informationx;
         this.bday = day;
         this.bmonth = month;
         this.byear = year;
+        this.brepeat = my_repeat;
 
     }
 
@@ -167,5 +178,7 @@ public class Mydatabase {
     public void setTaksit(int taksitx) {
         this.taksit = taksitx;
     }
+
+
 
 }

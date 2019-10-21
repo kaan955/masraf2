@@ -339,10 +339,16 @@ public class editislemler extends AppCompatActivity {
 
                             String getselected = ("" + z.getString(z.getColumnIndex("label")));
 
+                            if (z.getString(z.getColumnIndex("repeat")).equals("YES")) {
+                                monthrepeat.setChecked(true);
+                            }
+
 
                             myspinner.setSelection(etiketadaptoru.getPosition(getselected));
 
                             taksittxt.setText("" + z.getInt(z.getColumnIndex("taksit")));
+
+
 
 
                             tarihtext.setOnClickListener(new View.OnClickListener() {

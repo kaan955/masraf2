@@ -77,24 +77,27 @@
 
     <TextView
         android:id="@+id/tarihset"
-        android:layout_width="323dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/alarmdatetxt"
+        app:layout_constraintEnd_toStartOf="@+id/tariherror"
+        app:layout_constraintHorizontal_bias="0.16"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toTopOf="@+id/alarmdatetxt" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="306dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="8dp"
-        android:text="Bildirim Tarihinizden, 1 hafta önce, 3 gün önce ve son gün telefon ekranınıza açıklamanızla alakalı bildirim göndereceğiz. "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/alarmdatetxt" />
+        android:layout_marginTop="15dp"
+        android:text="Bildirim Tarihinizden, 1 hafta önce, 3 gün önce ve son gün telefon ekranınıza açıklamanızla alakalı bildirim göndereceğiz."
+        app:layout_constraintEnd_toEndOf="@+id/monthrepeat"
+        app:layout_constraintStart_toStartOf="@+id/alarmdatetxt"
+        app:layout_constraintTop_toBottomOf="@+id/monthrepeat" />
 
     <Button
         android:id="@+id/kayıtbutton"
@@ -161,6 +164,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/bell" />
+
+    <CheckBox
+        android:id="@+id/monthrepeat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Her Ay Tekrarla"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/alarmdatetxt"
+        app:layout_constraintTop_toBottomOf="@+id/alarmdatetxt" />
 
 
 </android.support.constraint.ConstraintLayout>

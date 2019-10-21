@@ -8,7 +8,7 @@ public class Databasehelper extends SQLiteOpenHelper {
 
 
     public Databasehelper(Context context) {
-        super(context, "veritutar9", null, 1);
+        super(context, "veritutar9", null, 4);
     }
 
     @Override
@@ -16,7 +16,7 @@ public class Databasehelper extends SQLiteOpenHelper {
 
 
             db.execSQL("CREATE TABLE holder(processid INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,info TEXT,day INTEGER,month INTEGER,year INTEGER,price DOUBLE,repeat TEXT,label TEXT,pricetype TEXT,taksit INTEGER);");
-            db.execSQL("CREATE TABLE bildirim(processid INTEGER PRIMARY KEY AUTOINCREMENT,informationx TEXT,day INTEGER,month INTEGER,year INTEGER);");
+            db.execSQL("CREATE TABLE bildirim(processid INTEGER PRIMARY KEY AUTOINCREMENT,informationx TEXT,day INTEGER,month INTEGER,year INTEGER,repeat TEXT);");
     }
 
 
