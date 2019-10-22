@@ -27,7 +27,7 @@ public class masrafmain extends AppCompatActivity {
     private ScrollView myscroll;
     private ConstraintLayout constraint,constraintbildirim,constaintmain,constraintana;
     private LinearLayout linear;
-    private Databasehelper db,db2,db3;
+    private Databasehelper db,db2,db3,db4,db5;
     private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebutton,imagebildirimedit;
 
 
@@ -53,6 +53,54 @@ public class masrafmain extends AppCompatActivity {
         constaintmain.setBackgroundColor(Color.parseColor("#FFE2E1E3"));
         constraintbildirim.setBackgroundColor(Color.parseColor("#FFE2E1E3"));
         constraintana.setBackgroundColor(Color.parseColor("#FF726C6C"));
+        db5 = new Databasehelper(this);
+        new Database_dao().veriler(db5);
+        SQLiteDatabase dbm5 = db5.getReadableDatabase();
+        Cursor m = dbm5.rawQuery("SELECT * FROM holder", null);
+        m.moveToFirst();
+
+
+        if (m.getCount() <= 0) {
+            m.close();
+
+        } else {
+            m.moveToLast();
+            do {
+                if((m.getString(m.getColumnIndex("repeat")).equals("YES")) &&(Calendar.getInstance().get(Calendar.MONTH)+1 >m.getInt(m.getColumnIndex("month"))) && Calendar.getInstance().get(Calendar.DATE) >=m.getInt(m.getColumnIndex("day")) )
+                {
+                    ContentValues cv = new ContentValues();
+                    cv.put("repeat", "NO");
+                    dbm5.update("holder", cv, "processid=" + m.getInt(m.getColumnIndex("processid")), null);
+                    dbm5 = db5.getReadableDatabase();
+                    int monthcounter = (Calendar.getInstance().get(Calendar.MONTH)+1) - m.getInt(m.getColumnIndex("month"));
+
+                    for(int mm=1;mm<= monthcounter;mm++) {
+                        if(mm == monthcounter) {
+                            new Database_dao().adding(db5, m.getString(m.getColumnIndex("type")), m.getString(m.getColumnIndex("info")),m.getInt(m.getColumnIndex("day")),m.getInt(m.getColumnIndex("month"))+mm,m.getInt(m.getColumnIndex("year"))
+                                    ,m.getInt(m.getColumnIndex("price")),"YES",m.getString(m.getColumnIndex("label")),m.getString(m.getColumnIndex("pricetype")), m.getInt(m.getColumnIndex("taksit")));
+                            dbm5 = db5.getReadableDatabase();
+                        }
+                        else
+                        {
+                            new Database_dao().adding(db5, m.getString(m.getColumnIndex("type")), m.getString(m.getColumnIndex("info")),m.getInt(m.getColumnIndex("day")),m.getInt(m.getColumnIndex("month"))+mm,m.getInt(m.getColumnIndex("year"))
+                                    ,m.getInt(m.getColumnIndex("price")),"NO",m.getString(m.getColumnIndex("label")),m.getString(m.getColumnIndex("pricetype")), m.getInt(m.getColumnIndex("taksit")));
+                            dbm5 = db5.getReadableDatabase();
+
+
+
+                        }
+
+                    }
+
+                }
+            } while (m.moveToPrevious());
+            m.close();
+
+        }
+
+
+
+
 
         new Database_dao().veriler(db);
         SQLiteDatabase dbm = db.getReadableDatabase();
@@ -68,18 +116,7 @@ public class masrafmain extends AppCompatActivity {
         } else {
             c.moveToLast();
             do {
-                if((c.getString(c.getColumnIndex("repeat")).equals("YES")) &&(Calendar.getInstance().get(Calendar.MONTH)+1 >c.getInt(c.getColumnIndex("month"))) && Calendar.getInstance().get(Calendar.DATE) >=c.getInt(c.getColumnIndex("day")) )
-                {
-                    ContentValues cv = new ContentValues();
-                    cv.put("repeat", "NO");
 
-                    dbm.update("holder", cv, "processid=" + c.getInt(c.getColumnIndex("processid")), null);
-                    dbm = db.getReadableDatabase();
-                    new Database_dao().adding(db,"gelir",c.getString(c.getColumnIndex("info")),c.getInt(c.getColumnIndex("day")),c.getInt(c.getColumnIndex("month")) +1,
-                            c.getInt(c.getColumnIndex("year")),c.getDouble(c.getColumnIndex("price")),"YES",c.getString(c.getColumnIndex("label")),"devam",1);
-                    dbm = db.getReadableDatabase();
-
-                }
                 if (counter <= 20) {
                     datex = datex + c.getInt(c.getColumnIndex("day")) + "." +
                             c.getInt(c.getColumnIndex("month")) + "." +
@@ -88,24 +125,6 @@ public class masrafmain extends AppCompatActivity {
                     String firstNumberAsString = String.format ("%.2f", c.getDouble(c.getColumnIndex("price")));
                     pricex +="₺" + firstNumberAsString + "\n";
                     counter++;
-
-
-                    Calendar calendar5 = Calendar.getInstance();
-                    calendar5.clear();
-                    Date currentTime = Calendar.getInstance().getTime();
-                    long reminderDateTimeInMilliseconds=0000;
-
-                    calendar5.set(c.getInt(c.getColumnIndex("year")), c.getInt(c.getColumnIndex("month"))-1,c.getInt(c.getColumnIndex("day")));
-                            int a = Calendar.getInstance().get(Calendar.MONTH);
-                            int b = c.getInt(c.getColumnIndex("month"));
-                            int d = Calendar.getInstance().get(Calendar.DATE);
-                            int h = c.getInt(c.getColumnIndex("day"));
-                            String s = c.getString(c.getColumnIndex("repeat"));
-
-
-
-
-
                 }
                 if (counter >= 21) {
                     c.moveToFirst();
@@ -125,21 +144,71 @@ public class masrafmain extends AppCompatActivity {
         ///////////////YAKLASAN BILDIRIMLER/////////////////////
 
         db2 = new Databasehelper(this);
+        db4 = new Databasehelper(this);
 
         final Calendar e = Calendar.getInstance();
         int mYear = e.get(Calendar.YEAR);
         int mMonth = e.get(Calendar.MONTH);
         int mDay = e.get(Calendar.DAY_OF_MONTH);
 
+        new Database_dao().veriler(db4);
+
+
+        SQLiteDatabase dbm4 = db4.getReadableDatabase();
+
+        Cursor f = dbm4.rawQuery("SELECT * FROM bildirim", null);
+
+
+        f.moveToFirst();
+
+
+        if ( f.getCount() <= 0 ) {
+
+            f.close();
+            bildirimnotxt.setText("Bildirim giriniz..");
+
+        } else {
+            f.moveToFirst();
+
+            do {
+                if((f.getString(f.getColumnIndex("repeat")).equals("YES")) &&(Calendar.getInstance().get(Calendar.MONTH)+1 >f.getInt(f.getColumnIndex("month"))) && Calendar.getInstance().get(Calendar.DATE) >=f.getInt(f.getColumnIndex("day")) )
+                {
+                    ContentValues cv = new ContentValues();
+                    cv.put("repeat", "NO");
+                    dbm4.update("bildirim", cv, "processid=" + f.getInt(f.getColumnIndex("processid")), null);
+                    dbm4 = db4.getReadableDatabase();
+                    int monthcounter = (Calendar.getInstance().get(Calendar.MONTH)+1) - f.getInt(f.getColumnIndex("month"));
+
+                    for(int mm=1;mm<= monthcounter;mm++) {
+                        if(mm == monthcounter) {
+                            new Database_dao().addingalarm(db4, f.getString(f.getColumnIndex("informationx")), f.getInt(f.getColumnIndex("day")), f.getInt(f.getColumnIndex("month")) + mm, f.getInt(f.getColumnIndex("year")), "YES");
+                            dbm4 = db4.getReadableDatabase();
+                        }
+                        else
+                        {
+                            new Database_dao().addingalarm(db4, f.getString(f.getColumnIndex("informationx")), f.getInt(f.getColumnIndex("day")), f.getInt(f.getColumnIndex("month")) + mm, f.getInt(f.getColumnIndex("year")), "NO");
+                            dbm4 = db4.getReadableDatabase();
+
+
+
+                        }
+
+                    }
+
+                }
+
+
+            } while (f.moveToNext());
+
+            f.close();
+
+        }
+
 
         new Database_dao().veriler(db2);
-
         SQLiteDatabase dbm2 = db2.getReadableDatabase();
         Cursor d = dbm2.rawQuery("SELECT * FROM bildirim", null);
-
-        d.moveToLast();
-
-
+        d.moveToFirst();
 
 
         /// bildirim
@@ -150,17 +219,9 @@ public class masrafmain extends AppCompatActivity {
             bildirimnotxt.setText("Bildirim giriniz..");
 
         } else {
+            d.moveToLast();
 
             do {
-                int checkprocessid = d.getInt(d.getColumnIndex("processid"));
-                int checkprocessid3 = d.getInt(d.getColumnIndex("processid"))+1000;
-                int checkprocessid7 = d.getInt(d.getColumnIndex("processid"))+10000;
-
-                int checkmonth = d.getInt(d.getColumnIndex("month"));
-                int checkday = d.getInt(d.getColumnIndex("day"));
-                int checkyear = d.getInt(d.getColumnIndex("year"));
-                String checkinfo = d.getString(d.getColumnIndex("informationx"));
-
 
                 if ((mYear == d.getInt(d.getColumnIndex("year"))) && (((mMonth + 1) == d.getInt(d.getColumnIndex("month"))) || ((mMonth + 2) == d.getInt(d.getColumnIndex("month"))))) {
 
@@ -186,7 +247,6 @@ public class masrafmain extends AppCompatActivity {
                             arraycounter++;
                             gunkaldi = gunkaldi + " gün kaldı." + "\n";
                         }
-
 
                     }
 

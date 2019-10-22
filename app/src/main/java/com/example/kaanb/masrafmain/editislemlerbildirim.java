@@ -210,6 +210,7 @@ public class editislemlerbildirim extends AppCompatActivity {
 
 
                                     dbm3.update("bildirim", cv, "processid=" + tv.getTag(), null);
+                                    dbm3.close();
 
 
                                     ///////////////////
