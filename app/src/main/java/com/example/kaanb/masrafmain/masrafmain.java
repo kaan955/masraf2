@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,21 +16,33 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.viewpagerindicator.CirclePageIndicator;
+
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class masrafmain extends AppCompatActivity {
 
     private Button gelir,gider,bildirimbutton;
-    private TextView ser,lastprocessshow,lastprocesswriter2,lasttenshow,lastprocesswriter,textdate,textinfo,textprice,bildirimtxt,kalanguntxt,gunkaldıtxt,bildirimnotxt,islemlernotxt,gelirtxt,gidertxt,totaltxt;
+    private TextView ser,lastprocessshow,lastprocesswriter2,lasttenshow,lastprocesswriter,textdate,textinfo,textprice,bildirimtxt,kalanguntxt,gunkaldıtxt,bildirimnotxt,islemlernotxt,gelirtxt,gidertxt,totaltxt,slidertext;
     private ScrollView myscroll;
-    private ConstraintLayout constraint,constraintbildirim,constaintmain,constraintana;
+    private ConstraintLayout constraint,constraintbildirim,constaintmain,constraintana,sliderlayout;
     private LinearLayout linear;
     private Databasehelper db,db2,db3,db4,db5;
     private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebutton,imagebildirimedit;
+
+    private static ViewPager mPager;
+    private static int currentPage = 0;
+    private static int NUM_PAGES = 0;
+
+    private int[] urls = new int[] {0,0,0};
+    private String[]text = new String[]{"Kaan"};
 
 
     String datex = "",datebildirim = "",infobildirim = "",datebildirim2 = "",infobildirim2 = "",gunkaldi = "",infox = "",pricex = "",pricex2 = "";
@@ -99,8 +113,89 @@ public class masrafmain extends AppCompatActivity {
         }
 
 
+            /////////////////////////////Slidercontraint///////////////////////////////
 
 
+
+        mPager = findViewById(R.id.pager);
+        mPager.setAdapter(new imageadaptor(masrafmain.this,urls));
+
+        CirclePageIndicator indicator = findViewById(R.id.indicator);
+
+        indicator.setViewPager(mPager);
+
+        final float density = getResources().getDisplayMetrics().density;
+
+//Set circle indicator radius
+        indicator.setRadius(5 * density);
+
+        NUM_PAGES = 5;
+
+        // Auto start of viewpager
+        final Handler handler = new Handler();
+        final Runnable Update = new Runnable() {
+            public void run() {
+                if (currentPage == NUM_PAGES) {
+                    currentPage = 0;
+                }
+                mPager.setCurrentItem(currentPage++, true);
+                //textView.setText("Bu bir çalışma" + currentPage);
+
+            }
+        };
+        Timer swipeTimer = new Timer();
+        swipeTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(Update);
+                //textView.setText("Bu bir çalışma" + currentPage);
+            }
+        }, 3000, 3000);
+
+        // Pager listener over indicator
+        indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int position) {
+                currentPage = position;
+                slidertext.setText("Bu bir çalışma" + currentPage);
+                if(currentPage==0) {
+                    sliderlayout.setBackgroundColor(Color.parseColor("#FFE2E1E3"));
+                }
+                else if(currentPage == 1) {
+                    sliderlayout.setBackgroundColor(Color.parseColor("#FF726C6C"));
+                }
+            }
+
+            @Override
+            public void onPageScrolled(int pos, float arg1, int arg2) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int pos) {
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        ////////////////////////////////////////////////////////////////////////////////////
 
         new Database_dao().veriler(db);
         SQLiteDatabase dbm = db.getReadableDatabase();
@@ -476,6 +571,8 @@ public class masrafmain extends AppCompatActivity {
         constraintana = new ConstraintLayout(this);
         bildirimimagebutton = new ImageView(this);
         imagebildirimedit = new ImageView(this);
+        sliderlayout = new ConstraintLayout(this);
+        slidertext = new TextView(this);
     }
     public void addID()
     {
@@ -506,5 +603,7 @@ public class masrafmain extends AppCompatActivity {
         giderimagebutton = findViewById(R.id.giderimagebutton);
         bildirimimagebutton = findViewById(R.id.bildirimimagebutton);
         imagebildirimedit = findViewById(R.id.imagebildirimedit);
+        sliderlayout = findViewById(R.id.sliderlayout);
+        slidertext = findViewById(R.id.slidertext);
     }
     }
