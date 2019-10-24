@@ -30,31 +30,42 @@ import java.util.TimerTask;
 public class masrafmain extends AppCompatActivity {
 
     private Button gelir,gider,bildirimbutton;
-    private TextView ser,lastprocessshow,lastprocesswriter2,lasttenshow,lastprocesswriter,textdate,textinfo,textprice,bildirimtxt,kalanguntxt,gunkaldıtxt,bildirimnotxt,islemlernotxt,gelirtxt,gidertxt,totaltxt,slidertext;
+    private TextView ser,lastprocessshow,lastprocesswriter2,lasttenshow,lastprocesswriter,
+            textdate,textinfo,textprice,bildirimtxt,kalanguntxt,gunkaldıtxt,bildirimnotxt,
+            islemlernotxt,gelirtxt,gidertxt,totaltxt,slidertext,slidertext2;
     private ScrollView myscroll;
     private ConstraintLayout constraint,constraintbildirim,constaintmain,constraintana,sliderlayout;
     private LinearLayout linear;
-    private Databasehelper db,db2,db3,db4,db5;
+    private Databasehelper db,db2,db3,db4,db5,db6;
     private ImageView imageislemedit,gelirimagebtn,giderimagebutton,bildirimimagebutton,imagebildirimedit;
 
     private static ViewPager mPager;
     private static int currentPage = 0;
     private static int NUM_PAGES = 0;
+    private static int max = 0;
+    private static int stringcounter = 0;
 
-    private int[] urls = new int[] {0,0,0};
+    private int[] urls = new int[] {0,0,0,0,0};
     private String[]text = new String[]{"Kaan"};
+
+    private String[]label = new String[]{"Diğer","Maaş","Yemek","Eğlence","Yol","Araba","Sağlık","Giyim","Eğitim","Sigara","Ev"
+    ,"Fatura","Market","Hobiler","Telefon"};
+    private int[]labelcounter = new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+
 
 
     String datex = "",datebildirim = "",infobildirim = "",datebildirim2 = "",infobildirim2 = "",gunkaldi = "",infox = "",pricex = "",pricex2 = "";
     String []arrays;
     int[] array;
     int counter = 0,arraycounter = 0;
-    double totalgelir = 0.0,totalgider=0.0,totaltotal=0.0;
+    double totalgelir = 0.0,totalgider=0.0,totaltotal=0.0,priceoflast = 0.0,priceofbefore = 0.0;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_masrafmain);
         init();
         addID();
@@ -66,7 +77,8 @@ public class masrafmain extends AppCompatActivity {
         constraint.setBackgroundColor(Color.parseColor("#FFE2E1E3")); //C5E1A5 B1C282 96B478  C5E1A5
         constaintmain.setBackgroundColor(Color.parseColor("#FFE2E1E3"));
         constraintbildirim.setBackgroundColor(Color.parseColor("#FFE2E1E3"));
-        constraintana.setBackgroundColor(Color.parseColor("#FF726C6C"));
+        sliderlayout.setBackgroundColor(Color.parseColor("#FFE2E1E3"));
+        constraintana.setBackgroundColor(Color.parseColor("#EE7C7B7B"));
         db5 = new Databasehelper(this);
         new Database_dao().veriler(db5);
         SQLiteDatabase dbm5 = db5.getReadableDatabase();
@@ -158,12 +170,67 @@ public class masrafmain extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 currentPage = position;
-                slidertext.setText("Bu bir çalışma" + currentPage);
+
                 if(currentPage==0) {
-                    sliderlayout.setBackgroundColor(Color.parseColor("#FFE2E1E3"));
+                    sliderlayout.setBackgroundColor(Color.parseColor("#FFF3E5F5"));
+
+                    slidertext.setText("Harcalamalarını kontrol altına alın !");
+                    slidertext2.setText("Ayrıntılar için tıklayınız..");
                 }
                 else if(currentPage == 1) {
-                    sliderlayout.setBackgroundColor(Color.parseColor("#FF726C6C"));
+                    sliderlayout.setBackgroundColor(Color.parseColor("#FFCE93D8"));
+                    priceoflast = money("gelir","current",0);
+                    priceofbefore = money("gelir","before",0);
+                    double fark = priceofbefore - priceoflast;
+                    slidertext.setText("Bu ay ₺" + priceoflast + " gelir elde ettiniz.");
+                    if(fark >0){
+                        slidertext2.setText("Bu geçen aya göre ₺" + fark + " daha az gelir demek !" );
+                    }
+                    else if(fark < 0)
+                    {
+                        slidertext2.setText("Geçen aya göre ₺" + (-fark) + " daha fazla gelir demek !" );
+                    }
+                    else
+                    {
+                        slidertext2.setText("");
+                    }
+
+                }
+                else if(currentPage == 2)
+                {
+                    sliderlayout.setBackgroundColor(Color.parseColor("#FFAB47BC"));
+                    priceoflast = money("gider","current",0);
+                    priceofbefore = money("gider","before",0);
+                    double fark = priceofbefore - priceoflast;
+                    slidertext.setText("Bu ay ₺" + priceoflast + " harcadınız.");
+                    if(fark >0){
+                        slidertext2.setText("Bu geçen aya göre ₺" + fark + "daha AZ harcadınız. " );
+                    }
+                    else if(fark < 0)
+                    {
+                        slidertext2.setText("Geçen aya göre ₺" + fark + " daha FAZLA harcadınız !" );
+                    }
+                    else
+                    {
+                        slidertext2.setText("");
+                    }
+                }
+               else if(currentPage == 3)
+                {
+                    sliderlayout.setBackgroundColor(Color.parseColor("#FF8E24AA"));
+                   double labelprice = money("gider","current",1);
+                   double labelsıra = money("gider","current",2);
+                    int sıra =(int)labelsıra;
+
+                    slidertext.setText("Bu ay en çok " +"'" + label[sıra] +"'" + " kategorisinde " + labelprice + " para harcadınız." );
+                    if(label[sıra].equals("Diğer")) {
+                        slidertext2.setText("Kategori özelliğimizi pek kullanmıyor gibisiniz. :(");
+                    } }
+                else if(currentPage == 4)
+                {
+                    sliderlayout.setBackgroundColor(Color.parseColor("#FF780DA3"));
+                    slidertext.setText("");
+                    slidertext2.setText("");
                 }
             }
 
@@ -477,20 +544,22 @@ public class masrafmain extends AppCompatActivity {
                     totalgelir += 0;
                 }
 
-                totaltotal = totalgelir - totalgider;
 
 
 
             } while (g.moveToNext());
+            totaltotal = totalgelir - totalgider;
+
 
 
             String firstNumberAsString = String.format ("%.2f", totalgelir);
-            String firstNumberAsString2 = String.format ("%.2f", totalgider);
+            String firstNumberAsString2 = String.format ("%.2f", -totalgider);
             String firstNumberAsString3 = String.format ("%.2f", totaltotal);
 
-            totaltxt.setText("" + "₺" + firstNumberAsString);
-            gelirtxt.setText("" +"₺" + firstNumberAsString2 );
-            gidertxt.setText("" +"₺"+ firstNumberAsString3);
+
+            totaltxt.setText("" + "₺" + firstNumberAsString3);
+            gelirtxt.setText("" +"₺" + firstNumberAsString );
+            gidertxt.setText("" +"₺"+ firstNumberAsString2);
 
 
         }
@@ -536,6 +605,91 @@ public class masrafmain extends AppCompatActivity {
         });
     }
 
+
+    public double money(String s,String update,int labelx) {
+
+        final Calendar e = Calendar.getInstance();
+        int mYear = e.get(Calendar.YEAR);
+        int mMonth = e.get(Calendar.MONTH);
+        int mDay = e.get(Calendar.DAY_OF_MONTH);
+        double price = 0.0;
+        double beforeprice = 0.0;
+        double labelprice = 0.0;
+
+        db6 = new Databasehelper(this);
+        new Database_dao().veriler(db6);
+        SQLiteDatabase dbm9 = db6.getReadableDatabase();
+
+        Cursor q = dbm9.rawQuery("SELECT * FROM holder", null);
+        q.moveToFirst();
+
+        if (q.getCount() <= 0) {
+            q.close();
+            islemlernotxt.setText("Gelir & gider giriniz..");
+        } else {
+           q.moveToLast();
+            do {
+
+               if(q.getString(q.getColumnIndex("type")).equals(""+s) && (mYear == q.getInt(q.getColumnIndex("year"))) && (((mMonth + 1) == q.getInt(q.getColumnIndex("month")))))
+               {
+                   for(int j=0 ; j<=14;j++)
+                   {
+                       if(label[j].equals(q.getString(q.getColumnIndex("label"))))
+                       {
+                           labelcounter[j]+= q.getDouble(q.getColumnIndex("price"));
+
+                       }
+                   }
+                   price += q.getDouble(q.getColumnIndex("price"));
+
+               }
+               else if(q.getString(q.getColumnIndex("type")).equals(""+s) && ((mYear == q.getInt(q.getColumnIndex("year"))) && (((mMonth + 1) == q.getInt(q.getColumnIndex("month"))+1))))
+               {
+
+                   beforeprice+= q.getDouble(q.getColumnIndex("price"));
+               }
+
+            } while (q.moveToPrevious());
+
+            for(int l= 0; l<=14;l++)
+            {
+
+
+                if(labelcounter[l]>max)
+                {
+                    max = labelcounter[l];
+                    stringcounter = l;
+                }
+            }
+
+            if(update.equals("current") && labelx == 0) {
+                return price;
+            }
+            else if(update.equals("before") && labelx == 0)
+            {
+                return beforeprice;
+            }
+            else if(labelx == 1)
+            {
+                return max;
+            }
+            else if(labelx == 2)
+            {
+                return stringcounter;
+            }
+
+            }
+
+
+
+
+
+
+
+            return 0;
+
+    }
+
     public void init()
     {
         gelir = new Button(this);
@@ -573,6 +727,7 @@ public class masrafmain extends AppCompatActivity {
         imagebildirimedit = new ImageView(this);
         sliderlayout = new ConstraintLayout(this);
         slidertext = new TextView(this);
+        slidertext2 = new TextView(this);
     }
     public void addID()
     {
@@ -605,5 +760,6 @@ public class masrafmain extends AppCompatActivity {
         imagebildirimedit = findViewById(R.id.imagebildirimedit);
         sliderlayout = findViewById(R.id.sliderlayout);
         slidertext = findViewById(R.id.slidertext);
+        slidertext2=findViewById(R.id.slidertext2);
     }
     }

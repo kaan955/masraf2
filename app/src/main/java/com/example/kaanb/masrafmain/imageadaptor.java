@@ -20,6 +20,10 @@ public class imageadaptor extends PagerAdapter {
     private Context context;
 
 
+    public imageadaptor()
+    {
+
+    }
 
     public imageadaptor(Context context, int[] urls) {
         this.context = context;
