@@ -49,7 +49,7 @@ public class masrafmain extends AppCompatActivity {
     private String[]text = new String[]{"Kaan"};
 
     private String[]label = new String[]{"Diğer","Maaş","Yemek","Eğlence","Yol","Araba","Sağlık","Giyim","Eğitim","Sigara","Ev"
-    ,"Fatura","Market","Hobiler","Telefon"};
+            ,"Fatura","Market","Hobiler","Telefon"};
     private int[]labelcounter = new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 
@@ -125,7 +125,7 @@ public class masrafmain extends AppCompatActivity {
         }
 
 
-            /////////////////////////////Slidercontraint///////////////////////////////
+        /////////////////////////////Slidercontraint///////////////////////////////
 
 
 
@@ -215,12 +215,13 @@ public class masrafmain extends AppCompatActivity {
                         slidertext2.setText("");
                     }
                 }
-               else if(currentPage == 3)
+                else if(currentPage == 3)
                 {
                     sliderlayout.setBackgroundColor(Color.parseColor("#FF8E24AA"));
-                   double labelprice = money("gider","current",1);
+                    double labelprice = money("gider","current",1);
                    double labelsıra = money("gider","current",2);
                     int sıra =(int)labelsıra;
+
 
                     slidertext.setText("Bu ay en çok " +"'" + label[sıra] +"'" + " kategorisinde " + labelprice + " para harcadınız." );
                     if(label[sıra].equals("Diğer")) {
@@ -312,6 +313,8 @@ public class masrafmain extends AppCompatActivity {
         int mYear = e.get(Calendar.YEAR);
         int mMonth = e.get(Calendar.MONTH);
         int mDay = e.get(Calendar.DAY_OF_MONTH);
+
+
 
         new Database_dao().veriler(db4);
 
@@ -627,27 +630,33 @@ public class masrafmain extends AppCompatActivity {
             q.close();
             islemlernotxt.setText("Gelir & gider giriniz..");
         } else {
-           q.moveToLast();
+            q.moveToLast();
             do {
 
-               if(q.getString(q.getColumnIndex("type")).equals(""+s) && (mYear == q.getInt(q.getColumnIndex("year"))) && (((mMonth + 1) == q.getInt(q.getColumnIndex("month")))))
-               {
-                   for(int j=0 ; j<=14;j++)
-                   {
-                       if(label[j].equals(q.getString(q.getColumnIndex("label"))))
-                       {
-                           labelcounter[j]+= q.getDouble(q.getColumnIndex("price"));
+                if(q.getString(q.getColumnIndex("type")).equals(""+s) && (mYear == q.getInt(q.getColumnIndex("year"))) && (((mMonth + 1) == q.getInt(q.getColumnIndex("month")))))
+                {
+                    labelcounter = new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+                    for(int j=0 ; j<=14;j++)
+                    {
+                        if(q.getString(q.getColumnIndex("type")).equals("gider")  && label[j].equals(q.getString(q.getColumnIndex("label"))))
+                        {
+                            if(q.getString(q.getColumnIndex("type")).equals("gelir"))
+                            {
+                                j=14;
+                            }
+                            labelcounter[j]+= q.getDouble(q.getColumnIndex("price"));
+                            j=14;
 
-                       }
-                   }
-                   price += q.getDouble(q.getColumnIndex("price"));
+                        }
+                    }
+                    price += q.getDouble(q.getColumnIndex("price"));
 
-               }
-               else if(q.getString(q.getColumnIndex("type")).equals(""+s) && ((mYear == q.getInt(q.getColumnIndex("year"))) && (((mMonth + 1) == q.getInt(q.getColumnIndex("month"))+1))))
-               {
+                }
+                else if(q.getString(q.getColumnIndex("type")).equals(""+s) && ((mYear == q.getInt(q.getColumnIndex("year"))) && (((mMonth + 1) == q.getInt(q.getColumnIndex("month"))+1))))
+                {
 
-                   beforeprice+= q.getDouble(q.getColumnIndex("price"));
-               }
+                    beforeprice+= q.getDouble(q.getColumnIndex("price"));
+                }
 
             } while (q.moveToPrevious());
 
@@ -678,15 +687,9 @@ public class masrafmain extends AppCompatActivity {
                 return stringcounter;
             }
 
-            }
+        }
 
-
-
-
-
-
-
-            return 0;
+        return 0;
 
     }
 
@@ -762,4 +765,4 @@ public class masrafmain extends AppCompatActivity {
         slidertext = findViewById(R.id.slidertext);
         slidertext2=findViewById(R.id.slidertext2);
     }
-    }
+}
