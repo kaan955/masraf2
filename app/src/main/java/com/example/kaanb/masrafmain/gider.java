@@ -132,8 +132,13 @@ public class gider extends AppCompatActivity {
 
                     String pricesx=pricetxt.getText().toString();
                     taksit = Integer.parseInt(taksitx);
+
                     prices = Double.parseDouble(pricesx);
 
+                    if(taksit >1 )
+                    {
+                        prices /=taksit;
+                    }
 
 
                     s = informationtext.getText().toString();

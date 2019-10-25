@@ -16,13 +16,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.viewpagerindicator.CirclePageIndicator;
-
 import java.text.DecimalFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -44,6 +40,7 @@ public class masrafmain extends AppCompatActivity {
     private static int NUM_PAGES = 0;
     private static int max = 0;
     private static int stringcounter = 0;
+    private static double taksitcounter = 0.0;
 
     private int[] urls = new int[] {0,0,0,0,0};
     private String[]text = new String[]{"Kaan"};
@@ -51,9 +48,6 @@ public class masrafmain extends AppCompatActivity {
     private String[]label = new String[]{"Diğer","Maaş","Yemek","Eğlence","Yol","Araba","Sağlık","Giyim","Eğitim","Sigara","Ev"
             ,"Fatura","Market","Hobiler","Telefon"};
     private int[]labelcounter = new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-
-
-
 
     String datex = "",datebildirim = "",infobildirim = "",datebildirim2 = "",infobildirim2 = "",gunkaldi = "",infox = "",pricex = "",pricex2 = "";
     String []arrays;
@@ -119,6 +113,41 @@ public class masrafmain extends AppCompatActivity {
                     }
 
                 }
+                ////Taksit için////
+
+                if((m.getInt(m.getColumnIndex("taksit")) >1) &&(Calendar.getInstance().get(Calendar.MONTH)+1 >m.getInt(m.getColumnIndex("month"))) && Calendar.getInstance().get(Calendar.DATE) >=m.getInt(m.getColumnIndex("day")) )
+                {
+                    ContentValues cv = new ContentValues();
+                    int mn = m.getInt(m.getColumnIndex("taksit"))-1;
+                    cv.put("taksit", mn);
+                    dbm5.update("holder", cv, "processid=" + m.getInt(m.getColumnIndex("processid")), null);
+                    dbm5 = db5.getReadableDatabase();
+                    int monthcounter = (Calendar.getInstance().get(Calendar.MONTH)+1) - m.getInt(m.getColumnIndex("month"));
+
+                    for(int mm=1;mm<= monthcounter;mm++) {
+                        if(mm == monthcounter) {
+                            new Database_dao().adding(db5, m.getString(m.getColumnIndex("type")), m.getString(m.getColumnIndex("info")),m.getInt(m.getColumnIndex("day")),m.getInt(m.getColumnIndex("month"))+mm,m.getInt(m.getColumnIndex("year"))
+                                    ,m.getInt(m.getColumnIndex("price")),"YES",m.getString(m.getColumnIndex("label")),m.getString(m.getColumnIndex("pricetype")), -1);
+                            dbm5 = db5.getReadableDatabase();
+                        }
+                        else
+                        {
+                            new Database_dao().adding(db5, m.getString(m.getColumnIndex("type")), m.getString(m.getColumnIndex("info")),m.getInt(m.getColumnIndex("day")),m.getInt(m.getColumnIndex("month"))+mm,m.getInt(m.getColumnIndex("year"))
+                                    ,m.getInt(m.getColumnIndex("price")),"NO",m.getString(m.getColumnIndex("label")),m.getString(m.getColumnIndex("pricetype")), -1);
+                            dbm5 = db5.getReadableDatabase();
+
+
+
+                        }
+
+                    }
+
+                }
+
+
+
+
+
             } while (m.moveToPrevious());
             m.close();
 
@@ -179,8 +208,8 @@ public class masrafmain extends AppCompatActivity {
                 }
                 else if(currentPage == 1) {
                     sliderlayout.setBackgroundColor(Color.parseColor("#FFCE93D8"));
-                    priceoflast = money("gelir","current",0);
-                    priceofbefore = money("gelir","before",0);
+                    priceoflast = money("gelir","current",0,-2);
+                    priceofbefore = money("gelir","before",0,-2);
                     double fark = priceofbefore - priceoflast;
                     slidertext.setText("Bu ay ₺" + priceoflast + " gelir elde ettiniz.");
                     if(fark >0){
@@ -199,8 +228,8 @@ public class masrafmain extends AppCompatActivity {
                 else if(currentPage == 2)
                 {
                     sliderlayout.setBackgroundColor(Color.parseColor("#FFAB47BC"));
-                    priceoflast = money("gider","current",0);
-                    priceofbefore = money("gider","before",0);
+                    priceoflast = money("gider","current",0,-2);
+                    priceofbefore = money("gider","before",0,-2);
                     double fark = priceofbefore - priceoflast;
                     slidertext.setText("Bu ay ₺" + priceoflast + " harcadınız.");
                     if(fark >0){
@@ -218,8 +247,8 @@ public class masrafmain extends AppCompatActivity {
                 else if(currentPage == 3)
                 {
                     sliderlayout.setBackgroundColor(Color.parseColor("#FF8E24AA"));
-                    double labelprice = money("gider","current",1);
-                   double labelsıra = money("gider","current",2);
+                    double labelprice = money("gider","current",1,-2);
+                   double labelsıra = money("gider","current",2,-2);
                     int sıra =(int)labelsıra;
 
 
@@ -229,9 +258,10 @@ public class masrafmain extends AppCompatActivity {
                     } }
                 else if(currentPage == 4)
                 {
+                    double z = money("gider","current",0,-1);
                     sliderlayout.setBackgroundColor(Color.parseColor("#FF780DA3"));
-                    slidertext.setText("");
-                    slidertext2.setText("");
+                    slidertext.setText("Bu ay " +"'₺"+ z + "'" + "taksitlere ödeme yapacaksınız");
+                    slidertext2.setText("Taksit");
                 }
             }
 
@@ -609,7 +639,7 @@ public class masrafmain extends AppCompatActivity {
     }
 
 
-    public double money(String s,String update,int labelx) {
+    public double money(String s,String update,int labelx,int taksitx) {
 
         final Calendar e = Calendar.getInstance();
         int mYear = e.get(Calendar.YEAR);
@@ -618,6 +648,7 @@ public class masrafmain extends AppCompatActivity {
         double price = 0.0;
         double beforeprice = 0.0;
         double labelprice = 0.0;
+        taksitcounter = 0.0;
 
         db6 = new Databasehelper(this);
         new Database_dao().veriler(db6);
@@ -633,7 +664,7 @@ public class masrafmain extends AppCompatActivity {
             q.moveToLast();
             do {
 
-                if(q.getString(q.getColumnIndex("type")).equals(""+s) && (mYear == q.getInt(q.getColumnIndex("year"))) && (((mMonth + 1) == q.getInt(q.getColumnIndex("month")))))
+                if(q.getString(q.getColumnIndex("type")).equals(""+s) && (mYear == q.getInt(q.getColumnIndex("year"))) && (((mMonth + 1) == q.getInt(q.getColumnIndex("month")))) && (taksitx == -2))
                 {
                     labelcounter = new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
                     for(int j=0 ; j<=14;j++)
@@ -652,10 +683,14 @@ public class masrafmain extends AppCompatActivity {
                     price += q.getDouble(q.getColumnIndex("price"));
 
                 }
-                else if(q.getString(q.getColumnIndex("type")).equals(""+s) && ((mYear == q.getInt(q.getColumnIndex("year"))) && (((mMonth + 1) == q.getInt(q.getColumnIndex("month"))+1))))
+                else if(q.getString(q.getColumnIndex("type")).equals(""+s) && ((mYear == q.getInt(q.getColumnIndex("year"))) && (((mMonth + 1) == q.getInt(q.getColumnIndex("month"))+1))) && (taksitx == -2))
                 {
 
                     beforeprice+= q.getDouble(q.getColumnIndex("price"));
+                }
+                else if(q.getString(q.getColumnIndex("type")).equals(""+s) && ((mYear == q.getInt(q.getColumnIndex("year"))) && (((mMonth + 1) == q.getInt(q.getColumnIndex("month"))+1))) && (q.getInt(q.getColumnIndex("taksit")) > 1 ) || (q.getInt(q.getColumnIndex("taksit")) == -1))
+                {
+                    taksitcounter += q.getDouble(q.getColumnIndex("price"));
                 }
 
             } while (q.moveToPrevious());
@@ -671,20 +706,24 @@ public class masrafmain extends AppCompatActivity {
                 }
             }
 
-            if(update.equals("current") && labelx == 0) {
+            if(update.equals("current") && labelx == 0 && taksitx == -2) {
                 return price;
             }
-            else if(update.equals("before") && labelx == 0)
+            else if(update.equals("before") && labelx == 0 && taksitx == -2)
             {
                 return beforeprice;
             }
-            else if(labelx == 1)
+            else if(labelx == 1 && taksitx == -2)
             {
                 return max;
             }
-            else if(labelx == 2)
+            else if(labelx == 2 && taksitx == -2)
             {
                 return stringcounter;
+            }
+            else if(taksitx== -1)
+            {
+                return taksitcounter;
             }
 
         }
