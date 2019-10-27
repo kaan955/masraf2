@@ -18,33 +18,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:text="KAYDET"
-        app:layout_constraintEnd_toEndOf="@+id/taksittxt"
-        app:layout_constraintTop_toBottomOf="@+id/Taksit" />
+        app:layout_constraintEnd_toEndOf="@+id/textinfo"
+        app:layout_constraintTop_toBottomOf="@+id/textinfo" />
 
     <TextView
         android:id="@+id/masrafkonu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
         android:background="@mipmap/popborder"
         android:freezesText="true"
         android:padding="10dp"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView7" />
 
     <EditText
         android:id="@+id/informationtext"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@null"
         android:ems="10"
@@ -54,7 +50,7 @@
         android:singleLine="false"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/masrafkonu"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView15"
         app:layout_constraintTop_toTopOf="@+id/textView15" />
 
@@ -62,23 +58,19 @@
         android:id="@+id/textinfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:background="@mipmap/popborder"
         android:padding="10dp"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tarihpicker" />
 
     <EditText
         android:id="@+id/pricetxt"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
@@ -98,16 +90,14 @@
         android:id="@+id/tarihpicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:background="@mipmap/popborder"
         android:padding="10dp"
         android:text="Tarih Girmek İçin Tıklayınız"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/masrafkonu" />
 
@@ -139,11 +129,11 @@
         android:id="@+id/spinnerlabel"
         android:layout_width="140dp"
         android:layout_height="34dp"
-        android:layout_marginTop="8dp"
         android:fadeScrollbars="false"
         android:scrollbarSize="2dp"
-        app:layout_constraintStart_toStartOf="@+id/textinfo"
-        app:layout_constraintTop_toBottomOf="@+id/textinfo" />
+        app:layout_constraintBottom_toBottomOf="@+id/masrafkonu"
+        app:layout_constraintStart_toEndOf="@+id/masrafkonu"
+        app:layout_constraintTop_toTopOf="@+id/masrafkonu" />
 
     <ImageView
         android:id="@+id/infoerror"
@@ -194,27 +184,26 @@
         android:id="@+id/Taksit"
         android:layout_width="89dp"
         android:layout_height="29dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:text="Kaç Taksit?"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/taksittxt"
-        app:layout_constraintStart_toEndOf="@+id/spinnerlabel"
-        app:layout_constraintTop_toBottomOf="@+id/monthrepeat" />
+        app:layout_constraintBottom_toBottomOf="@+id/tarihpicker"
+        app:layout_constraintStart_toEndOf="@+id/tarihpicker"
+        app:layout_constraintTop_toBottomOf="@+id/masrafkonu" />
 
     <CheckBox
         android:id="@+id/monthrepeat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:text="Her Ay Tekrarla"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/spinnerlabel"
-        app:layout_constraintEnd_toEndOf="@+id/textinfo"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/spinnerlabel"
-        app:layout_constraintTop_toTopOf="@+id/spinnerlabel" />
+        app:layout_constraintBottom_toBottomOf="@+id/textinfo"
+        app:layout_constraintStart_toEndOf="@+id/textinfo"
+        app:layout_constraintTop_toBottomOf="@+id/tarihpicker" />
 
     <EditText
         android:id="@+id/taksittxt"
@@ -226,8 +215,9 @@
         android:inputType="number"
         android:maxLength="3"
         app:layout_constraintBottom_toBottomOf="@+id/Taksit"
-        app:layout_constraintEnd_toEndOf="@+id/textinfo"
-        app:layout_constraintTop_toTopOf="@+id/Taksit" />
+        app:layout_constraintStart_toEndOf="@+id/Taksit"
+        app:layout_constraintTop_toTopOf="@+id/Taksit"
+        app:layout_constraintVertical_bias="0.72" />
 
     <TextView
         android:id="@+id/textView15"

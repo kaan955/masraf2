@@ -212,6 +212,7 @@ public class masrafmain extends AppCompatActivity {
                     priceofbefore = money("gelir","before",0,-2);
                     double fark = priceofbefore - priceoflast;
                     slidertext.setText("Bu ay ₺" + priceoflast + " gelir elde ettiniz.");
+                    slidertext2.setText("");
                     if(fark >0){
                         slidertext2.setText("Bu geçen aya göre ₺" + fark + " daha az gelir demek !" );
                     }
@@ -232,6 +233,7 @@ public class masrafmain extends AppCompatActivity {
                     priceofbefore = money("gider","before",0,-2);
                     double fark = priceofbefore - priceoflast;
                     slidertext.setText("Bu ay ₺" + priceoflast + " harcadınız.");
+                    slidertext2.setText("");
                     if(fark >0){
                         slidertext2.setText("Bu geçen aya göre ₺" + fark + "daha AZ harcadınız. " );
                     }
@@ -251,17 +253,32 @@ public class masrafmain extends AppCompatActivity {
                    double labelsıra = money("gider","current",2,-2);
                     int sıra =(int)labelsıra;
 
+                    slidertext2.setText("");
 
+                    if(labelprice == 0)
+                    {
+                        slidertext.setText("Kategori özelliğimiz için harcamalarınıza etiket seçmeyi unutmayın :)" );
+                        slidertext2.setText("");
+                    }
+                    else
+                    {
                     slidertext.setText("Bu ay en çok " +"'" + label[sıra] +"'" + " kategorisinde " + labelprice + " para harcadınız." );
                     if(label[sıra].equals("Diğer")) {
                         slidertext2.setText("Kategori özelliğimizi pek kullanmıyor gibisiniz. :(");
-                    } }
+                    }
+                    }
+                }
                 else if(currentPage == 4)
                 {
                     double z = money("gider","current",0,-1);
                     sliderlayout.setBackgroundColor(Color.parseColor("#FF780DA3"));
-                    slidertext.setText("Bu ay " +"'₺"+ z + "'" + "taksitlere ödeme yapacaksınız");
-                    slidertext2.setText("Taksit");
+                    slidertext.setTextSize(16);
+                    slidertext.setText("Bu ay " +"'₺"+ z + "'" + " taksitlere ödeme yapacaksınız..");
+                    slidertext2.setText("");
+                    if(z>100) {
+                        slidertext2.setText("Taksitli harcamalara dikkat !");
+                        slidertext2.setText("");
+                    }
                 }
             }
 
@@ -316,7 +333,15 @@ public class masrafmain extends AppCompatActivity {
                             c.getInt(c.getColumnIndex("year")) + "\n";
                     infox = infox + c.getString(c.getColumnIndex("info")) + "\n";
                     String firstNumberAsString = String.format ("%.2f", c.getDouble(c.getColumnIndex("price")));
-                    pricex +="₺" + firstNumberAsString + "\n";
+
+                    if(c.getString(c.getColumnIndex("type")).equals("gelir")) {
+                        pricex += "₺" + firstNumberAsString + "\n";
+                    }
+                    else if(c.getString(c.getColumnIndex("type")).equals("gider")) {
+                        pricex += "₺ -" + firstNumberAsString + "\n";
+                    }
+
+
                     counter++;
                 }
                 if (counter >= 21) {

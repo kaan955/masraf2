@@ -3,9 +3,12 @@ package com.example.kaanb.masrafmain;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import java.text.DecimalFormat;
@@ -34,7 +38,10 @@ public class editislemler extends AppCompatActivity {
     static int currentday,currentmonth,currentyear,my_day = 0,my_month = 0,my_year = 0;
     static double prices = 0.0;
     static String myrepeat ="NO";
-    private LinearLayout linear,linear2,linear3;
+    private LinearLayout linear,linear2,linear3,linear4,linear5,linear6;
+    private ConstraintLayout constraintana;
+    private ScrollView scroll;
+
     private Cursor c,k,z,p;
     static TextView []tv = new TextView[10];
 
@@ -42,11 +49,15 @@ public class editislemler extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editislemler);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         init();
         db5 = new Databasehelper(this);
         db6= new Databasehelper(this);
         db7= new Databasehelper(this);
         db8= new Databasehelper(this);
+
+        constraintana.setBackgroundColor(Color.parseColor("#D0141414"));
 
         new Database_dao().veriler(db7);
         new Database_dao().veriler(db6);
@@ -72,16 +83,31 @@ public class editislemler extends AppCompatActivity {
             do {
 
                final TextView tv = new TextView(this);
-                TextView tv2 = new TextView(this);
-                TextView tv3 = new TextView(this);
+                final TextView tv2 = new TextView(this);
+                final TextView tv3 = new TextView(this);
+                final TextView tv4 = new TextView(this);
+                final TextView tv5 = new TextView(this);
+                final TextView tv6 = new TextView(this);
 
 
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.WRAP_CONTENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT);
                 tv.setLayoutParams(lp);
+                tv.setTextColor(Color.parseColor("#bdbdbd"));
                 tv2.setLayoutParams(lp);
+                tv2.setTextColor(Color.parseColor("#bdbdbd"));
                 tv3.setLayoutParams(lp);
+                tv3.setTextColor(Color.parseColor("#bdbdbd"));
+                tv4.setLayoutParams(lp);
+                tv4.setTextColor(Color.parseColor("#bdbdbd"));
+                tv5.setLayoutParams(lp);
+                tv5.setTextColor(Color.parseColor("#bdbdbd"));
+                tv6.setLayoutParams(lp);
+                tv6.setTextColor(Color.parseColor("#bdbdbd"));
+
+
+
 
                 counter = c.getInt(c.getColumnIndex("processid"));
                 tv.setTag(counter);
@@ -92,6 +118,28 @@ public class editislemler extends AppCompatActivity {
                         c.getInt(c.getColumnIndex("year")) + "\n");
                 tv2.setText(c.getString(c.getColumnIndex("info")) +"\n");
                 tv3.setText("₺" +String.format ("%.2f", c.getDouble(c.getColumnIndex("price"))) + "\n");
+
+                if(c.getString(c.getColumnIndex("type")).equals("gelir"))
+                {
+                    tv4.setText("Gelir"  +"\n");
+                }
+                else if(c.getString(c.getColumnIndex("type")).equals("gider"))
+                {
+                    tv4.setText("Gider" +"\n");
+                }
+
+
+                tv5.setText("" +  c.getString(c.getColumnIndex("label"))+"\n");
+
+
+                if( c.getString(c.getColumnIndex("repeat")).equals("NO"))
+                {
+                    tv6.setText("Değil" + "\n");
+                }
+                else if(c.getString(c.getColumnIndex("repeat")).equals("YES"))
+                {
+                    tv6.setText("Tekrarlı" +"\n");
+                }
 
 
 
@@ -490,6 +538,10 @@ public class editislemler extends AppCompatActivity {
                 linear.addView(tv);
                 linear2.addView(tv2);
                 linear3.addView(tv3);
+                linear4.addView(tv4);
+                linear5.addView(tv5);
+                linear6.addView(tv6);
+
 
 
             }
@@ -510,6 +562,21 @@ public class editislemler extends AppCompatActivity {
         linear2 = findViewById(R.id.linear2);
         linear3 = new LinearLayout(this);
         linear3 = findViewById(R.id.linear3);
+        linear4 = new LinearLayout(this);
+        linear4 = findViewById(R.id.linear4);
+        linear5 = new LinearLayout(this);
+        linear5 = findViewById(R.id.linear5);
+        linear6 = new LinearLayout(this);
+        linear6 = findViewById(R.id.linear6);
+
+        scroll = new ScrollView(this);
+        scroll = findViewById(R.id.scroll);
+
+        constraintana = new ConstraintLayout(this);
+        constraintana = findViewById(R.id.constraintana);
+
+
+
         Islemselect = new TextView(this);
         Islemselect = findViewById(R.id.Islemselect);
 
