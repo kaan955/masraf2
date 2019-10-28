@@ -223,6 +223,8 @@ public class editislemlerbildirim extends AppCompatActivity {
                         kayıtbtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                String datecontrol ="";
+                                datecontrol = tarihset.getText().toString();
 
                                 if (monthrepeat.isChecked()) {
                                     myrepeat = "YES";
@@ -231,7 +233,7 @@ public class editislemlerbildirim extends AppCompatActivity {
                                 }
 
                                 infocontrol=alarminfotxt.getText().toString();
-                                if(my_year > 0 && !infocontrol.equals("")) {
+                                if(!datecontrol.equals("") && !infocontrol.equals("")) {
                                     ContentValues cv = new ContentValues();
                                     cv.put("informationx", "" + infocontrol);
                                     cv.put("day", "" + my_day);
@@ -260,13 +262,13 @@ public class editislemlerbildirim extends AppCompatActivity {
                                     infoerror.setVisibility(View.GONE);
                                     tariherror.setVisibility(View.GONE);
                                 }
-                                else if(infocontrol.equals("") && my_year > 0)
+                                else if(infocontrol.equals("") && !datecontrol.equals(""))
                                 {
                                     infoerror.setVisibility(View.VISIBLE);
                                     tariherror.setVisibility(View.GONE);
 
                                 }
-                                else if(!infocontrol.equals("") && my_year == 0)
+                                else if(!infocontrol.equals("") && !datecontrol.equals(""))
                                 {
                                     infoerror.setVisibility(View.GONE);
                                     tariherror.setVisibility(View.VISIBLE);
