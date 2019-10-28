@@ -3,6 +3,7 @@ package com.example.kaanb.masrafmain;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -43,10 +44,13 @@ public class gelir extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gelir);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         init();
        addID();
         constraintana.setBackgroundColor(Color.parseColor("#D0141414"));
+
+
 
 
         etiketler.add("Diğer");
@@ -66,6 +70,7 @@ public class gelir extends AppCompatActivity {
         etiketler.add("Telefon");
         etiketadaptoru = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,android.R.id.text1,etiketler);
         myspinner.setAdapter(etiketadaptoru);
+
 
         myspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -90,6 +95,7 @@ public class gelir extends AppCompatActivity {
                 currentyear = c.get(Calendar.YEAR);
 
 
+
                 DatePickerDialog datepicker;
 
                 datepicker = new DatePickerDialog(gelir.this, new DatePickerDialog.OnDateSetListener() {
@@ -110,8 +116,9 @@ public class gelir extends AppCompatActivity {
         kayıtgelirbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String s,spin,control,pricescontrol=pricetxt.getText().toString();
+                String s,spin,datecontrol,control,pricescontrol=pricetxt.getText().toString();
                 control = informationtext.getText().toString();
+                datecontrol = tarihtext.getText().toString();
 
 
                         if ( monthrepeat.isChecked() )
@@ -124,7 +131,7 @@ public class gelir extends AppCompatActivity {
 
 
 
-                if(my_year > 0 && !pricescontrol.equals("") &&  !control.equals("")) {
+                if(!datecontrol.equals("Tarih Girmek İçin Tıklayınız") && !pricescontrol.equals("") &&  !control.equals("")) {
                     String pricesx = pricetxt.getText().toString();
                     prices = Double.parseDouble(pricesx);
                     s = informationtext.getText().toString();
@@ -136,45 +143,45 @@ public class gelir extends AppCompatActivity {
                     tariherror.setVisibility(View.GONE);
                     tutarerror.setVisibility(View.GONE);
                 }
-                else if(my_year == 0 && pricescontrol.equals("") && control.equals(""))
+                else if(datecontrol.equals("Tarih Girmek İçin Tıklayınız") && pricescontrol.equals("") && control.equals(""))
                 {
                     infoerror.setVisibility(View.VISIBLE);
                     tariherror.setVisibility(View.VISIBLE);
                     tutarerror.setVisibility(View.VISIBLE);
                 }
-                else if (my_year > 0 && pricescontrol.equals("") && !control.equals(""))
+                else if (!datecontrol.equals("Tarih Girmek İçin Tıklayınız") && pricescontrol.equals("") && !control.equals(""))
                 {
                     infoerror.setVisibility(View.GONE);
                     tariherror.setVisibility(View.GONE);
                     tutarerror.setVisibility(View.VISIBLE);
                 }
-                else if (my_year == 0 && !control.equals("") && !pricescontrol.equals(""))
+                else if (datecontrol.equals("Tarih Girmek İçin Tıklayınız") && !control.equals("") && !pricescontrol.equals(""))
                 {
                     infoerror.setVisibility(View.GONE);
                     tariherror.setVisibility(View.VISIBLE);
                     tutarerror.setVisibility(View.GONE);
 
                 }
-                else if(!pricescontrol.equals("") && control.equals("") && my_year>0)
+                else if(!pricescontrol.equals("") && control.equals("") && !datecontrol.equals("Tarih Girmek İçin Tıklayınız"))
                 {
                     infoerror.setVisibility(View.VISIBLE);
                     tariherror.setVisibility(View.GONE);
                     tutarerror.setVisibility(View.GONE);
                 }
-                else if(!control.equals("") && pricescontrol.equals("") && my_year == 0)
+                else if(!control.equals("") && pricescontrol.equals("") && datecontrol.equals("Tarih Girmek İçin Tıklayınız"))
                 {
                     infoerror.setVisibility(View.GONE);
                     tariherror.setVisibility(View.VISIBLE);
                     tutarerror.setVisibility(View.VISIBLE);
                 }
-                else if(control.equals("") &&pricescontrol.equals("") && my_year > 0 )
+                else if(control.equals("") &&pricescontrol.equals("") && !datecontrol.equals("Tarih Girmek İçin Tıklayınız"))
                 {
                     infoerror.setVisibility(View.VISIBLE);
                     tariherror.setVisibility(View.GONE);
                     tutarerror.setVisibility(View.VISIBLE);
 
                 }
-                else if(control.equals("") && !pricescontrol.equals("") && my_year ==0)
+                else if(control.equals("") && !pricescontrol.equals("") && datecontrol.equals("Tarih Girmek İçin Tıklayınız"))
                 {
                     infoerror.setVisibility(View.VISIBLE);
                     tariherror.setVisibility(View.VISIBLE);

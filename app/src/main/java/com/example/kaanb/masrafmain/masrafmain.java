@@ -2,6 +2,7 @@ package com.example.kaanb.masrafmain;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -61,6 +62,7 @@ public class masrafmain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_masrafmain);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         init();
         addID();
 
@@ -262,7 +264,8 @@ public class masrafmain extends AppCompatActivity {
                     }
                     else
                     {
-                    slidertext.setText("Bu ay en çok " +"'" + label[sıra] +"'" + " kategorisinde " + labelprice + " para harcadınız." );
+                    slidertext.setText("Bu ay en çok " +"'" + label[sıra] +"'" + " kategorisinde ₺" + labelprice + " harcadınız." );
+                        slidertext.setTextSize(14);
                     if(label[sıra].equals("Diğer")) {
                         slidertext2.setText("Kategori özelliğimizi pek kullanmıyor gibisiniz. :(");
                     }

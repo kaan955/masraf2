@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 public class intro extends AppCompatActivity {
-    private static int SPLASH_TIME = 4000;
+    private static int SPLASH_TIME = 1000;
 
 
     @Override

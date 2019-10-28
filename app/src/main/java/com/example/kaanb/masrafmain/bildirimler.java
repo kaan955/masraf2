@@ -8,6 +8,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -45,6 +46,7 @@ public class bildirimler extends AppCompatActivity {
     String infox = "";
     int counter = 0;
     String infocontrol = "";
+    String datecontrol = "";
     private CheckBox monthrepeat;
     static String myrepeat ="NO";
 
@@ -92,6 +94,7 @@ public class bildirimler extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bildirimler);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         init();
 
@@ -117,7 +120,7 @@ public class bildirimler extends AppCompatActivity {
                         my_day = day;
                         my_month = month + 1;
                          my_year = year;
-                        tarihtxt.setText("" + my_day + " / "  +(my_month) + " / " +  my_year);
+                        tarihset.setText("" + my_day + " / "  +(my_month) + " / " +  my_year);
                     }
                 },currentyear,currentmonth,currentday);
                 datepicker.show();
@@ -129,7 +132,8 @@ public class bildirimler extends AppCompatActivity {
             public void onClick(View v) {
 
                 infocontrol = alarminfotxt.getText().toString();
-                if (my_year > 0 && !infocontrol.equals("")) {
+                datecontrol = tarihset.getText().toString();
+                if (!datecontrol.equals("Tarih Girmek İçin Tıklayınız") && !infocontrol.equals("")) {
 
                     if ( monthrepeat.isChecked() )
                     {
@@ -228,13 +232,13 @@ public class bildirimler extends AppCompatActivity {
                     infoerror.setVisibility(View.GONE);
                     tariherror.setVisibility(View.GONE);
                 }
-                     else if(infocontrol.equals("") && my_year > 0)
+                     else if(infocontrol.equals("") && !datecontrol.equals("Tarih Girmek İçin Tıklayınız"))
                 {
                     infoerror.setVisibility(View.VISIBLE);
                     tariherror.setVisibility(View.GONE);
 
                 }
-                     else if(!infocontrol.equals("") && my_year == 0)
+                     else if(!infocontrol.equals("") && datecontrol.equals("Tarih Girmek İçin Tıklayınız"))
                 {
                     infoerror.setVisibility(View.GONE);
                     tariherror.setVisibility(View.VISIBLE);

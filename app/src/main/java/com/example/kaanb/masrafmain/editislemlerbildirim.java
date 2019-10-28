@@ -69,6 +69,7 @@ public class editislemlerbildirim extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editbildirimislemler);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         init();
 
