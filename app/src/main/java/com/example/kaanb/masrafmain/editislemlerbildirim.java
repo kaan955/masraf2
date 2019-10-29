@@ -29,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -69,6 +70,7 @@ public class editislemlerbildirim extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editbildirimislemler);
+        setTitle("Verinin üstüne basarak 'DUZENLE'");
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         init();
@@ -259,6 +261,7 @@ public class editislemlerbildirim extends AppCompatActivity {
                                     dbm3.close();
                                     Intent intent = new Intent(editislemlerbildirim.this, masrafmain.class);
                                     startActivity(intent);
+                                    Toast.makeText(getApplicationContext(),"Kayıt başarılı",Toast.LENGTH_SHORT).show();
                                     infoerror.setVisibility(View.GONE);
                                     tariherror.setVisibility(View.GONE);
                                 }
@@ -288,6 +291,7 @@ public class editislemlerbildirim extends AppCompatActivity {
                                 public void onClick(View v) {
                                     Intent intent = new Intent(editislemlerbildirim.this, masrafmain.class);
                                     startActivity(intent);
+                                    Toast.makeText(getApplicationContext(),"Silindi!",Toast.LENGTH_SHORT).show();
                                     dbm2.delete("bildirim", "processid=" + tv.getTag(), null);
 
 

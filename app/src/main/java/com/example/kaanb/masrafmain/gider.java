@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,6 +46,7 @@ public class gider extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gider);
+        setTitle("GIDER");
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
          init();
@@ -150,6 +152,7 @@ public class gider extends AppCompatActivity {
                     new Database_dao().adding(db,"gider",s,my_day,my_month,my_year,prices,myrepeat,spin,"devam",taksit);
                     Intent intent = new Intent(gider.this, masrafmain.class);
                     startActivity(intent);
+                    Toast.makeText(getApplicationContext(),"Kayıt başarılı",Toast.LENGTH_SHORT).show();
                     infoerror.setVisibility(View.GONE);
                     tariherror.setVisibility(View.GONE);
                     tutarerror.setVisibility(View.GONE);

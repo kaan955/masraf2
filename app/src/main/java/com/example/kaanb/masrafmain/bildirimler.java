@@ -26,6 +26,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.Calendar;
@@ -94,6 +95,7 @@ public class bildirimler extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bildirimler);
+        setTitle("BILDIRIMLER");
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         init();
@@ -229,6 +231,7 @@ public class bildirimler extends AppCompatActivity {
                     /////////
                     Intent intent = new Intent(bildirimler.this, masrafmain.class);
                     startActivity(intent);
+                    Toast.makeText(getApplicationContext(),"Kayıt başarılı",Toast.LENGTH_SHORT).show();
                     infoerror.setVisibility(View.GONE);
                     tariherror.setVisibility(View.GONE);
                 }

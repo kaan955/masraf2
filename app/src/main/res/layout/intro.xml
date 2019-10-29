@@ -4,12 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/intropic"
     android:layout_width="match_parent"
-    app:srcCompat="@drawable/intropic"
     android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/intropic" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/masrafintro" />
 </android.support.constraint.ConstraintLayout>

@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,6 +45,7 @@ public class gelir extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gelir);
+        setTitle("GELIR");
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         init();
@@ -55,19 +57,11 @@ public class gelir extends AppCompatActivity {
 
         etiketler.add("Diğer");
         etiketler.add("Maaş");
-        etiketler.add("Yemek");
-        etiketler.add("Eğlence");
-        etiketler.add("Yol");
-        etiketler.add("Araba");
-        etiketler.add("Sağlık");
-        etiketler.add("Giyim");
-        etiketler.add("Eğitim");
-        etiketler.add("Sigara");
-        etiketler.add("Ev");
-        etiketler.add("Fatura");
-        etiketler.add("Market");
-        etiketler.add("Hobiler");
-        etiketler.add("Telefon");
+        etiketler.add("Satış");
+        etiketler.add("Faiz");
+        etiketler.add("Kira");
+        etiketler.add("Ek iş");
+
         etiketadaptoru = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,android.R.id.text1,etiketler);
         myspinner.setAdapter(etiketadaptoru);
 
@@ -139,6 +133,7 @@ public class gelir extends AppCompatActivity {
                     new Database_dao().adding(db,"gelir",s,my_day,my_month,my_year,prices,myrepeat,spin,"devam",1);
                     Intent intent = new Intent(gelir.this, masrafmain.class);
                     startActivity(intent);
+                    Toast.makeText(getApplicationContext(),"Kayıt başarılı",Toast.LENGTH_SHORT).show();
                     infoerror.setVisibility(View.GONE);
                     tariherror.setVisibility(View.GONE);
                     tutarerror.setVisibility(View.GONE);

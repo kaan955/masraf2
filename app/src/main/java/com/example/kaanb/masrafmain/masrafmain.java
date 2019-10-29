@@ -8,9 +8,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -70,11 +72,14 @@ public class masrafmain extends AppCompatActivity {
         arrays = new String[500];
 
 
-        constraint.setBackgroundColor(Color.parseColor("#FFE2E1E3")); //C5E1A5 B1C282 96B478  C5E1A5
+
+
+
+        //constraint.setBackgroundColor(Color.parseColor("#FFE2E1E3")); //C5E1A5 B1C282 96B478  C5E1A5
         constaintmain.setBackgroundColor(Color.parseColor("#FFE2E1E3"));
-        constraintbildirim.setBackgroundColor(Color.parseColor("#FFE2E1E3"));
+        //constraintbildirim.setBackgroundColor(Color.parseColor("#FFE2E1E3"));
         sliderlayout.setBackgroundColor(Color.parseColor("#FFE2E1E3"));
-        constraintana.setBackgroundColor(Color.parseColor("#EE7C7B7B"));
+       constraintana.setBackgroundColor(Color.parseColor("#E1A09B9B"));
         db5 = new Databasehelper(this);
         new Database_dao().veriler(db5);
         SQLiteDatabase dbm5 = db5.getReadableDatabase();
@@ -186,6 +191,7 @@ public class masrafmain extends AppCompatActivity {
 
             }
         };
+
         Timer swipeTimer = new Timer();
         swipeTimer.schedule(new TimerTask() {
             @Override
@@ -194,6 +200,7 @@ public class masrafmain extends AppCompatActivity {
                 //textView.setText("Bu bir çalışma" + currentPage);
             }
         }, 3000, 3000);
+
 
         // Pager listener over indicator
         indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -205,11 +212,14 @@ public class masrafmain extends AppCompatActivity {
                 if(currentPage==0) {
                     sliderlayout.setBackgroundColor(Color.parseColor("#FFF3E5F5"));
 
-                    slidertext.setText("Harcalamalarını kontrol altına alın !");
-                    slidertext2.setText("Ayrıntılar için tıklayınız..");
+                    slidertext.setText("Harcalamalarınızı kontrol altına alın !");
+                    slidertext2.setText("Gelir - Giderlerinizi buradan takip edin.");
+
+
+
                 }
                 else if(currentPage == 1) {
-                    sliderlayout.setBackgroundColor(Color.parseColor("#FFCE93D8"));
+                    sliderlayout.setBackgroundColor(Color.parseColor("#FFC4A8E9"));
                     priceoflast = money("gelir","current",0,-2);
                     priceofbefore = money("gelir","before",0,-2);
                     double fark = priceofbefore - priceoflast;
@@ -230,7 +240,7 @@ public class masrafmain extends AppCompatActivity {
                 }
                 else if(currentPage == 2)
                 {
-                    sliderlayout.setBackgroundColor(Color.parseColor("#FFAB47BC"));
+                    sliderlayout.setBackgroundColor(Color.parseColor("#FFBA97E8"));
                     priceoflast = money("gider","current",0,-2);
                     priceofbefore = money("gider","before",0,-2);
                     double fark = priceofbefore - priceoflast;
@@ -250,7 +260,7 @@ public class masrafmain extends AppCompatActivity {
                 }
                 else if(currentPage == 3)
                 {
-                    sliderlayout.setBackgroundColor(Color.parseColor("#FF8E24AA"));
+                    sliderlayout.setBackgroundColor(Color.parseColor("#FFB38AE8"));
                     double labelprice = money("gider","current",1,-2);
                    double labelsıra = money("gider","current",2,-2);
                     int sıra =(int)labelsıra;
@@ -259,7 +269,7 @@ public class masrafmain extends AppCompatActivity {
 
                     if(labelprice == 0)
                     {
-                        slidertext.setText("Kategori özelliğimiz için harcamalarınıza etiket seçmeyi unutmayın :)" );
+                        slidertext.setText("Harcamalarınıza etiket seçmeyi unutmayın :)" );
                         slidertext2.setText("");
                     }
                     else
@@ -274,7 +284,7 @@ public class masrafmain extends AppCompatActivity {
                 else if(currentPage == 4)
                 {
                     double z = money("gider","current",0,-1);
-                    sliderlayout.setBackgroundColor(Color.parseColor("#FF780DA3"));
+                    sliderlayout.setBackgroundColor(Color.parseColor("#FFA978E9"));
                     slidertext.setTextSize(16);
                     slidertext.setText("Bu ay " +"'₺"+ z + "'" + " taksitlere ödeme yapacaksınız..");
                     slidertext2.setText("");
@@ -354,10 +364,22 @@ public class masrafmain extends AppCompatActivity {
 
             }
             while (c.moveToPrevious());
+            islemlernotxt.setTextColor(Color.parseColor("#FFD8D0DA"));
             islemlernotxt.setText("");
+
+            textdate.setTextSize(16);
+            textdate.setTextColor(Color.parseColor("#FFD8D0DA"));
             textdate.setText("" + datex);
+
+            textinfo.setTextSize(16);
+            textinfo.setTextColor(Color.parseColor("#FFD8D0DA"));
             textinfo.setText("" + infox);
+
+
+            textprice.setTextSize(16);
+            textprice.setTextColor(Color.parseColor("#FFD8D0DA"));
             textprice.setText("" + pricex);
+
 
         }
 
@@ -529,9 +551,20 @@ public class masrafmain extends AppCompatActivity {
                     infobildirim2 = infobildirim2 + arrays[p] + "\n";
                 }
 
+                islemlernotxt.setTextSize(16);
+                islemlernotxt.setTextColor(Color.parseColor("#FFD8D0DA"));
                 islemlernotxt.setText("");
+
+                gunkaldıtxt.setTextSize(16);
+                gunkaldıtxt.setTextColor(Color.parseColor("#FFD8D0DA"));
                 gunkaldıtxt.setText("" + gunkaldi);
+
+                bildirimtxt.setTextSize(16);
+                bildirimtxt.setTextColor(Color.parseColor("#FFD8D0DA"));
                 bildirimtxt.setText("" + infobildirim2);
+
+                kalanguntxt.setTextSize(16);
+                kalanguntxt.setTextColor(Color.parseColor("#FFD8D0DA"));
                 kalanguntxt.setText("" + datebildirim2);
             }
 
@@ -665,6 +698,8 @@ public class masrafmain extends AppCompatActivity {
             }
         });
     }
+
+
 
 
     public double money(String s,String update,int labelx,int taksitx) {

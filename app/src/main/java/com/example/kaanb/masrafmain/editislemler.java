@@ -21,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,6 +51,7 @@ public class editislemler extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editislemler);
+        setTitle("Verinin üstüne basarak 'DUZENLE'");
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         init();
@@ -181,19 +184,11 @@ public class editislemler extends AppCompatActivity {
 
                             etiketler.add("Diğer");
                             etiketler.add("Maaş");
-                            etiketler.add("Yemek");
-                            etiketler.add("Eğlence");
-                            etiketler.add("Yol");
-                            etiketler.add("Araba");
-                            etiketler.add("Sağlık");
-                            etiketler.add("Giyim");
-                            etiketler.add("Eğitim");
-                            etiketler.add("Sigara");
-                            etiketler.add("Ev");
-                            etiketler.add("Fatura");
-                            etiketler.add("Market");
-                            etiketler.add("Hobiler");
-                            etiketler.add("Telefon");
+                            etiketler.add("Satış");
+                            etiketler.add("Faiz");
+                            etiketler.add("Kira");
+                            etiketler.add("Ek iş");
+
                             etiketadaptoru = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, android.R.id.text1, etiketler);
                             myspinner.setAdapter(etiketadaptoru);
 
@@ -270,6 +265,7 @@ public class editislemler extends AppCompatActivity {
 
                                         Intent intent = new Intent(editislemler.this, masrafmain.class);
                                         startActivity(intent);
+                                        Toast.makeText(getApplicationContext(),"Düzenleme Başarılı!",Toast.LENGTH_LONG).show();
                                         infoerror.setVisibility(View.GONE);
                                         tariherror.setVisibility(View.GONE);
                                         tutarerror.setVisibility(View.GONE);
@@ -319,6 +315,7 @@ public class editislemler extends AppCompatActivity {
                                 public void onClick(View v) {
                                     Intent intent = new Intent(editislemler.this, masrafmain.class);
                                     startActivity(intent);
+                                    Toast.makeText(getApplicationContext(),"Silindi!",Toast.LENGTH_LONG).show();
                                     dbm2.delete("holder", "processid=" + tv.getTag(), null);
                                     dbm2.close();
                                 }
@@ -460,6 +457,7 @@ public class editislemler extends AppCompatActivity {
 
                                         Intent intent = new Intent(editislemler.this, masrafmain.class);
                                         startActivity(intent);
+                                        Toast.makeText(getApplicationContext(),"Düzenleme başarılı",Toast.LENGTH_LONG).show();
                                         infoerror.setVisibility(View.GONE);
                                         tariherror.setVisibility(View.GONE);
                                         tutarerror.setVisibility(View.GONE);
@@ -509,6 +507,7 @@ public class editislemler extends AppCompatActivity {
                                 public void onClick(View v) {
                                     Intent intent = new Intent(editislemler.this, masrafmain.class);
                                     startActivity(intent);
+                                    Toast.makeText(getApplicationContext(),"Silindi!",Toast.LENGTH_LONG).show();
                                     dbm2.delete("holder", "processid=" + tv.getTag(), null);
                                     dbm2.close();
                                 }
