@@ -1,4 +1,4 @@
-package com.example.kaanb.masrafmain;
+package com.example.kaanb.masrafmain.Edit;
 
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
@@ -22,6 +22,11 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.kaanb.masrafmain.Database.Database_dao;
+import com.example.kaanb.masrafmain.Database.Databasehelper;
+import com.example.kaanb.masrafmain.R;
+import com.example.kaanb.masrafmain.Mainthings.masrafmain;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -52,8 +57,6 @@ public class editislemler extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editislemler);
         setTitle("Verinin üstüne basarak 'DUZENLE'");
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
         init();
         db5 = new Databasehelper(this);
         db6= new Databasehelper(this);
@@ -80,11 +83,38 @@ public class editislemler extends AppCompatActivity {
 
         if (c.getCount() <= 0) {
             c.close();
-            Islemselect.setText("Öncelikle Gelir & gider giriniz..");
+            //Islemselect.setText("Öncelikle Gelir & gider giriniz..");
         } else {
             c.moveToLast();
             do {
 
+
+                        final TextView tv = new TextView(this);
+
+
+                        counter = c.getInt(c.getColumnIndex("processid"));
+
+
+
+                        ConstraintLayout.LayoutParams clpcontactUs = new ConstraintLayout.LayoutParams(
+                                ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
+                        tv.setLayoutParams(clpcontactUs);
+                        tv.setText("Kaan");
+                        tv.setTextSize(25);
+                        tv.setTag(counter);
+                        constraintana.addView(tv);
+
+
+
+
+
+
+
+
+
+
+
+                /*
                final TextView tv = new TextView(this);
                 final TextView tv2 = new TextView(this);
                 final TextView tv3 = new TextView(this);
@@ -540,7 +570,7 @@ public class editislemler extends AppCompatActivity {
                 linear6.addView(tv6);
 
 
-
+*/
             }
             while (c.moveToPrevious());
             //Islemselect.setText("" + datex + infox + pricex+ idx);
@@ -549,22 +579,11 @@ public class editislemler extends AppCompatActivity {
 
 
 
+
     }
     void init()
     {
         myspinner = new Spinner(this);
-        linear = new LinearLayout(this);
-        linear = findViewById(R.id.linear);
-        linear2 = new LinearLayout(this);
-        linear2 = findViewById(R.id.linear2);
-        linear3 = new LinearLayout(this);
-        linear3 = findViewById(R.id.linear3);
-        linear4 = new LinearLayout(this);
-        linear4 = findViewById(R.id.linear4);
-        linear5 = new LinearLayout(this);
-        linear5 = findViewById(R.id.linear5);
-        linear6 = new LinearLayout(this);
-        linear6 = findViewById(R.id.linear6);
 
         scroll = new ScrollView(this);
         scroll = findViewById(R.id.scroll);

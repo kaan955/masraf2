@@ -1,4 +1,4 @@
-package com.example.kaanb.masrafmain;
+package com.example.kaanb.masrafmain.Mainthings;
 
 import android.app.Notification;
 import android.app.NotificationManager;

@@ -1,4 +1,4 @@
-package com.example.kaanb.masrafmain;
+package com.example.kaanb.masrafmain.Database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

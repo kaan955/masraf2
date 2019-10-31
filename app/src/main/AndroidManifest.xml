@@ -20,47 +20,47 @@
         android:theme="@style/AppTheme">
 
         <receiver
-            android:name=".Bildirimyakalayici"
+            android:name=".Mainthings.Bildirimyakalayici"
             android:enabled="true"
             android:exported="true"></receiver>
 
-        <activity android:name=".masrafmain">
+        <activity android:name=".Mainthings.masrafmain">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".editislemlerbildirim">
+        <activity android:name=".Edit.editislemlerbildirim">
             <intent-filter>
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".intro">
+        <activity android:name=".Mainthings.intro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".gider">
+        <activity android:name=".Islemler.gider">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
 
-        <activity android:name=".gelir">
+        <activity android:name=".Islemler.gelir">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".editislemler">
+        <activity android:name=".Edit.editislemler">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".bildirimler">
+        <activity android:name=".Islemler.bildirimler">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

@@ -1,4 +1,4 @@
-package com.example.kaanb.masrafmain;
+package com.example.kaanb.masrafmain.Mainthings;
 
 import android.content.Context;
 import android.os.Parcelable;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
+import com.example.kaanb.masrafmain.R;
+
 import java.util.ArrayList;
 
 public class imageadaptor extends PagerAdapter {

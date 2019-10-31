@@ -1,4 +1,4 @@
-package com.example.kaanb.masrafmain;
+package com.example.kaanb.masrafmain.Islemler;
 
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
@@ -14,11 +14,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -28,6 +26,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.example.kaanb.masrafmain.Mainthings.Bildirimyakalayici;
+import com.example.kaanb.masrafmain.Database.Database_dao;
+import com.example.kaanb.masrafmain.Database.Databasehelper;
+import com.example.kaanb.masrafmain.R;
+import com.example.kaanb.masrafmain.Mainthings.masrafmain;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -332,7 +336,7 @@ public class bildirimler extends AppCompatActivity {
 
 
         Intent broadcastIntent =
-                new Intent(bildirimler.this,Bildirimyakalayici.class);
+                new Intent(bildirimler.this, Bildirimyakalayici.class);
 
 
         broadcastIntent.putExtra("bildirimNesnesi",builder.build());

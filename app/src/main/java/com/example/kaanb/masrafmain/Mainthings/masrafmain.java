@@ -1,4 +1,4 @@
-package com.example.kaanb.masrafmain;
+package com.example.kaanb.masrafmain.Mainthings;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -8,17 +8,23 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.example.kaanb.masrafmain.Database.Database_dao;
+import com.example.kaanb.masrafmain.Database.Databasehelper;
+import com.example.kaanb.masrafmain.Edit.editislemler;
+import com.example.kaanb.masrafmain.Edit.editislemlerbildirim;
+import com.example.kaanb.masrafmain.Islemler.bildirimler;
+import com.example.kaanb.masrafmain.Islemler.gider;
+import com.example.kaanb.masrafmain.R;
 import com.viewpagerindicator.CirclePageIndicator;
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -577,7 +583,7 @@ public class masrafmain extends AppCompatActivity {
 
                 ser.setText("Kaan");
 
-                Intent intent = new Intent(masrafmain.this, gelir.class);
+                Intent intent = new Intent(masrafmain.this, com.example.kaanb.masrafmain.Islemler.gelir.class);
                 startActivity(intent);
 
             }
@@ -588,7 +594,7 @@ public class masrafmain extends AppCompatActivity {
         gider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(masrafmain.this, gider.class);
+                Intent intent = new Intent(masrafmain.this, com.example.kaanb.masrafmain.Islemler.gider.class);
                 startActivity(intent);
             }
         });

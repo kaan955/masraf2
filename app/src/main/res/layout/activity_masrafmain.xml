@@ -10,7 +10,7 @@
     android:scrollbarAlwaysDrawVerticalTrack="true"
     android:scrollbarFadeDuration="0"
     android:scrollbarThumbVertical="@android:color/black"
-    tools:context=".masrafmain">
+    tools:context=".Mainthings.masrafmain">
 
     <TextView
         android:id="@+id/lastprocesswriter"

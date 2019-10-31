@@ -1,4 +1,4 @@
-package com.example.kaanb.masrafmain;
+package com.example.kaanb.masrafmain.Database;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Database_dao extends AppCompatActivity {
 
-    public void adding (Databasehelper dh,String my_type,String my_info,int my_day,int my_month,int my_year,double my_price,String my_repeat,String my_label,String my_pricetype,int my_taksit ){
+    public void adding (Databasehelper dh, String my_type, String my_info, int my_day, int my_month, int my_year, double my_price, String my_repeat, String my_label, String my_pricetype, int my_taksit ){
 
 
         SQLiteDatabase dbm = dh.getWritableDatabase();
