@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -45,9 +46,11 @@ public class editislemler extends AppCompatActivity {
     static int currentday,currentmonth,currentyear,my_day = 0,my_month = 0,my_year = 0;
     static double prices = 0.0;
     static String myrepeat ="NO";
+    static int topcounter = 0;
     private LinearLayout linear,linear2,linear3,linear4,linear5,linear6;
     private ConstraintLayout constraintana;
     private ScrollView scroll;
+
 
     private Cursor c,k,z,p;
     static TextView []tv = new TextView[10];
@@ -87,22 +90,52 @@ public class editislemler extends AppCompatActivity {
         } else {
             c.moveToLast();
             do {
+                topcounter++;
 
 
                         final TextView tv = new TextView(this);
+                        final TextView tv2 = new TextView(this);
 
 
                         counter = c.getInt(c.getColumnIndex("processid"));
 
-
-
                         ConstraintLayout.LayoutParams clpcontactUs = new ConstraintLayout.LayoutParams(
-                                ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
-                        tv.setLayoutParams(clpcontactUs);
-                        tv.setText("Kaan");
+                                750, 100);
+                ConstraintLayout.LayoutParams clpcontactUs2 = new ConstraintLayout.LayoutParams(
+                        750, 100);
+                           tv.setLayoutParams(clpcontactUs);
+                           tv2.setLayoutParams(clpcontactUs2);
+
+
+
+
+
+                         tv.setText("" + c.getString(c.getColumnIndex("info")));
+                          tv2.setText("" + c.getString(c.getColumnIndex("info")));
+
+
                         tv.setTextSize(25);
-                        tv.setTag(counter);
+                        tv2.setTextSize(25);
+                         tv.setTag(counter);
+                         tv.setBackgroundResource(R.drawable.backgroundpicture);
+                tv.setId(View.generateViewId());
+                tv2.setId(View.generateViewId());
                         constraintana.addView(tv);
+                        constraintana.addView(tv2);
+
+
+
+                ConstraintSet constraintSet = new ConstraintSet();
+                constraintSet.clone(constraintana);
+
+
+
+                    constraintSet.connect(tv.getId(), ConstraintSet.TOP, constraintana.getId(), ConstraintSet.TOP, topcounter*100);
+                    constraintSet.connect(tv.getId(), ConstraintSet.LEFT, constraintana.getId(), ConstraintSet.LEFT, 20);
+                constraintSet.connect(tv2.getId(), ConstraintSet.TOP, constraintana.getId(), ConstraintSet.TOP, topcounter*100);
+                constraintSet.connect(tv2.getId(), ConstraintSet.RIGHT,constraintana.getId(), ConstraintSet.RIGHT, 0);
+                    constraintSet.applyTo(constraintana);
+
 
 
 
