@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Database_dao extends AppCompatActivity {
 
-    public void adding (Databasehelper dh, String my_type, String my_info, int my_day, int my_month, int my_year, double my_price, String my_repeat, String my_label, String my_pricetype, int my_taksit ){
+    public void adding (Databasehelper dh, String my_type, String my_info, int my_day, int my_month, int my_year, double my_price, String my_repeat, String my_label, String my_pricetype, int my_taksit,int taksit_counter ){
 
 
         SQLiteDatabase dbm = dh.getWritableDatabase();
@@ -27,6 +27,7 @@ public class Database_dao extends AppCompatActivity {
         mycontent.put("label",my_label);
         mycontent.put("pricetype",my_pricetype);
         mycontent.put("taksit",my_taksit);
+        mycontent.put("taksitcounter",taksit_counter);
 
 
 
@@ -56,7 +57,8 @@ public class Database_dao extends AppCompatActivity {
                     c.getString(c.getColumnIndex("repeat")),
                     c.getString(c.getColumnIndex("label")),
                     c.getString(c.getColumnIndex("pricetype")),
-                   c.getInt(c.getColumnIndex("taksit")));
+                   c.getInt(c.getColumnIndex("taksit")),
+                    c.getInt(c.getColumnIndex("taksitcounter")));
 
             myveri.add(verilerim);
         }

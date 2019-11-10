@@ -41,19 +41,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:text="(Son 20 işlem gözükür!)"
-        android:textColor="@color/colorAccent"
+        android:text="(Son 30 işlem gözükür!)"
+        android:textColor="@color/vpi__background_holo_dark"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/lastprocessshow"
         app:layout_constraintStart_toEndOf="@+id/lastprocessshow"
         app:layout_constraintTop_toTopOf="@+id/lastprocessshow"
-        tools:text="(Son 20 işlem gözükür!)" />
+        tools:text="(Son 30 işlem gözükür!)" />
 
     <ScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="175dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:fadeScrollbars="false"
         android:fillViewport="true"
         android:minHeight="125dp"
@@ -103,6 +104,8 @@
                 android:id="@+id/islemlernotxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -126,6 +129,7 @@
         android:id="@+id/tarihtext"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="3dp"
         android:text="Tarih"
         android:textSize="16sp"
@@ -163,6 +167,8 @@
         android:id="@+id/scrollbildirim"
         android:layout_width="match_parent"
         android:layout_height="125dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:fadeScrollbars="false"
         android:fillViewport="true"
         android:scrollbarSize="10sp"
@@ -173,7 +179,7 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintbildirim"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="125dp"
             android:background="@drawable/backgroundpicture"
             android:fillViewport="true"
             android:isScrollContainer="false"
@@ -184,12 +190,14 @@
                 android:id="@+id/bildirimnotxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/bildirimtxt"
-                android:layout_width="90dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -215,7 +223,9 @@
         android:id="@+id/constaintmain"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:background="@drawable/upside"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -294,27 +304,6 @@
             app:layout_constraintStart_toStartOf="@+id/textView8"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="11dp"
-            android:layout_marginTop="5dp"
-            android:adjustViewBounds="false"
-            android:scaleType="fitXY"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/totaltxt"
-            app:layout_constraintVertical_bias="1.0"
-            app:srcCompat="@android:drawable/bottom_bar" />
-
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
 
     </android.support.constraint.ConstraintLayout>
 
@@ -380,7 +369,10 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/sliderlayout"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
         android:clickable="@bool/default_circle_indicator_snap"
         android:longClickable="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -423,6 +415,8 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

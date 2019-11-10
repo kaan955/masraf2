@@ -730,12 +730,7 @@ public class editislemlerbildirim extends AppCompatActivity {
     }
 
     void init() {
-        linear = new LinearLayout(this);
-        linear = findViewById(R.id.linear);
-        linear2 = new LinearLayout(this);
-        linear2 = findViewById(R.id.linear2);
-        Islemselect = new TextView(this);
-        Islemselect = findViewById(R.id.Islemselect);
+
 
         constraintana = new ConstraintLayout(this);
         constraintana = findViewById(R.id.constraintana);
@@ -745,8 +740,6 @@ public class editislemlerbildirim extends AppCompatActivity {
 
         consta = new ConstraintLayout(this);
         consta = findViewById(R.id.consta);
-        linear3= new LinearLayout(this);
-        linear3 = findViewById(R.id.linear3);
 
     }
 

@@ -20,12 +20,18 @@ import android.widget.TextView;
 
 import com.example.kaanb.masrafmain.Database.Database_dao;
 import com.example.kaanb.masrafmain.Database.Databasehelper;
+import com.example.kaanb.masrafmain.Edit.Islembildirim;
 import com.example.kaanb.masrafmain.Edit.editislemler;
 import com.example.kaanb.masrafmain.Edit.editislemlerbildirim;
+import com.example.kaanb.masrafmain.Edit.myadapter;
+import com.example.kaanb.masrafmain.Edit.myadapterbildirim;
 import com.example.kaanb.masrafmain.Islemler.bildirimler;
 import com.example.kaanb.masrafmain.Islemler.gider;
 import com.example.kaanb.masrafmain.R;
 import com.viewpagerindicator.CirclePageIndicator;
+
+import org.w3c.dom.Text;
+
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Timer;
@@ -37,7 +43,7 @@ public class masrafmain extends AppCompatActivity {
     private Button gelir,gider,bildirimbutton;
     private TextView ser,lastprocessshow,lastprocesswriter2,lasttenshow,lastprocesswriter,
             textdate,textinfo,textprice,bildirimtxt,kalanguntxt,gunkaldıtxt,bildirimnotxt,
-            islemlernotxt,gelirtxt,gidertxt,totaltxt,slidertext,slidertext2;
+            islemlernotxt,gelirtxt,gidertxt,totaltxt,slidertext,slidertext2,taksittxt;
     private ScrollView myscroll;
     private ConstraintLayout constraint,constraintbildirim,constaintmain,constraintana,sliderlayout;
     private LinearLayout linear;
@@ -82,10 +88,10 @@ public class masrafmain extends AppCompatActivity {
 
 
         //constraint.setBackgroundColor(Color.parseColor("#FFE2E1E3")); //C5E1A5 B1C282 96B478  C5E1A5
-        constaintmain.setBackgroundColor(Color.parseColor("#FFE2E1E3"));
+        //constaintmain.setBackgroundColor(Color.parseColor("#FFE2E1E3"));
         //constraintbildirim.setBackgroundColor(Color.parseColor("#FFE2E1E3"));
         sliderlayout.setBackgroundColor(Color.parseColor("#FFE2E1E3"));
-       constraintana.setBackgroundColor(Color.parseColor("#E1A09B9B"));
+        constraintana.setBackgroundColor(Color.parseColor("#1DCC01FF"));
         db5 = new Databasehelper(this);
         new Database_dao().veriler(db5);
         SQLiteDatabase dbm5 = db5.getReadableDatabase();
@@ -110,13 +116,13 @@ public class masrafmain extends AppCompatActivity {
                     for(int mm=1;mm<= monthcounter;mm++) {
                         if(mm == monthcounter) {
                             new Database_dao().adding(db5, m.getString(m.getColumnIndex("type")), m.getString(m.getColumnIndex("info")),m.getInt(m.getColumnIndex("day")),m.getInt(m.getColumnIndex("month"))+mm,m.getInt(m.getColumnIndex("year"))
-                                    ,m.getInt(m.getColumnIndex("price")),"YES",m.getString(m.getColumnIndex("label")),m.getString(m.getColumnIndex("pricetype")), m.getInt(m.getColumnIndex("taksit")));
+                                    ,m.getInt(m.getColumnIndex("price")),"YES",m.getString(m.getColumnIndex("label")),m.getString(m.getColumnIndex("pricetype")), m.getInt(m.getColumnIndex("taksit")),m.getInt(m.getColumnIndex("taksitcounter")));
                             dbm5 = db5.getReadableDatabase();
                         }
                         else
                         {
                             new Database_dao().adding(db5, m.getString(m.getColumnIndex("type")), m.getString(m.getColumnIndex("info")),m.getInt(m.getColumnIndex("day")),m.getInt(m.getColumnIndex("month"))+mm,m.getInt(m.getColumnIndex("year"))
-                                    ,m.getInt(m.getColumnIndex("price")),"NO",m.getString(m.getColumnIndex("label")),m.getString(m.getColumnIndex("pricetype")), m.getInt(m.getColumnIndex("taksit")));
+                                    ,m.getInt(m.getColumnIndex("price")),"NO",m.getString(m.getColumnIndex("label")),m.getString(m.getColumnIndex("pricetype")), m.getInt(m.getColumnIndex("taksit")),m.getInt(m.getColumnIndex("taksitcounter")));
                             dbm5 = db5.getReadableDatabase();
 
 
@@ -131,27 +137,30 @@ public class masrafmain extends AppCompatActivity {
                 if((m.getInt(m.getColumnIndex("taksit")) >1) &&(Calendar.getInstance().get(Calendar.MONTH)+1 >m.getInt(m.getColumnIndex("month"))) && Calendar.getInstance().get(Calendar.DATE) >=m.getInt(m.getColumnIndex("day")) )
                 {
                     ContentValues cv = new ContentValues();
-                    int mn = m.getInt(m.getColumnIndex("taksit"))-1;
-                    cv.put("taksit", mn);
-                    dbm5.update("holder", cv, "processid=" + m.getInt(m.getColumnIndex("processid")), null);
+                    int mn = m.getInt(m.getColumnIndex("taksitcounter"));
+                    mn++;
+                    //cv.put("taksitcounter", mn);
+                    //dbm5.update("holder", cv, "processid=" + m.getInt(m.getColumnIndex("processid")), null);
                     dbm5 = db5.getReadableDatabase();
                     int monthcounter = (Calendar.getInstance().get(Calendar.MONTH)+1) - m.getInt(m.getColumnIndex("month"));
 
                     for(int mm=1;mm<= monthcounter;mm++) {
-                        if(mm == monthcounter) {
-                            new Database_dao().adding(db5, m.getString(m.getColumnIndex("type")), m.getString(m.getColumnIndex("info")),m.getInt(m.getColumnIndex("day")),m.getInt(m.getColumnIndex("month"))+mm,m.getInt(m.getColumnIndex("year"))
-                                    ,m.getInt(m.getColumnIndex("price")),"YES",m.getString(m.getColumnIndex("label")),m.getString(m.getColumnIndex("pricetype")), -1);
-                            dbm5 = db5.getReadableDatabase();
+
+
+                        if (mn <= m.getInt(m.getColumnIndex("taksit"))) {
+                            if (mm == monthcounter) {
+                                new Database_dao().adding(db5, m.getString(m.getColumnIndex("type")), m.getString(m.getColumnIndex("info")), m.getInt(m.getColumnIndex("day")), m.getInt(m.getColumnIndex("month")) + mm, m.getInt(m.getColumnIndex("year"))
+                                        , m.getInt(m.getColumnIndex("price")), "YES", m.getString(m.getColumnIndex("label")), m.getString(m.getColumnIndex("pricetype")), m.getInt(m.getColumnIndex("taksit")), mn++);
+                                dbm5 = db5.getReadableDatabase();
+                            } else {
+                                new Database_dao().adding(db5, m.getString(m.getColumnIndex("type")), m.getString(m.getColumnIndex("info")), m.getInt(m.getColumnIndex("day")), m.getInt(m.getColumnIndex("month")) + mm, m.getInt(m.getColumnIndex("year"))
+                                        , m.getInt(m.getColumnIndex("price")), "NO", m.getString(m.getColumnIndex("label")), m.getString(m.getColumnIndex("pricetype")), m.getInt(m.getColumnIndex("taksit")), mn++);
+                                dbm5 = db5.getReadableDatabase();
+
+
+                            }
                         }
-                        else
-                        {
-                            new Database_dao().adding(db5, m.getString(m.getColumnIndex("type")), m.getString(m.getColumnIndex("info")),m.getInt(m.getColumnIndex("day")),m.getInt(m.getColumnIndex("month"))+mm,m.getInt(m.getColumnIndex("year"))
-                                    ,m.getInt(m.getColumnIndex("price")),"NO",m.getString(m.getColumnIndex("label")),m.getString(m.getColumnIndex("pricetype")), -1);
-                            dbm5 = db5.getReadableDatabase();
 
-
-
-                        }
 
                     }
 
@@ -268,7 +277,7 @@ public class masrafmain extends AppCompatActivity {
                 {
                     sliderlayout.setBackgroundColor(Color.parseColor("#FFB38AE8"));
                     double labelprice = money("gider","current",1,-2);
-                   double labelsıra = money("gider","current",2,-2);
+                    double labelsıra = money("gider","current",2,-2);
                     int sıra =(int)labelsıra;
 
                     slidertext2.setText("");
@@ -280,16 +289,16 @@ public class masrafmain extends AppCompatActivity {
                     }
                     else
                     {
-                    slidertext.setText("Bu ay en çok " +"'" + label[sıra] +"'" + " kategorisinde ₺" + labelprice + " harcadınız." );
+                        slidertext.setText("Bu ay en çok " +"'" + label[sıra] +"'" + " kategorisinde ₺" + labelprice + " harcadınız." );
                         slidertext.setTextSize(14);
-                    if(label[sıra].equals("Diğer")) {
-                        slidertext2.setText("Kategori özelliğimizi pek kullanmıyor gibisiniz. :(");
-                    }
+                        if(label[sıra].equals("Diğer")) {
+                            slidertext2.setText("Kategori özelliğimizi pek kullanmıyor gibisiniz. :(");
+                        }
                     }
                 }
                 else if(currentPage == 4)
                 {
-                    double z = money("gider","current",0,-1);
+                    double z = money("gider","current",0,2);
                     sliderlayout.setBackgroundColor(Color.parseColor("#FFA978E9"));
                     slidertext.setTextSize(16);
                     slidertext.setText("Bu ay " +"'₺"+ z + "'" + " taksitlere ödeme yapacaksınız..");
@@ -342,16 +351,30 @@ public class masrafmain extends AppCompatActivity {
         if (c.getCount() <= 0) {
             c.close();
             islemlernotxt.setText("Gelir & gider giriniz..");
+            islemlernotxt.setTextColor(Color.parseColor("#FFD8D0DA"));
         } else {
             c.moveToLast();
             do {
 
-                if (counter <= 20) {
+                if (counter <= 30) {
                     datex = datex + c.getInt(c.getColumnIndex("day")) + "." +
                             c.getInt(c.getColumnIndex("month")) + "." +
                             c.getInt(c.getColumnIndex("year")) + "\n";
-                    infox = infox + c.getString(c.getColumnIndex("info")) + "\n";
+
+
+
+                    if(c.getInt(c.getColumnIndex("taksit")) >= 2) {
+                        infox = infox + c.getString(c.getColumnIndex("info")) + " (" +c.getInt(c.getColumnIndex("taksitcounter")) + "/" + c.getInt(c.getColumnIndex("taksit")) + ")" + "\n";
+                    }
+                    else
+                    {
+                        infox = infox + c.getString(c.getColumnIndex("info")) + "\n";
+                    }
+
+
+
                     String firstNumberAsString = String.format ("%.2f", c.getDouble(c.getColumnIndex("price")));
+
 
                     if(c.getString(c.getColumnIndex("type")).equals("gelir")) {
                         pricex += "₺" + firstNumberAsString + "\n";
@@ -363,13 +386,14 @@ public class masrafmain extends AppCompatActivity {
 
                     counter++;
                 }
-                if (counter >= 21) {
+                if (counter >= 31) {
                     c.moveToFirst();
                     counter = 0;
                 }
 
             }
             while (c.moveToPrevious());
+
             islemlernotxt.setTextColor(Color.parseColor("#FFD8D0DA"));
             islemlernotxt.setText("");
 
@@ -417,6 +441,7 @@ public class masrafmain extends AppCompatActivity {
 
             f.close();
             bildirimnotxt.setText("Bildirim giriniz..");
+            bildirimnotxt.setTextColor(Color.parseColor("#FFD8D0DA"));
 
         } else {
             f.moveToFirst();
@@ -468,6 +493,7 @@ public class masrafmain extends AppCompatActivity {
 
             d.close();
             bildirimnotxt.setText("Bildirim giriniz..");
+            bildirimnotxt.setTextColor(Color.parseColor("#FFD8D0DA"));
 
         } else {
             d.moveToLast();
@@ -547,6 +573,7 @@ public class masrafmain extends AppCompatActivity {
             }
             if (arraycounter == 0) {
                 bildirimnotxt.setText("30 gün içerisinde yaklaşan bildiriminiz yok.");
+                bildirimnotxt.setTextColor(Color.parseColor("#FFD8D0DA"));
             } else {
 
                 for (int u = 0; u <= arraycounter - 1; u++) {
@@ -667,7 +694,7 @@ public class masrafmain extends AppCompatActivity {
         imageislemedit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(masrafmain.this, editislemler.class);
+                Intent intent = new Intent(masrafmain.this, myadapter.class);
                 startActivity(intent);
             }
 
@@ -676,7 +703,7 @@ public class masrafmain extends AppCompatActivity {
         lasttenshow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(masrafmain.this, editislemler.class);
+                Intent intent = new Intent(masrafmain.this, myadapterbildirim.class);
                 startActivity(intent);
             }
         });
@@ -699,7 +726,7 @@ public class masrafmain extends AppCompatActivity {
         imagebildirimedit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(masrafmain.this, editislemlerbildirim.class);
+                Intent intent = new Intent(masrafmain.this, myadapterbildirim.class);
                 startActivity(intent);
             }
         });
@@ -729,6 +756,7 @@ public class masrafmain extends AppCompatActivity {
         if (q.getCount() <= 0) {
             q.close();
             islemlernotxt.setText("Gelir & gider giriniz..");
+            islemlernotxt.setTextColor(Color.parseColor("#FFD8D0DA"));
         } else {
             q.moveToLast();
             do {
@@ -757,7 +785,7 @@ public class masrafmain extends AppCompatActivity {
 
                     beforeprice+= q.getDouble(q.getColumnIndex("price"));
                 }
-                else if(q.getString(q.getColumnIndex("type")).equals(""+s) && ((mYear == q.getInt(q.getColumnIndex("year"))) && (((mMonth + 1) == q.getInt(q.getColumnIndex("month"))+1))) && (q.getInt(q.getColumnIndex("taksit")) > 1 ) || (q.getInt(q.getColumnIndex("taksit")) == -1))
+                else if(q.getString(q.getColumnIndex("type")).equals(""+s) && ((mYear == q.getInt(q.getColumnIndex("year"))) && (((mMonth + 1) == q.getInt(q.getColumnIndex("month"))+1))) && (q.getInt(q.getColumnIndex("taksit")) > 1 ) )
                 {
                     taksitcounter += q.getDouble(q.getColumnIndex("price"));
                 }
@@ -790,7 +818,7 @@ public class masrafmain extends AppCompatActivity {
             {
                 return stringcounter;
             }
-            else if(taksitx== -1)
+            else if(taksitx> 1)
             {
                 return taksitcounter;
             }
@@ -806,6 +834,7 @@ public class masrafmain extends AppCompatActivity {
         gelir = new Button(this);
         gider = new Button(this);
         ser = new TextView(this);
+        taksittxt = new TextView(this);
         lastprocessshow = new TextView(this);
         lasttenshow = new TextView(this);
         lastprocesswriter =  new TextView(this);
@@ -872,5 +901,6 @@ public class masrafmain extends AppCompatActivity {
         sliderlayout = findViewById(R.id.sliderlayout);
         slidertext = findViewById(R.id.slidertext);
         slidertext2=findViewById(R.id.slidertext2);
+        taksittxt = findViewById(R.id.taksittxt);
     }
 }

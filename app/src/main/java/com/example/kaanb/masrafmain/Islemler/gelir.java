@@ -130,7 +130,7 @@ public class gelir extends AppCompatActivity {
                     prices = Double.parseDouble(pricesx);
                     s = informationtext.getText().toString();
                     spin = myspinner.getSelectedItem().toString();
-                    new Database_dao().adding(db,"gelir",s,my_day,my_month,my_year,prices,myrepeat,spin,"devam",1);
+                    new Database_dao().adding(db,"gelir",s,my_day,my_month,my_year,prices,myrepeat,spin,"devam",-1,-1);
                     Intent intent = new Intent(gelir.this, masrafmain.class);
                     startActivity(intent);
                     Toast.makeText(getApplicationContext(),"Kayıt başarılı",Toast.LENGTH_SHORT).show();
