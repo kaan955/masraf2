@@ -137,17 +137,17 @@ public class masrafmain extends AppCompatActivity {
                 if((m.getInt(m.getColumnIndex("taksit")) >1) &&(Calendar.getInstance().get(Calendar.MONTH)+1 >m.getInt(m.getColumnIndex("month"))) && Calendar.getInstance().get(Calendar.DATE) >=m.getInt(m.getColumnIndex("day")) )
                 {
                     ContentValues cv = new ContentValues();
-                    int mn = m.getInt(m.getColumnIndex("taksitcounter"));
+                    int mn = m.getInt(m.getColumnIndex("taksit"));
                     mn++;
-                    //cv.put("taksitcounter", mn);
-                    //dbm5.update("holder", cv, "processid=" + m.getInt(m.getColumnIndex("processid")), null);
+                    cv.put("taksit", 0);
+                    dbm5.update("holder", cv, "processid=" + m.getInt(m.getColumnIndex("processid")), null);
                     dbm5 = db5.getReadableDatabase();
                     int monthcounter = (Calendar.getInstance().get(Calendar.MONTH)+1) - m.getInt(m.getColumnIndex("month"));
 
                     for(int mm=1;mm<= monthcounter;mm++) {
 
 
-                        if (mn <= m.getInt(m.getColumnIndex("taksit"))) {
+                        if (m.getInt(m.getColumnIndex("taksitcounter")) <= m.getInt(m.getColumnIndex("taksit"))) {
                             if (mm == monthcounter) {
                                 new Database_dao().adding(db5, m.getString(m.getColumnIndex("type")), m.getString(m.getColumnIndex("info")), m.getInt(m.getColumnIndex("day")), m.getInt(m.getColumnIndex("month")) + mm, m.getInt(m.getColumnIndex("year"))
                                         , m.getInt(m.getColumnIndex("price")), "YES", m.getString(m.getColumnIndex("label")), m.getString(m.getColumnIndex("pricetype")), m.getInt(m.getColumnIndex("taksit")), mn++);
@@ -785,7 +785,7 @@ public class masrafmain extends AppCompatActivity {
 
                     beforeprice+= q.getDouble(q.getColumnIndex("price"));
                 }
-                else if(q.getString(q.getColumnIndex("type")).equals(""+s) && ((mYear == q.getInt(q.getColumnIndex("year"))) && (((mMonth + 1) == q.getInt(q.getColumnIndex("month"))+1))) && (q.getInt(q.getColumnIndex("taksit")) > 1 ) )
+                else if(q.getString(q.getColumnIndex("type")).equals(""+s) && ((mYear == q.getInt(q.getColumnIndex("year"))) && (((mMonth + 1) == q.getInt(q.getColumnIndex("month"))))) && (q.getInt(q.getColumnIndex("taksit")) > 1 ) )
                 {
                     taksitcounter += q.getDouble(q.getColumnIndex("price"));
                 }
