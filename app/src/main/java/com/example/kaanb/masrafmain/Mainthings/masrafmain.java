@@ -98,14 +98,16 @@ public class masrafmain extends AppCompatActivity {
 
 
 
-        constaintmain.getLayoutParams().height = (int)density * 60;
-        sliderlayout.getLayoutParams().height = (int)density * 140;
+        constaintmain.getLayoutParams().height = (int)((height/100)*10);
+        sliderlayout.getLayoutParams().height = (int)((height/100)*20);
 
-        constraintbildirim.getLayoutParams().height = (int)density * 140;
-        scrollbildirim.getLayoutParams().height = (int)density * 140;
+        constraintbildirim.getLayoutParams().height = (int)((height/100)*15);
+        scrollbildirim.getLayoutParams().height = (int)((height/100)*15);
 
-        constraint.getLayoutParams().height = (int)density * 160;
-        scroll.getLayoutParams().height = (int)density * 160;
+        constraint.getLayoutParams().height = (int)((height/100)*20);
+        scroll.getLayoutParams().height = (int)((height/100)*20);
+
+
 
 
 
@@ -347,6 +349,12 @@ public class masrafmain extends AppCompatActivity {
 
             }
         });
+
+
+
+
+
+
 
 
 

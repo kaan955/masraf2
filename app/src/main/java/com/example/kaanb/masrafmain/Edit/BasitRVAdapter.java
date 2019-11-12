@@ -327,6 +327,10 @@ public class BasitRVAdapter extends RecyclerView.Adapter<BasitRVAdapter.CardView
                     k.moveToFirst();
                     z = dbm3.rawQuery("SELECT * FROM holder WHERE processid=" + gelenveri4.toString(), null);
                     z.moveToFirst();
+
+                    my_day = z.getInt(z.getColumnIndex("day"));
+                    my_month = z.getInt(z.getColumnIndex("month"));
+                    my_year = z.getInt(z.getColumnIndex("year"));
                     informationtext.setText("" + z.getString(z.getColumnIndex("info")));
                     tarihtext.setText("Tarih: " + z.getInt(z.getColumnIndex("day")) + "." +
                             z.getInt(z.getColumnIndex("month")) + "." +

@@ -172,6 +172,9 @@ public class Islembildirim extends RecyclerView.Adapter<Islembildirim.CardViewTa
 
                     l = dbm3.rawQuery("SELECT * FROM bildirim WHERE processid=" + gelenveri4.toString(), null);
                     l.moveToFirst();
+                     my_day = l.getInt(l.getColumnIndex("day"));
+                    my_month = l.getInt(l.getColumnIndex("month"));
+                    my_year = l.getInt(l.getColumnIndex("year"));
 
                     final int checkprocessid = l.getInt(l.getColumnIndex("processid"));
                     final int checkprocessid3 = l.getInt(l.getColumnIndex("processid")) + 10000;
