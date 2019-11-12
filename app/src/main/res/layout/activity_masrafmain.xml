@@ -85,10 +85,8 @@
 
             <TextView
                 android:id="@+id/textinfo"
-                android:layout_width="120dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
                 android:singleLine="false"
                 app:layout_constraintStart_toEndOf="@+id/textdate"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -139,10 +137,8 @@
 
     <TextView
         android:id="@+id/aciklamatxt"
-        android:layout_width="120dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:text="Açıklama"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -235,14 +231,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:foregroundGravity="center"
             android:text="GELIR"
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.25" />
 
         <TextView
             android:id="@+id/topofgelir"
@@ -251,7 +249,6 @@
             android:gravity="center"
             android:singleLine="true"
             app:layout_constraintEnd_toEndOf="@+id/textView7"
-            app:layout_constraintHorizontal_bias="0.421"
             app:layout_constraintStart_toStartOf="@+id/textView7"
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
@@ -260,16 +257,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginBottom="8dp"
             android:text="GIDER"
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textView8"
             app:layout_constraintStart_toEndOf="@+id/textView7"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.25" />
 
         <TextView
             android:id="@+id/gidertxt"
@@ -287,12 +285,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
+            android:layout_marginBottom="8dp"
             android:text="TOTAL"
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.25" />
 
         <TextView
             android:id="@+id/totaltxt"
@@ -369,7 +369,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/sliderlayout"
         android:layout_width="match_parent"
-        android:layout_height="125dp"
+        android:layout_height="135dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"

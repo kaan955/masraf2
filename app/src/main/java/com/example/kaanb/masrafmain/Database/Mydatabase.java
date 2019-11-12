@@ -14,6 +14,7 @@ public class Mydatabase {
     private String pricetype;
     private int taksit;
     private int taksitcounter;
+    private String taksitactive;
 
     //
     private int bmonth,bday,byear,bprocessid;
@@ -24,7 +25,7 @@ public class Mydatabase {
 
 
 
-    public Mydatabase(int processidx, String typex, String infox, int month, int day, int year, double price, String repeat, String label, String pricetype, int taksit, int taksitcounter)
+    public Mydatabase(int processidx, String typex, String infox, int month, int day, int year, double price, String repeat, String label, String pricetype, int taksit, int taksitcounter,String taksitactive)
         {
         this.processid = processidx;
 
@@ -40,6 +41,7 @@ public class Mydatabase {
         this.pricetype = pricetype;
        this.taksit = taksit;
        this.taksitcounter = taksitcounter;
+       this.taksitactive = taksitactive;
 
 
     }
@@ -186,11 +188,15 @@ public class Mydatabase {
     public int getTaksitcounter() {
         return taksitcounter;
     }
+    public String getTaksitactive(String taksitactive) {
+        return taksitactive;
+    }
 
     public void setTaksitcounter(int taksitcounter) {
         this.taksitcounter = taksitcounter;
     }
-
-
+    public void setTaksitactive(String taksitactive) {
+        this.taksitactive = taksitactive;
+    }
 
 }

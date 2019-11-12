@@ -149,7 +149,15 @@ public class gider extends AppCompatActivity {
 
                     s = informationtext.getText().toString();
                     spin= myspinner.getSelectedItem().toString();
-                    new Database_dao().adding(db,"gider",s,my_day,my_month,my_year,prices,myrepeat,spin,"devam",taksit,1);
+                    if(taksit > 1)
+                    {
+                        new Database_dao().adding(db,"gider",s,my_day,my_month,my_year,prices,myrepeat,spin,"devam",taksit,1,"YES");
+                    }
+                    else
+                    {
+                        new Database_dao().adding(db,"gider",s,my_day,my_month,my_year,prices,myrepeat,spin,"devam",taksit,1,"NO");
+                    }
+
                     Intent intent = new Intent(gider.this, masrafmain.class);
                     startActivity(intent);
                     Toast.makeText(getApplicationContext(),"Kayıt başarılı",Toast.LENGTH_SHORT).show();

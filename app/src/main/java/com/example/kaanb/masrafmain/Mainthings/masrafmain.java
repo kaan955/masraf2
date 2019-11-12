@@ -11,6 +11,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -44,7 +45,7 @@ public class masrafmain extends AppCompatActivity {
     private TextView ser,lastprocessshow,lastprocesswriter2,lasttenshow,lastprocesswriter,
             textdate,textinfo,textprice,bildirimtxt,kalanguntxt,gunkaldıtxt,bildirimnotxt,
             islemlernotxt,gelirtxt,gidertxt,totaltxt,slidertext,slidertext2,taksittxt;
-    private ScrollView myscroll;
+    private ScrollView myscroll,scrollbildirim,scroll;
     private ConstraintLayout constraint,constraintbildirim,constaintmain,constraintana,sliderlayout;
     private LinearLayout linear;
     private Databasehelper db,db2,db3,db4,db5,db6;
@@ -84,14 +85,33 @@ public class masrafmain extends AppCompatActivity {
         arrays = new String[500];
 
 
-
-
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        float density = displayMetrics.density;
 
         //constraint.setBackgroundColor(Color.parseColor("#FFE2E1E3")); //C5E1A5 B1C282 96B478  C5E1A5
         //constaintmain.setBackgroundColor(Color.parseColor("#FFE2E1E3"));
         //constraintbildirim.setBackgroundColor(Color.parseColor("#FFE2E1E3"));
         sliderlayout.setBackgroundColor(Color.parseColor("#FFE2E1E3"));
         constraintana.setBackgroundColor(Color.parseColor("#1DCC01FF"));
+
+
+
+        constaintmain.getLayoutParams().height = (int)density * 60;
+        sliderlayout.getLayoutParams().height = (int)density * 140;
+
+        constraintbildirim.getLayoutParams().height = (int)density * 140;
+        scrollbildirim.getLayoutParams().height = (int)density * 140;
+
+        constraint.getLayoutParams().height = (int)density * 160;
+        scroll.getLayoutParams().height = (int)density * 160;
+
+
+
+
+        constaintmain.requestLayout();
+
         db5 = new Databasehelper(this);
         new Database_dao().veriler(db5);
         SQLiteDatabase dbm5 = db5.getReadableDatabase();
@@ -116,13 +136,13 @@ public class masrafmain extends AppCompatActivity {
                     for(int mm=1;mm<= monthcounter;mm++) {
                         if(mm == monthcounter) {
                             new Database_dao().adding(db5, m.getString(m.getColumnIndex("type")), m.getString(m.getColumnIndex("info")),m.getInt(m.getColumnIndex("day")),m.getInt(m.getColumnIndex("month"))+mm,m.getInt(m.getColumnIndex("year"))
-                                    ,m.getInt(m.getColumnIndex("price")),"YES",m.getString(m.getColumnIndex("label")),m.getString(m.getColumnIndex("pricetype")), m.getInt(m.getColumnIndex("taksit")),m.getInt(m.getColumnIndex("taksitcounter")));
+                                    ,m.getInt(m.getColumnIndex("price")),"YES",m.getString(m.getColumnIndex("label")),m.getString(m.getColumnIndex("pricetype")), m.getInt(m.getColumnIndex("taksit")),m.getInt(m.getColumnIndex("taksitcounter")),"NO");
                             dbm5 = db5.getReadableDatabase();
                         }
                         else
                         {
                             new Database_dao().adding(db5, m.getString(m.getColumnIndex("type")), m.getString(m.getColumnIndex("info")),m.getInt(m.getColumnIndex("day")),m.getInt(m.getColumnIndex("month"))+mm,m.getInt(m.getColumnIndex("year"))
-                                    ,m.getInt(m.getColumnIndex("price")),"NO",m.getString(m.getColumnIndex("label")),m.getString(m.getColumnIndex("pricetype")), m.getInt(m.getColumnIndex("taksit")),m.getInt(m.getColumnIndex("taksitcounter")));
+                                    ,m.getInt(m.getColumnIndex("price")),"NO",m.getString(m.getColumnIndex("label")),m.getString(m.getColumnIndex("pricetype")), m.getInt(m.getColumnIndex("taksit")),m.getInt(m.getColumnIndex("taksitcounter")),"NO");
                             dbm5 = db5.getReadableDatabase();
 
 
@@ -134,12 +154,19 @@ public class masrafmain extends AppCompatActivity {
                 }
                 ////Taksit için////
 
-                if((m.getInt(m.getColumnIndex("taksit")) >1) &&(Calendar.getInstance().get(Calendar.MONTH)+1 >m.getInt(m.getColumnIndex("month"))) && Calendar.getInstance().get(Calendar.DATE) >=m.getInt(m.getColumnIndex("day")) )
+
+
+                if((m.getString(m.getColumnIndex("taksitactive")).equals("YES")) &&(Calendar.getInstance().get(Calendar.MONTH)+1 >m.getInt(m.getColumnIndex("month"))) && Calendar.getInstance().get(Calendar.DATE) >=m.getInt(m.getColumnIndex("day")) )
                 {
                     ContentValues cv = new ContentValues();
-                    int mn = m.getInt(m.getColumnIndex("taksit"));
-                    mn++;
-                    cv.put("taksit", 0);
+                    int mn = m.getInt(m.getColumnIndex("taksitcounter"));
+
+                    cv.put("taksitcounter",mn );
+                    cv.put("taksitactive","NO");
+                    if(m.getInt(m.getColumnIndex("taksit")) == m.getInt(m.getColumnIndex("taksitcounter")))
+                    {
+                        cv.put("taksitactive","NO");
+                    }
                     dbm5.update("holder", cv, "processid=" + m.getInt(m.getColumnIndex("processid")), null);
                     dbm5 = db5.getReadableDatabase();
                     int monthcounter = (Calendar.getInstance().get(Calendar.MONTH)+1) - m.getInt(m.getColumnIndex("month"));
@@ -150,11 +177,11 @@ public class masrafmain extends AppCompatActivity {
                         if (m.getInt(m.getColumnIndex("taksitcounter")) <= m.getInt(m.getColumnIndex("taksit"))) {
                             if (mm == monthcounter) {
                                 new Database_dao().adding(db5, m.getString(m.getColumnIndex("type")), m.getString(m.getColumnIndex("info")), m.getInt(m.getColumnIndex("day")), m.getInt(m.getColumnIndex("month")) + mm, m.getInt(m.getColumnIndex("year"))
-                                        , m.getInt(m.getColumnIndex("price")), "YES", m.getString(m.getColumnIndex("label")), m.getString(m.getColumnIndex("pricetype")), m.getInt(m.getColumnIndex("taksit")), mn++);
+                                        , m.getInt(m.getColumnIndex("price")), "YES", m.getString(m.getColumnIndex("label")), m.getString(m.getColumnIndex("pricetype")), m.getInt(m.getColumnIndex("taksit")), ++mn,"YES");
                                 dbm5 = db5.getReadableDatabase();
                             } else {
                                 new Database_dao().adding(db5, m.getString(m.getColumnIndex("type")), m.getString(m.getColumnIndex("info")), m.getInt(m.getColumnIndex("day")), m.getInt(m.getColumnIndex("month")) + mm, m.getInt(m.getColumnIndex("year"))
-                                        , m.getInt(m.getColumnIndex("price")), "NO", m.getString(m.getColumnIndex("label")), m.getString(m.getColumnIndex("pricetype")), m.getInt(m.getColumnIndex("taksit")), mn++);
+                                        , m.getInt(m.getColumnIndex("price")), "NO", m.getString(m.getColumnIndex("label")), m.getString(m.getColumnIndex("pricetype")), m.getInt(m.getColumnIndex("taksit")), ++mn,"NO");
                                 dbm5 = db5.getReadableDatabase();
 
 
@@ -187,7 +214,7 @@ public class masrafmain extends AppCompatActivity {
 
         indicator.setViewPager(mPager);
 
-        final float density = getResources().getDisplayMetrics().density;
+
 
 //Set circle indicator radius
         indicator.setRadius(5 * density);
@@ -873,6 +900,8 @@ public class masrafmain extends AppCompatActivity {
     {
 
         lastprocessshow = findViewById(R.id.lastprocessshow);
+        scrollbildirim= findViewById(R.id.scrollbildirim);
+        scroll = findViewById(R.id.scroll);
         lasttenshow = findViewById(R.id.lasttenshow);
         lastprocesswriter = findViewById(R.id.lastprocesswriter);
         textdate = findViewById(R.id.textdate);
