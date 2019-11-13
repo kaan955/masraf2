@@ -267,14 +267,17 @@ public class masrafmain extends AppCompatActivity {
                     priceoflast = money("gelir","current",0,-2);
                     priceofbefore = money("gelir","before",0,-2);
                     double fark = priceofbefore - priceoflast;
-                    slidertext.setText("Bu ay ₺" + priceoflast + " gelir elde ettiniz.");
+
+                    String firstNumberAsStringx7 = String.format ("%.2f", priceoflast);
+                    String firstNumberAsStringx8 = String.format ("%.2f", fark);
+                    slidertext.setText("Bu ay ₺" + firstNumberAsStringx7 + " gelir elde ettiniz.");
                     slidertext2.setText("");
                     if(fark >0){
-                        slidertext2.setText("Bu geçen aya göre ₺" + fark + " daha az gelir demek !" );
+                        slidertext2.setText("Bu geçen aya göre ₺" + firstNumberAsStringx8 + " daha az gelir demek !" );
                     }
                     else if(fark < 0)
                     {
-                        slidertext2.setText("Geçen aya göre ₺" + (-fark) + " daha fazla gelir demek !" );
+                        slidertext2.setText("Geçen aya göre ₺" + firstNumberAsStringx8 + " daha fazla gelir demek !" );
                     }
                     else
                     {
@@ -285,17 +288,26 @@ public class masrafmain extends AppCompatActivity {
                 else if(currentPage == 2)
                 {
                     sliderlayout.setBackgroundColor(Color.parseColor("#FFBA97E8"));
+
+
                     priceoflast = money("gider","current",0,-2);
                     priceofbefore = money("gider","before",0,-2);
+
+
+                    String firstNumberAsStringx3 = String.format ("%.2f", priceoflast);
+                    String firstNumberAsStringx4 = String.format ("%.2f", priceofbefore);
+
                     double fark = priceofbefore - priceoflast;
-                    slidertext.setText("Bu ay ₺" + priceoflast + " harcadınız.");
+
+                    String firstNumberAsStringx5 = String.format ("%.2f", fark);
+                    slidertext.setText("Bu ay ₺" + firstNumberAsStringx3 + "harcadınız.");
                     slidertext2.setText("");
                     if(fark >0){
-                        slidertext2.setText("Bu geçen aya göre ₺" + fark + "daha AZ harcadınız. " );
+                        slidertext2.setText("Bu geçen aya göre ₺" + firstNumberAsStringx5 + "daha AZ harcadınız. " );
                     }
                     else if(fark < 0)
                     {
-                        slidertext2.setText("Geçen aya göre ₺" + fark + " daha FAZLA harcadınız !" );
+                        slidertext2.setText("Geçen aya göre ₺" + firstNumberAsStringx5 + " daha FAZLA harcadınız !" );
                     }
                     else
                     {
@@ -309,6 +321,8 @@ public class masrafmain extends AppCompatActivity {
                     double labelsıra = money("gider","current",2,-2);
                     int sıra =(int)labelsıra;
 
+                    String firstNumberAsStringx2 = String.format ("%.2f", labelprice);
+
                     slidertext2.setText("");
 
                     if(labelprice == 0)
@@ -318,19 +332,22 @@ public class masrafmain extends AppCompatActivity {
                     }
                     else
                     {
-                        slidertext.setText("Bu ay en çok " +"'" + label[sıra] +"'" + " kategorisinde ₺" + labelprice + " harcadınız." );
+                        slidertext.setText("Bu ay en çok " +"'" + label[sıra] +"'" + " kategorisinde ₺" + firstNumberAsStringx2 + " harcadınız." );
                         slidertext.setTextSize(14);
                         if(label[sıra].equals("Diğer")) {
                             slidertext2.setText("Kategori özelliğimizi pek kullanmıyor gibisiniz. :(");
                         }
                     }
+                    max = 0;
+
                 }
                 else if(currentPage == 4)
                 {
                     double z = money("gider","current",0,2);
+                    String firstNumberAsStringx = String.format ("%.2f", z);
                     sliderlayout.setBackgroundColor(Color.parseColor("#FFA978E9"));
                     slidertext.setTextSize(16);
-                    slidertext.setText("Bu ay " +"'₺"+ z + "'" + " taksitlere ödeme yapacaksınız..");
+                    slidertext.setText("Bu ay " +"'₺"+ firstNumberAsStringx + "'" + " taksitlere ödeme yapacaksınız..");
                     slidertext2.setText("");
                     if(z>100) {
                         slidertext2.setText("Taksitli harcamalara dikkat !");
@@ -798,7 +815,11 @@ public class masrafmain extends AppCompatActivity {
 
                 if(q.getString(q.getColumnIndex("type")).equals(""+s) && (mYear == q.getInt(q.getColumnIndex("year"))) && (((mMonth + 1) == q.getInt(q.getColumnIndex("month")))) && (taksitx == -2))
                 {
-                    labelcounter = new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+                    //labelcounter = new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+
+
+
                     for(int j=0 ; j<=14;j++)
                     {
                         if(q.getString(q.getColumnIndex("type")).equals("gider")  && label[j].equals(q.getString(q.getColumnIndex("label"))))
@@ -837,6 +858,7 @@ public class masrafmain extends AppCompatActivity {
                     stringcounter = l;
                 }
             }
+            labelcounter = new int[15];
 
             if(update.equals("current") && labelx == 0 && taksitx == -2) {
                 return price;
@@ -848,10 +870,14 @@ public class masrafmain extends AppCompatActivity {
             else if(labelx == 1 && taksitx == -2)
             {
                 return max;
+
+
             }
             else if(labelx == 2 && taksitx == -2)
             {
+
                 return stringcounter;
+
             }
             else if(taksitx> 1)
             {
